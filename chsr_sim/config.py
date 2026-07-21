@@ -20,7 +20,7 @@ K_F = 0.0033 # Absorption for 300 GHz
 CANDIDATE_Z = np.arange(2.0, 3.2, 0.2)
 CANDIDATE_ALPHA = np.array([30, 45, 60, 75, 90, 120])
 CANDIDATE_PHI = np.arange(0, 360, 45)
-TARGET_COVERAGE = 0.85
+TARGET_COVERAGE = 0.95
 SINR_TH = 5
 
 # Optimizer Constraints
