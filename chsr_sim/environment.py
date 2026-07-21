@@ -1,5 +1,5 @@
 import numpy as np
-from .config import LENGTH, BREADTH
+from .config import LENGTH, BREADTH, COUNT_CIRCLE, RADIUS
 
 def gen_walls():
     ws = []
@@ -66,14 +66,14 @@ def gen_walls():
     return ws
 
 def generate_human_density(t):
+    rng = np.random.RandomState(t)
     density = np.zeros((LENGTH, BREADTH))
-    num_hotspots = 3
-    for h in range(num_hotspots):
-        hx = int(LENGTH/2 + 10 * np.sin(t*0.5 + h*2))
-        hy = int(BREADTH/2 + 8 * np.cos(t*0.5 + h*2))
+    for h in range(COUNT_CIRCLE):
+        hx = rng.randint(0, LENGTH)
+        hy = rng.randint(0, BREADTH)
         for x in range(LENGTH):
             for y in range(BREADTH):
                 d = np.sqrt((x-hx)**2 + (y-hy)**2)
-                if d < 5:
-                    density[x, y] = max(density[x,y], 1.0 - d/5.0)
+                if d < RADIUS:
+                    density[x, y] = max(density[x,y], 1.0 - d/RADIUS)
     return density

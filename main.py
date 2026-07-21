@@ -4,25 +4,27 @@ from chsr_sim.physics import calculate_sinr
 from chsr_sim.optimizer import apso_optimize, hungarian_reassign, compute_total_movement
 from chsr_sim.visualization import plot_environment, plot_room_scenario, plot_density_map, plot_ap_placement, plot_sinr_map
 import matplotlib.pyplot as plt
+import time
 
 def main():
     print("Starting Modular CHSR Simulation...")
     walls = gen_walls()
     
     routers = [
-        {'x': 5, 'y': 5, 'z': 2.4, 'phi': 0, 'alpha': 60},
-        {'x': 15, 'y': 5, 'z': 2.4, 'phi': 90, 'alpha': 60},
-        {'x': 25, 'y': 5, 'z': 2.4, 'phi': 180, 'alpha': 60},
-        {'x': 5, 'y': 15, 'z': 2.4, 'phi': 270, 'alpha': 60},
-        {'x': 15, 'y': 15, 'z': 2.4, 'phi': 45, 'alpha': 60},
-        {'x': 25, 'y': 15, 'z': 2.4, 'phi': 135, 'alpha': 60},
-        {'x': 10, 'y': 10, 'z': 2.4, 'phi': 0, 'alpha': 120}
+        {'x': 5, 'y': 5, 'z': 2.4, 'phi': 0, 'alpha': 60, 'power': 1.0},
+        {'x': 15, 'y': 5, 'z': 2.4, 'phi': 90, 'alpha': 60, 'power': 1.0},
+        {'x': 25, 'y': 5, 'z': 2.4, 'phi': 180, 'alpha': 60, 'power': 1.0},
+        {'x': 5, 'y': 15, 'z': 2.4, 'phi': 270, 'alpha': 60, 'power': 1.0},
+        {'x': 15, 'y': 15, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 25, 'y': 15, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 10, 'y': 10, 'z': 2.4, 'phi': 0, 'alpha': 120, 'power': 1.0}
     ]
     
     time_steps = 3
     coverages = []
     movements = []
     reachability_increases = []
+    optimization_times = []
     
     for t in range(time_steps):
         print(f"\n--- Time Step {t} ---")
@@ -38,6 +40,7 @@ def main():
         plot_ap_placement(original_routers, walls, f"AP Placement Time {t} (Before)", f"ap_placement_t{t}_before.png")
         plot_sinr_map(sinr_map_before, walls, f"SINR Time {t} (Before) | Cov: {cov_before*100:.1f}%", f"sinr_t{t}_before.png")
         
+        start_time = time.time()
         if initial_cov < TARGET_COVERAGE:
             # Tier 2: beam parameters only (phi, alpha)
             r_t12 = apso_optimize(routers, human_density, walls, tier=2,
@@ -66,6 +69,11 @@ def main():
                     print(f"  Tier 4 Coverage: {cov_t4*100:.1f}%")
                     routers = hungarian_reassign(original_routers, r_t4)
                     cov = cov_t4
+                    
+        end_time = time.time()
+        opt_time = end_time - start_time
+        optimization_times.append(opt_time)
+        print(f"  Optimization Time: {opt_time:.2f} s")
         
         # Log movement
         move = compute_total_movement(original_routers, routers)
@@ -116,6 +124,17 @@ def main():
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
     plt.savefig('reachability_vs_movement.png', dpi=150)
+    plt.close()
+    
+    # 4th Graph: Optimization Time vs Time Step
+    plt.figure(figsize=(8, 5))
+    plt.plot(range(time_steps), optimization_times, marker='s', color='orange', linewidth=2, markersize=8)
+    plt.xlabel('Time Step')
+    plt.ylabel('Optimization Time (s)')
+    plt.title('Algorithm Optimization Time per Time Step')
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.tight_layout()
+    plt.savefig('optimization_time.png', dpi=150)
     plt.close()
     
     print("\nDone")

@@ -16,6 +16,13 @@ Z_U = 1.0 # User height
 
 K_F = 0.0033 # Absorption for 300 GHz
 
+# Human Density Config
+COUNT_CIRCLE = 13
+RADIUS = 2.0
+
+# Router Power Config
+ROUTER_POWER = 1.0  # Multiplier from 0.0 to 1.0 (max power)
+
 # Swarm Constraints
 CANDIDATE_Z = np.arange(2.0, 3.2, 0.2)
 CANDIDATE_ALPHA = np.array([30, 45, 60, 75, 90, 120])
@@ -24,6 +31,8 @@ TARGET_COVERAGE = 0.95
 SINR_TH = 5
 
 # Optimizer Constraints
+NUM_PARTICLES = 20          # Number of particles in the APSO swarm
+APSO_ITERS = 20             # Number of iterations for the APSO algorithm
 MIN_ROUTER_DIST = 3.0       # Minimum 2D distance between routers (meters)
 MOVEMENT_BETA = 0.15        # Movement penalty weight
 CLUSTER_GAMMA = 0.3         # Anti-clustering penalty weight

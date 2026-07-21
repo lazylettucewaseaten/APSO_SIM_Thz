@@ -11,7 +11,7 @@ def snap_phi(phi_raw, candidates):
     return candidates[np.argmin(dists)]
 
 
-def decode_routers(pos, n_routers):
+def decode_routers(pos, n_routers, original_routers=None):
     """Decode a flat position vector into a list of router dicts."""
     routers = []
     for i in range(n_routers):
@@ -20,7 +20,10 @@ def decode_routers(pos, n_routers):
         z = CANDIDATE_Z[np.argmin(np.abs(CANDIDATE_Z - pos[i*5 + 2]))]
         phi = snap_phi(pos[i*5 + 3], CANDIDATE_PHI)
         alpha = CANDIDATE_ALPHA[np.argmin(np.abs(CANDIDATE_ALPHA - pos[i*5 + 4]))]
-        routers.append({'x': x, 'y': y, 'z': z, 'phi': phi, 'alpha': alpha})
+        r = {'x': x, 'y': y, 'z': z, 'phi': phi, 'alpha': alpha}
+        if original_routers is not None:
+            r['power'] = original_routers[i].get('power', ROUTER_POWER)
+        routers.append(r)
     return routers
 
 
@@ -89,7 +92,13 @@ def hungarian_reassign(prev_routers, new_routers):
                 (prev_routers[i]['z'] - new_routers[j]['z'])**2
             )
     _, col_ind = linear_sum_assignment(cost)
-    return [new_routers[j] for j in col_ind]
+    assigned = []
+    for i, j in enumerate(col_ind):
+        r = dict(new_routers[j])
+        if 'power' in prev_routers[i]:
+            r['power'] = prev_routers[i]['power']
+        assigned.append(r)
+    return assigned
 
 
 def compute_total_movement(prev_routers, new_routers):
@@ -108,8 +117,8 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
     APSO with composite fitness, movement penalty, anti-clustering, and velocity clamping.
     """
     print(f"    Running APSO Optimization Tier {tier}...")
-    num_particles = 20
-    iters = 20
+    num_particles = NUM_PARTICLES
+    iters = APSO_ITERS
 
     best_global_pos = None
     best_global_score = -float('inf')
@@ -156,7 +165,7 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
 
     for it in range(iters):
         for particle in swarm:
-            test_routers = decode_routers(particle['pos'], n_routers)
+            test_routers = decode_routers(particle['pos'], n_routers, routers)
             score = compute_fitness(test_routers, human_density, walls, prev_routers)
 
             if score > particle['best_score']:
@@ -189,4 +198,4 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
             particle['vel'] = np.clip(particle['vel'], -v_max, v_max)
             particle['pos'] += particle['vel']
 
-    return decode_routers(best_global_pos, n_routers)
+    return decode_routers(best_global_pos, n_routers, routers)
