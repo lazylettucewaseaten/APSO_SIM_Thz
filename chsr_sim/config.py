@@ -22,3 +22,10 @@ CANDIDATE_ALPHA = np.array([30, 45, 60, 75, 90, 120])
 CANDIDATE_PHI = np.arange(0, 360, 45)
 TARGET_COVERAGE = 0.85
 SINR_TH = 5
+
+# Optimizer Constraints
+MIN_ROUTER_DIST = 3.0       # Minimum 2D distance between routers (meters)
+MOVEMENT_BETA = 0.15        # Movement penalty weight
+CLUSTER_GAMMA = 0.3         # Anti-clustering penalty weight
+CELL_WEIGHT = 0.4           # Weight for cell count objective
+DENSITY_WEIGHT = 0.6        # Weight for density sum objective

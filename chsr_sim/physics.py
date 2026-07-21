@@ -83,5 +83,10 @@ def calculate_sinr(routers, human_density, walls):
             sinr_mw = signal / (noise_mw + interference)
             sinr_map[x, y] = 10 * np.log10(sinr_mw + 1e-12)
             
-    coverage = np.sum(sinr_map >= SINR_TH) / (LENGTH * BREADTH)
+    covered_mask = sinr_map >= SINR_TH
+    total_density = np.sum(human_density)
+    if total_density > 0:
+        coverage = np.sum(human_density[covered_mask]) / total_density
+    else:
+        coverage = np.sum(covered_mask) / (LENGTH * BREADTH)
     return sinr_map, coverage
