@@ -77,3 +77,14 @@ def generate_human_density(t):
                 if d < RADIUS:
                     density[x, y] = max(density[x,y], 1.0 - d/RADIUS)
     return density
+
+def generate_density_from_points(points):
+    density = np.zeros((LENGTH, BREADTH))
+    for pt in points:
+        hx, hy = pt['x'], pt['y']
+        for x in range(LENGTH):
+            for y in range(BREADTH):
+                d = np.sqrt((x-hx)**2 + (y-hy)**2)
+                if d < RADIUS:
+                    density[x, y] = max(density[x,y], 1.0 - d/RADIUS)
+    return density
