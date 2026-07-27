@@ -58,17 +58,17 @@ function App() {
 
   const handleDownloadHeatmap = () => {
     if (!heatmapRef.current) return;
-    
+
     // Create a temporary, unblurred composite canvas to save
     const compositeCanvas = document.createElement('canvas');
     compositeCanvas.width = env.length * CELL_SIZE;
     compositeCanvas.height = env.breadth * CELL_SIZE;
     const ctx = compositeCanvas.getContext('2d');
-    
+
     // Fill with dark background
     ctx.fillStyle = '#0f172a';
     ctx.fillRect(0, 0, compositeCanvas.width, compositeCanvas.height);
-    
+
     // Draw the raw heatmap directly with no blur
     ctx.drawImage(heatmapRef.current, 0, 0);
 
@@ -121,7 +121,7 @@ function App() {
       ctx.lineWidth = 2;
       ctx.stroke();
     });
-    
+
     // Download
     const link = document.createElement('a');
     link.download = 'heatmap_output.png';
@@ -133,7 +133,7 @@ function App() {
     const canvas = heatmapRef.current;
     if (!canvas || !env || !mapData) return;
     const ctx = canvas.getContext('2d');
-    
+
     // Each cell in the 2D array is mapData[x][y]
     // Note: The numpy array comes back as y, x or x, y? 
     // In compute it's density[x,y]. In python: mapData is LENGTH x BREADTH
@@ -152,7 +152,7 @@ function App() {
   };
 
   if (!env) {
-    return <div style={{color:'white', padding:'20px'}}>Connecting to simulation backend... Ensure API is running on :8000</div>;
+    return <div style={{ color: 'white', padding: '20px' }}>Connecting to simulation backend... Ensure API is running on :8000</div>;
   }
 
   const mapWidth = env.length * CELL_SIZE;
@@ -161,26 +161,26 @@ function App() {
   return (
     <div className="dashboard-container">
       <div className="sidebar">
-        <h2 style={{color: 'white', marginBottom: '10px'}}>Control Panel</h2>
-        <p style={{color: 'var(--text-muted)', fontSize: '14px'}}>
+        <h2 style={{ color: 'white', marginBottom: '10px' }}>Control Panel</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
           Click on the map to add humans, then run the simulation to optimize THz router placements.
         </p>
 
         <button className="btn" onClick={handleSimulate} disabled={loading || points.length === 0}>
           {loading ? 'Optimizing...' : 'Run Optimization'}
         </button>
-        <button 
-          className="btn" 
-          style={{background: 'rgba(255,255,255,0.1)', color: 'var(--text-main)', marginTop: '-10px'}} 
-          onClick={() => {setPoints([]); setMetrics(null); setRouters(env.routers); const ctx = heatmapRef.current?.getContext('2d'); if(ctx) ctx.clearRect(0,0,mapWidth,mapHeight); }}
+        <button
+          className="btn"
+          style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--text-main)', marginTop: '-10px' }}
+          onClick={() => { setPoints([]); setMetrics(null); setRouters(env.routers); const ctx = heatmapRef.current?.getContext('2d'); if (ctx) ctx.clearRect(0, 0, mapWidth, mapHeight); }}
         >
           Reset Environment
         </button>
 
         {metrics && (
-          <button 
-            className="btn" 
-            style={{background: 'rgba(16, 185, 129, 0.2)', color: 'var(--accent-success)', marginTop: '-10px'}} 
+          <button
+            className="btn"
+            style={{ background: 'rgba(16, 185, 129, 0.2)', color: 'var(--accent-success)', marginTop: '-10px' }}
             onClick={handleDownloadHeatmap}
           >
             Download HD Heatmap
@@ -188,14 +188,14 @@ function App() {
         )}
 
         {metrics && (
-          <div style={{display:'flex', flexDirection:'column', gap:'12px', marginTop:'20px'}}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
             <div className="metric-card">
               <div className="metric-label">Initial Coverage</div>
               <div className="metric-value">{metrics.initialCov.toFixed(1)}<span className="metric-unit">%</span></div>
             </div>
             <div className="metric-card">
               <div className="metric-label">Optimized Coverage</div>
-              <div className="metric-value" style={{color: 'var(--accent-success)'}}>
+              <div className="metric-value" style={{ color: 'var(--accent-success)' }}>
                 {metrics.finalCov.toFixed(1)}<span className="metric-unit">%</span>
               </div>
             </div>
@@ -218,24 +218,24 @@ function App() {
       <div className="main-content">
         <div className="header">
           <h1>APSO THz Dashboard</h1>
-          <div style={{display:'flex', gap:'20px'}}>
-             <div style={{display:'flex', alignItems:'center', gap:'8px'}}>
-               <div style={{width:'12px', height:'12px', borderRadius:'50%', background:'#f43f5e'}}></div>
-               <span style={{fontSize:'14px', color:'var(--text-muted)'}}>Human</span>
-             </div>
-             <div style={{display:'flex', alignItems:'center', gap:'8px'}}>
-               <div style={{width:'12px', height:'12px', borderRadius:'50%', background:'#10b981'}}></div>
-               <span style={{fontSize:'14px', color:'var(--text-muted)'}}>Router</span>
-             </div>
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f43f5e' }}></div>
+              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Human</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10b981' }}></div>
+              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Router</span>
+            </div>
           </div>
         </div>
 
         <div className="map-container">
-          <div className="map-wrapper" style={{width: mapWidth, height: mapHeight}} onClick={handleMapClick}>
-            <canvas 
-              ref={heatmapRef} 
-              width={mapWidth} 
-              height={mapHeight} 
+          <div className="map-wrapper" style={{ width: mapWidth, height: mapHeight }} onClick={handleMapClick}>
+            <canvas
+              ref={heatmapRef}
+              width={mapWidth}
+              height={mapHeight}
               className="heatmap-canvas"
             />
             {env.walls.map((w, i) => {
@@ -250,39 +250,39 @@ function App() {
                 }} />
               )
             })}
-            
+
             {points.map((pt, i) => (
               <div key={i} className="human-node" style={{ left: (pt.x + 0.5) * CELL_SIZE, top: (pt.y + 0.5) * CELL_SIZE }} />
             ))}
 
             {routers.map((r, i) => (
-               <div key={`router-${i}`} className="router-node" style={{ left: r.x * CELL_SIZE, top: r.y * CELL_SIZE }}>
-                 {/* Better Beam Indicator visualization using conic-gradient */}
-                 <div className="beam-ray" style={{
-                   position: 'absolute',
-                   left: '-82px', top: '-82px',
-                   width: '180px', height: '180px',
-                   borderRadius: '50%',
-                   background: `conic-gradient(from ${r.phi - r.alpha/2 + 90}deg at 50% 50%, rgba(16, 185, 129, 0.7) ${r.alpha}deg, transparent ${r.alpha}deg)`,
-                   pointerEvents: 'none',
-                   zIndex: -1
-                 }}></div>
-                 {/* Directional pointer line within the router dot */}
-                 <div style={{
-                    position: 'absolute', top: '50%', left: '50%', width: '10px', height: '2px',
-                    background: '#fff', transformOrigin: '0% 50%', transform: `rotate(${r.phi}deg)`,
-                    pointerEvents: 'none'
-                 }}></div>
-               </div>
+              <div key={`router-${i}`} className="router-node" style={{ left: r.x * CELL_SIZE, top: r.y * CELL_SIZE }}>
+                {/* Better Beam Indicator visualization using conic-gradient */}
+                <div className="beam-ray" style={{
+                  position: 'absolute',
+                  left: '-82px', top: '-82px',
+                  width: '180px', height: '180px',
+                  borderRadius: '50%',
+                  background: `conic-gradient(from ${r.phi - r.alpha / 2 + 90}deg at 50% 50%, rgba(16, 185, 129, 0.7) ${r.alpha}deg, transparent ${r.alpha}deg)`,
+                  pointerEvents: 'none',
+                  zIndex: -1
+                }}></div>
+                {/* Directional pointer line within the router dot */}
+                <div style={{
+                  position: 'absolute', top: '50%', left: '50%', width: '10px', height: '2px',
+                  background: '#fff', transformOrigin: '0% 50%', transform: `rotate(${r.phi}deg)`,
+                  pointerEvents: 'none'
+                }}></div>
+              </div>
             ))}
-            
+
             {loading && (
               <div className="loading-overlay">
                 <div className="spinner"></div>
               </div>
             )}
           </div>
-          
+
           <div className="sinr-legend">
             <div className="legend-title">SINR Color Legend</div>
             <div className="legend-bar"></div>
