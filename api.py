@@ -21,12 +21,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from typing import List, Dict, Any, Optional
+
 class Point(BaseModel):
     x: int
     y: int
 
+class RouterState(BaseModel):
+    x: float
+    y: float
+    z: float
+    phi: float
+    alpha: float
+    power: float
+
 class SimulationRequest(BaseModel):
     points: List[Point]
+    routers: Optional[List[RouterState]] = None
 
 # Default static initial routers
 DEFAULT_ROUTERS = [
@@ -57,8 +68,12 @@ def simulate(req: SimulationRequest):
     # 1. Generate human density from given points
     human_density = generate_density_from_points(pts)
     
-    original_routers = [dict(r) for r in DEFAULT_ROUTERS]
-    routers = [dict(r) for r in DEFAULT_ROUTERS]
+    if req.routers:
+        original_routers = [r.dict() for r in req.routers]
+        routers = [r.dict() for r in req.routers]
+    else:
+        original_routers = [dict(r) for r in DEFAULT_ROUTERS]
+        routers = [dict(r) for r in DEFAULT_ROUTERS]
     
     start_time = time.time()
     

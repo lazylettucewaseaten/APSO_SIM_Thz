@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+numpy
+matplotlib
+scipy
+numba
+tk
