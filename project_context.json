@@ -1,0 +1,51 @@
+{
+  "project": {
+    "name": "APSO_SIM_Thz",
+    "path": "/home/arpit/Desktop/kingAB/coding/APSO_SIM_Thz",
+    "owner": "IIT Bhilai",
+    "description": "Simulation and optimization system for autonomous movable wireless transmitting nodes in THz band using hierarchical multi-tier swarm optimization under dynamic human density blockages."
+  },
+  "invention": {
+    "title": "System and Method for Dynamic Spatial Repositioning, Orientation Adjustment, and Transmission Parameter Adaptation of Movable Wireless Communication Nodes Using Optimization-Driven Control Under Changing Environmental Conditions",
+    "core_idea": "Physically movable wireless nodes that autonomously reposition (X,Y,Z) and adjust electronic parameters (beamwidth, azimuth) in a hierarchical multi-tier framework — electronic tuning first, physical movement only when needed — driven by swarm optimization responsive to real-time environmental conditions.",
+    "key_novelties": [
+      "Hierarchical multi-tier optimization: escalates from electronic-only to vertical to full spatial repositioning",
+      "Joint multi-node swarm optimization — all nodes optimized simultaneously as coordinated collective",
+      "Composite fitness function: coverage + density-weighted coverage + movement penalty + anti-clustering + target bonus",
+      "Dynamic human density integration via time-varying density matrix D(x,y,t)",
+      "Displacement-minimizing assignment (Hungarian algorithm) after optimization",
+      "Material-aware 3D propagation model with height-aware ray intersection"
+    ],
+    "generalization": "Patent covers any wireless node type, any frequency band (sub-1GHz to optical), any optimization algorithm, any mobility mechanism (existing or future), any sensing modality, any environment, any coverage threshold (0.1%-100%)"
+  },
+  "simulation": {
+    "environment": {"dimensions": "32m x 20m x 3m", "grid_resolution": "1m", "frequency": "300 GHz", "transmit_power": "20 dBm", "max_antenna_gain": "30 dBi", "noise_floor": "-94 dBm", "sinr_threshold": "5 dB", "absorption_coefficient": 0.0033, "user_height": "1.0m", "human_height": "1.6m"},
+    "materials": {"concrete_solid": "30 dB", "wood": "20 dB", "glass": "15 dB", "human_body": "20 dB"},
+    "routers": {"count": 7},
+    "optimizer": {"algorithm": "Adaptive PSO", "num_particles": 20, "iterations": 20, "inertia_weight": "0.9 to 0.4", "target_coverage": 0.95, "movement_penalty_weight": 0.15, "anti_clustering_weight": 0.3, "min_router_distance": "3.0m", "cell_weight": 0.4, "density_weight": 0.6},
+    "candidate_parameters": {"z_heights": [2.0,2.2,2.4,2.6,2.8,3.0], "beamwidths": [30,45,60,75,90,120], "azimuths": [0,45,90,135,180,225,270,315]},
+    "tiers": {"tier_1_2": "Electronic only: beamwidth + azimuth, positions locked", "tier_3": "Add Z-axis height, X/Y locked", "tier_4": "Full X,Y,Z repositioning"}
+  },
+  "codebase": {
+    "language": "Python",
+    "structure": {"main.py": "Entry point", "api.py": "Flask API for dashboard", "chsr_sim/config.py": "Constants", "chsr_sim/environment.py": "Wall + density generation", "chsr_sim/physics.py": "SINR computation (numba JIT)", "chsr_sim/optimizer.py": "APSO + Hungarian assignment", "chsr_sim/visualization.py": "Matplotlib plots", "chsr_sim/interactive.py": "Interactive mode"},
+    "dependencies": ["numpy", "scipy", "numba", "matplotlib"]
+  },
+  "dashboard": {"path": "dashboard/", "framework": "Vite + React", "backend": "api.py (Flask)"},
+  "patent": {
+    "disclosure_form": "GIP -Invention Disclosure Form (3).docx",
+    "draft_docx": "Patent_Draft_Complete.docx",
+    "claims_count": 60,
+    "independent_claims": ["Claim 1 (system)", "Claim 2 (method)", "Claim 3 (medium)", "Claim 4 (apparatus)", "Claim 5 (network)"],
+    "application_countries": ["India", "US", "EU", "Japan", "South Korea", "China"]
+  },
+  "conversations": {
+    "patent_draft_v1": "ddd69979-d649-4395-9d81-e02e083314b5",
+    "dashboard_build": "ccdb47bb-351b-443e-93a7-c1a091daf895",
+    "optimizer_tuning": "847577cf-7b71-4d01-9bb2-3e858a03de07",
+    "height_constraints": "f7b81094-e3d6-4ad0-a6b1-7d13c04ba2ed",
+    "vertical_mobility": "3a13f24b-8081-4515-bb55-295027c038ff",
+    "patent_draft_v2_and_context": "1a9addf7-6b9a-4712-bf34-e3c8bc0db8f9"
+  },
+  "meta": {"created": "2026-07-28", "version": "1.0"}
+}
