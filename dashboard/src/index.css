@@ -11,7 +11,7 @@
   --accent-glow: rgba(59, 130, 246, 0.5);
   --accent-success: #10b981;
   --accent-warning: #f59e0b;
-}
+} 
 
 * {
   margin: 0;
@@ -23,7 +23,7 @@ body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
-  background-image: 
+  background-image:
     radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
   min-height: 100vh;
@@ -114,6 +114,7 @@ body {
   padding: 16px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .metric-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -135,6 +136,7 @@ body {
   align-items: baseline;
   gap: 8px;
 }
+
 .metric-unit {
   font-size: 14px;
   color: var(--text-muted);
@@ -156,13 +158,16 @@ body {
   letter-spacing: 1px;
   width: 100%;
 }
+
 .btn:hover {
   box-shadow: 0 0 20px var(--accent-glow);
   transform: translateY(-2px);
 }
+
 .btn:active {
   transform: translateY(0);
 }
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -172,11 +177,17 @@ body {
 
 .wall {
   position: absolute;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 2px;
 }
-.wall.glass { background-color: rgba(125, 211, 252, 0.4); }
-.wall.wood { background-color: rgba(217, 119, 6, 0.6); }
+
+.wall.glass {
+  background-color: rgba(125, 211, 252, 0.4);
+}
+
+.wall.wood {
+  background-color: rgba(217, 119, 6, 0.6);
+}
 
 .human-node {
   position: absolute;
@@ -212,9 +223,17 @@ body {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(244, 63, 94, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
 }
 
 .heatmap-canvas {
@@ -245,15 +264,14 @@ body {
 .legend-bar {
   height: 12px;
   border-radius: 6px;
-  background: linear-gradient(to right, 
-    hsl(240, 100%, 50%), 
-    hsl(192, 100%, 50%), 
-    hsl(144, 100%, 50%), 
-    hsl(96, 100%, 50%), 
-    hsl(48, 100%, 50%), 
-    hsl(0, 100%, 50%)
-  );
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+  background: linear-gradient(to right,
+      hsl(240, 100%, 50%),
+      hsl(192, 100%, 50%),
+      hsl(144, 100%, 50%),
+      hsl(96, 100%, 50%),
+      hsl(48, 100%, 50%),
+      hsl(0, 100%, 50%));
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) inset;
 }
 
 .legend-labels {
@@ -279,10 +297,14 @@ body {
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255,255,255,0.1);
+  border: 4px solid rgba(255, 255, 255, 0.1);
   border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
