@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.7.30)  30 JUL 2026 12:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.7.30)  30 JUL 2026 12:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -400,18 +400,18 @@ LaTeX Info: Redefining \nameref on input line 17.
 \everyMPtoPDFconversion=\toks26
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] (./PoC.aux)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./PoC.aux)
 Package rerunfilecheck Info: File `PoC.out' has not changed.
-(rerunfilecheck)             Checksum: 549A8635B9B5619D6A1756D580D9F221;1032.
+(rerunfilecheck)             Checksum: 0CF7FAE069966B5FD163965C5F8D3F31;837.
  ) 
 Here is how much of TeX's memory you used:
- 10099 strings out of 480247
- 155007 string characters out of 5896151
- 466027 words of memory out of 5000000
- 27935 multiletter control sequences out of 15000+600000
+ 10096 strings out of 480247
+ 154981 string characters out of 5896151
+ 466026 words of memory out of 5000000
+ 27934 multiletter control sequences out of 15000+600000
  474993 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,5n,63p,233b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,5n,63p,210b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/ashish/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.60
 0pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sh
@@ -421,10 +421,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt12.pfb>
-Output written on PoC.pdf (3 pages, 100267 bytes).
+Output written on PoC.pdf (2 pages, 98291 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 90 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
