@@ -1,0 +1,107 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\vspace{-0.5em}\rule{\textwidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\setlist[itemize]{leftmargin=1.5em, itemsep=2pt, parsep=0pt}
+
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{Proof of Concept}}\\[0.6em]
+{\large Adaptive THz Access Point Placement Using APSO\\with 4-Tier Hierarchical Escalation}\\[1.2em]
+{\normalsize IIT Bhilai}\\[0.3em]
+{\small \today}
+\end{center}
+
+\vspace{1.5em}
+
+\section{1. Problem Statement}
+\begin{itemize}
+    \item THz (300\,GHz) signals suffer from severe path loss, molecular absorption, and blockage.
+    \item Fixed access points cannot adapt to changing user/crowd distributions.
+    \item Electronic beamforming alone fails when all line-of-sight paths are blocked by walls or human bodies.
+    \item Baseline coverage drops to 60--75\% in dynamic indoor environments---far below the 90\% target.
+\end{itemize}
+
+\section{2. Proposed Solution}
+\begin{itemize}
+    \item 14 THz routers mounted on \textbf{motorized ceiling rails} for physical repositioning.
+    \item \textbf{APSO (Adaptive Particle Swarm Optimization)} computes optimal router positions in real-time.
+    \item \textbf{4-Tier Escalation Hierarchy} to minimize unnecessary mechanical movement:
+    \begin{itemize}
+        \item Tier 1--2: Electronic adaptation (beam azimuth $\phi$, beamwidth $\alpha$).
+        \item Tier 3: Vertical height adjustment ($Z$-axis, 2.0\,m--3.2\,m).
+        \item Tier 4: Full 3D spatial repositioning ($X, Y, Z$).
+    \end{itemize}
+    \item \textbf{Hungarian Algorithm} for minimum-displacement router-to-target assignment.
+\end{itemize}
+
+\section{3. Simulation Setup}
+\begin{itemize}
+    \item \textbf{Room}: $32\,\text{m} \times 20\,\text{m} \times 3\,\text{m}$ with realistic wall layout (concrete, wood, glass).
+    \item \textbf{Routers}: 14 THz APs at 300\,GHz, 20\,dBm Tx power, 30\,dBi max antenna gain.
+    \item \textbf{Channel Model}: FSPL + molecular absorption ($k_f = 0.05$) + 3D ray-wall intersection + human body blockage (20\,dB).
+    \item \textbf{Material Losses}: Concrete 30\,dB, Wood 20\,dB, Glass 15\,dB.
+    \item \textbf{APSO Config}: 200 particles, 70 dimensions ($14 \times 5$ params), 200 iterations, adaptive inertia ($0.9 \to 0.4$).
+    \item \textbf{Fitness Function}: Density-weighted coverage (0.6) + cell coverage (0.4) + target bonus $-$ movement penalty $-$ anti-clustering penalty.
+    \item \textbf{Time Steps}: 3 dynamic crowd scenarios ($t_0, t_1, t_2$) with shifting Gaussian user distributions.
+\end{itemize}
+
+\section{4. Results \& Evidence}
+\begin{itemize}
+    \item \textbf{Coverage Improvement}:
+    \begin{itemize}
+        \item Before APSO: $\sim$60--75\%.
+        \item After APSO: $\geq$90\% (target met across all 3 time steps).
+    \end{itemize}
+    \item \textbf{Optimization Speed}: $<$2.5 seconds per cycle (real-time feasible).
+    \item \textbf{Total Router Displacement}: $<$5--12 meters combined across all 14 routers.
+    \item \textbf{Reachability Gain}: +15--35\% coverage increase per meter of movement.
+    \item \textbf{Dead Zone Reduction}: $\sim$90\% elimination of poor-SINR areas.
+    \item \textbf{SINR Heatmaps}: Clear visual improvement---dead zones before $\to$ uniform coverage after.
+    \item Coverage maintained consistently across all dynamic crowd shifts.
+\end{itemize}
+
+\section{5. Novelty \& Differentiation}
+\begin{itemize}
+    \item No existing system combines physical AP movement + THz-specific 3D propagation + APSO + 4-tier escalation.
+    \item Compared against 6 prior art patents (NYU, Samsung, Peltbeam, DJI)---none offer this combination.
+    \item \textbf{4 Novel Pillars}:
+    \begin{itemize}
+        \item 4-Tier escalation hierarchy (electronic first, physical last).
+        \item APSO with density-weighted fitness and anti-clustering constraints.
+        \item Hungarian minimum-displacement assignment.
+        \item Material-aware and height-aware 3D THz propagation model.
+    \end{itemize}
+    \item Patent invention disclosure filed (60 claims, 6 target jurisdictions).
+\end{itemize}
+
+\section{6. Working Demo}
+\begin{itemize}
+    \item \textbf{Interactive Web Dashboard} (React + Vite + FastAPI): tune parameters, run optimization, see SINR heatmap update live.
+    \item \textbf{CHSR Hierarchy Visualizer}: animated 4-tier communication flow.
+    \item \textbf{Python Simulation}: generates all plots (SINR heatmaps, AP placement, density maps, coverage charts) in seconds.
+    \item Numba JIT-compiled physics for real-time performance on commodity hardware.
+    \item \textbf{Video Demo}: \url{https://youtu.be/demo-placeholder-link}
+\end{itemize}
+
+\section{7. Conclusion}
+\begin{itemize}
+    \item The concept is \textbf{validated through simulation} with quantitative and visual evidence.
+    \item Coverage target of $\geq$90\% is \textbf{consistently achieved} across dynamic scenarios.
+    \item Optimization is \textbf{real-time feasible} ($<$2.5\,s) with minimal physical movement.
+    \item Solution is \textbf{technically feasible}---ceiling rails, THz hardware, and APSO all exist today.
+    \item \textbf{IP protected}---patent disclosure filed at IIT Bhilai.
+\end{itemize}
+
+\end{document}

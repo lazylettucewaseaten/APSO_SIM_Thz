@@ -11,15 +11,26 @@ def main():
     walls = gen_walls()
     
     routers = [
-        {'x': 5, 'y': 5, 'z': 2.4, 'phi': 0, 'alpha': 60, 'power': 1.0},
-        {'x': 15, 'y': 5, 'z': 2.4, 'phi': 90, 'alpha': 60, 'power': 1.0},
-        {'x': 25, 'y': 5, 'z': 2.4, 'phi': 180, 'alpha': 60, 'power': 1.0},
-        {'x': 5, 'y': 15, 'z': 2.4, 'phi': 270, 'alpha': 60, 'power': 1.0},
-        {'x': 15, 'y': 15, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
-        {'x': 25, 'y': 15, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
-        {'x': 10, 'y': 10, 'z': 2.4, 'phi': 0, 'alpha': 120, 'power': 1.0}
-    ]
+    # Top section
+    {'x': 0.5, 'y': 19.5, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    {'x': 0.5, 'y': 15.5, 'z': 2.2, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    {'x': 17.5, 'y': 18.5, 'z': 2.6, 'phi': 270, 'alpha': 60, 'power': 1.0},
+    {'x': 28.5, 'y': 16.5, 'z': 2.2, 'phi': 45, 'alpha': 60, 'power': 1.0},
+    {'x': 28.5, 'y': 12.5, 'z': 2.8, 'phi': 45, 'alpha': 60, 'power': 1.0},
     
+    # Middle section
+    {'x': 0.5, 'y': 10.5, 'z': 3.0, 'phi': 45, 'alpha': 60, 'power': 1.0},
+    {'x': 0.5, 'y': 9.5, 'z': 2.8, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    {'x': 14.5, 'y': 12.5, 'z': 3.0, 'phi': 45, 'alpha': 60, 'power': 1.0},
+    {'x': 16.5, 'y': 11.5, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    {'x': 29.5, 'y': 9.5, 'z': 2.6, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    
+    # Bottom section
+    {'x': 0.5, 'y': 4.5, 'z': 2.8, 'phi': 135, 'alpha': 60, 'power': 1.0},
+    {'x': 3.5, 'y': 0.5, 'z': 2.2, 'phi': 45, 'alpha': 60, 'power': 1.0},
+    {'x': 16.5, 'y': 0.5, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
+    {'x': 29.5, 'y': 4.5, 'z': 3.0, 'phi': 135, 'alpha': 60, 'power': 1.0}
+]
     time_steps = 3
     coverages = []
     movements = []
