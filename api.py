@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import time
+import subprocess
+import os
 from typing import List, Dict, Any
 import uvicorn
 import numpy as np
@@ -13,6 +16,10 @@ from chsr_sim.optimizer import apso_optimize, hungarian_reassign, compute_total_
 
 app = FastAPI(title="APSO_SIM_Thz Dashboard API")
 
+os.makedirs("output_interactive", exist_ok=True)
+app.mount("/static_root", StaticFiles(directory="."), name="static_root")
+app.mount("/static_interactive", StaticFiles(directory="output_interactive"), name="static_interactive")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,6 +29,10 @@ app.add_middleware(
 )
 
 from typing import List, Dict, Any, Optional
+
+class RunRequest(BaseModel):
+    steps: int = 3
+
 
 class Point(BaseModel):
     x: int
@@ -126,6 +137,16 @@ def simulate(req: SimulationRequest):
         "sinr_map": sinr_map_after_list,
         "density_map": density_list
     }
+
+@app.post("/run/random")
+def run_random(req: RunRequest):
+    subprocess.run(["python3", "main.py", "--steps", str(req.steps)], check=True)
+    return {"status": "success", "mode": "random", "steps": req.steps}
+
+@app.post("/run/manual")
+def run_manual(req: RunRequest):
+    subprocess.run(["python3", "main2.py", "--steps", str(req.steps)], check=True)
+    return {"status": "success", "mode": "manual", "steps": req.steps}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

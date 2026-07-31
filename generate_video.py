@@ -12,15 +12,27 @@ from chsr_sim.optimizer import apso_optimize, hungarian_reassign, snap_phi, CAND
 def run_simulation_sequence():
     walls = gen_walls()
     
-    # 7 Routers Initial Start
+    # 14 Routers Initial Start
     current_routers_t0 = [
-        {'x': 5, 'y': 5, 'z': 2.4, 'phi': 0, 'alpha': 60, 'power': 1.0},
-        {'x': 15, 'y': 5, 'z': 2.4, 'phi': 90, 'alpha': 60, 'power': 1.0},
-        {'x': 25, 'y': 5, 'z': 2.4, 'phi': 180, 'alpha': 60, 'power': 1.0},
-        {'x': 5, 'y': 15, 'z': 2.4, 'phi': 270, 'alpha': 60, 'power': 1.0},
-        {'x': 15, 'y': 15, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
-        {'x': 25, 'y': 15, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
-        {'x': 10, 'y': 10, 'z': 2.4, 'phi': 0, 'alpha': 120, 'power': 1.0}
+        # Top section
+        {'x': 0.5, 'y': 19.5, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 0.5, 'y': 15.5, 'z': 2.2, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 17.5, 'y': 18.5, 'z': 2.6, 'phi': 270, 'alpha': 60, 'power': 1.0},
+        {'x': 28.5, 'y': 16.5, 'z': 2.2, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 28.5, 'y': 12.5, 'z': 2.8, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        
+        # Middle section
+        {'x': 0.5, 'y': 10.5, 'z': 3.0, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 0.5, 'y': 9.5, 'z': 2.8, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 14.5, 'y': 12.5, 'z': 3.0, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 16.5, 'y': 11.5, 'z': 2.4, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 29.5, 'y': 9.5, 'z': 2.6, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        
+        # Bottom section
+        {'x': 0.5, 'y': 4.5, 'z': 2.8, 'phi': 135, 'alpha': 60, 'power': 1.0},
+        {'x': 3.5, 'y': 0.5, 'z': 2.2, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 16.5, 'y': 0.5, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
+        {'x': 29.5, 'y': 4.5, 'z': 3.0, 'phi': 135, 'alpha': 60, 'power': 1.0}
     ]
     
     time_steps = 3
@@ -98,6 +110,10 @@ def create_animation(sequence_data, walls, output_filename="simulation_video.mp4
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
+    # Create dummy image for the colorbar, the actual plot is cleared in animate
+    dummy_im = ax.imshow(np.zeros((10, 10)), cmap='viridis', vmin=-10, vmax=30)
+    fig.colorbar(dummy_im, ax=ax, label="SINR (dB)")
+    
     # Frames to render (we will duplicate hold frames for duration)
     frames_to_render = []
     fps = 15
@@ -130,30 +146,28 @@ def create_animation(sequence_data, walls, output_filename="simulation_video.mp4
         im = ax.imshow(sinr_map.T, origin='lower', cmap='viridis', vmin=-10, vmax=30)
         
         # Overlay Density
-        import numpy.ma as ma
-        density_masked = ma.masked_where(density < 0.05, density)
-        ax.imshow(density_masked.T, origin='lower', cmap='autumn', alpha=0.9, vmin=0, vmax=1.0)
+        density_rgba = np.zeros((*density.T.shape, 4))
+        density_rgba[density.T > 0] = [1.0, 0.0, 0.0, 0.6]  # Highlight in red
+        ax.imshow(density_rgba, origin='lower')
         
         # Walls
         for w in walls:
             if w['m'] == 'solid':
                 c = '#555555'
             elif w['m'] == 'wood':
-                c = '#8b4513'
+                c = '#8b4513' if w.get('h', 0) >= 3.0 else '#d2b48c'
             else:
                 c = '#87ceeb'
             alpha_w = 1.0 if w['m'] != 'glass' else 0.5
             if w['o'] == 'h':
-                ax.add_patch(patches.Rectangle((w['s'], w['p']-0.2), w['e']-w['s'], 0.4, facecolor=c, alpha=alpha_w, edgecolor='white', linewidth=0.5))
+                ax.add_patch(patches.Rectangle((w['s'], w['p']-0.2), w['e']-w['s'], 0.4, facecolor=c, alpha=alpha_w))
             else:
-                ax.add_patch(patches.Rectangle((w['p']-0.2, w['s']), 0.4, w['e']-w['s'], facecolor=c, alpha=alpha_w, edgecolor='white', linewidth=0.5))
+                ax.add_patch(patches.Rectangle((w['p']-0.2, w['s']), 0.4, w['e']-w['s'], facecolor=c, alpha=alpha_w))
                 
         # Routers
-        for i, r in enumerate(routers):
-            ax.plot(r['x'], r['y'], 'o', color='white', markeredgecolor='black', markersize=8)
-            ax.text(r['x']+0.5, r['y']+0.5, f"R{i}", color='white', weight='bold', fontsize=8,
-                    bbox=dict(facecolor='black', alpha=0.5, boxstyle='round,pad=0.2'))
-            wedge = patches.Wedge((r['x'], r['y']), 3, r['phi'] - r['alpha']/2, r['phi'] + r['alpha']/2, facecolor='yellow', alpha=0.5, edgecolor='black', zorder=3)
+        for r in routers:
+            ax.plot(r['x'], r['y'], 'ko', markersize=6)
+            wedge = patches.Wedge((r['x'], r['y']), 3, r['phi'] - r['alpha']/2, r['phi'] + r['alpha']/2, facecolor='black', alpha=0.4, edgecolor='black', zorder=3)
             ax.add_patch(wedge)
             
         ax.set_title(f"Time {t} | SINR Cov (>= {SINR_TH}dB): {cov*100:.1f}%")

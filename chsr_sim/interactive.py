@@ -9,7 +9,7 @@ Done button: Close the window and return the placed points.
 
 import numpy as np
 import matplotlib
-matplotlib.use('Qt5Agg')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.widgets import Slider, Button

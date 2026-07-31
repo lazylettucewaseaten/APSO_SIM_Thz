@@ -5,6 +5,7 @@ from chsr_sim.optimizer import apso_optimize, hungarian_reassign, compute_total_
 from chsr_sim.visualization import plot_environment, plot_room_scenario, plot_density_map, plot_ap_placement, plot_sinr_map
 import matplotlib.pyplot as plt
 import time
+import argparse
 
 def main():
     print("Starting Modular CHSR Simulation...")
@@ -31,7 +32,12 @@ def main():
     {'x': 16.5, 'y': 0.5, 'z': 2.4, 'phi': 45, 'alpha': 60, 'power': 1.0},
     {'x': 29.5, 'y': 4.5, 'z': 3.0, 'phi': 135, 'alpha': 60, 'power': 1.0}
 ]
-    time_steps = 3
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--steps', type=int, default=3, help='Number of time steps')
+    args = parser.parse_args()
+    
+    time_steps = args.steps
     coverages = []
     movements = []
     reachability_increases = []
