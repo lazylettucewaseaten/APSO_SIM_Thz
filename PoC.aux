@@ -18,8 +18,25 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}1. Problem Statement}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}2. Proposed Solution}{1}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}3. Simulation Setup}{1}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}4. Results \& Evidence}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}5. Working Demo}{2}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}6. Conclusion}{2}{section.6}\protected@file@percent }
-\gdef \@abspage@last{2}
+\@writefile{toc}{\contentsline {section}{\numberline {3}3. Simulation Setup}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}3.1 User Density Scenario}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Human density heatmap at time step $t_0$. Darker regions represent higher user concentrations modelled as Gaussian clusters. The non-uniform distribution drives the need for adaptive router repositioning.\relax }}{3}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:density}{{1}{3}{Human density heatmap at time step $t_0$. Darker regions represent higher user concentrations modelled as Gaussian clusters. The non-uniform distribution drives the need for adaptive router repositioning.\relax }{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}4. Results \& Evidence}{3}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}4.1 SINR Heatmaps --- Before vs.\ After Optimization}{3}{subsection.4.1}\protected@file@percent }
+\newlabel{fig:sinr_before}{{2a}{4}{Before APSO --- Coverage: 16.6\%\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:sinr_before}{{a}{4}{Before APSO --- Coverage: 16.6\%\relax }{figure.caption.2}{}}
+\newlabel{fig:sinr_after}{{2b}{4}{After APSO --- Coverage: 100.0\%\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:sinr_after}{{b}{4}{After APSO --- Coverage: 100.0\%\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces SINR heatmaps at time step $t_0$. (a)\nobreakspace  {}Static placement produces vast dead zones (purple, SINR\,$<$\,5\,dB) with only 16.6\% coverage. (b)\nobreakspace  {}After APSO optimization, routers reposition and re-steer beams to achieve 100.0\% coverage.\relax }}{4}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:sinr}{{2}{4}{SINR heatmaps at time step $t_0$. (a)~Static placement produces vast dead zones (purple, SINR\,$<$\,5\,dB) with only 16.6\% coverage. (b)~After APSO optimization, routers reposition and re-steer beams to achieve 100.0\% coverage.\relax }{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}4.2 Optimization Time}{4}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces APSO optimization wall-clock time per time step. Warm-starting from previous solutions at $t_1$ and $t_2$ reduces convergence time drastically from $\sim $138s down to $\sim $35s and $\sim $18s, demonstrating efficient incremental re-optimization.\relax }}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:opt_time}{{3}{4}{APSO optimization wall-clock time per time step. Warm-starting from previous solutions at $t_1$ and $t_2$ reduces convergence time drastically from $\sim $138s down to $\sim $35s and $\sim $18s, demonstrating efficient incremental re-optimization.\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}4.3 Coverage \& Router Movement Over Time}{4}{subsection.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Left: Density-weighted coverage percentage across time steps, with the 90\% target shown as a dashed red line. Right: Total router displacement (metres) per time step, showing sharply decreasing movement as the system stabilizes.\relax }}{5}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:coverage}{{4}{5}{Left: Density-weighted coverage percentage across time steps, with the 90\% target shown as a dashed red line. Right: Total router displacement (metres) per time step, showing sharply decreasing movement as the system stabilizes.\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}4.4 Summary of Key Metrics}{5}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}5. Conclusion}{5}{section.5}\protected@file@percent }
+\gdef \@abspage@last{6}
