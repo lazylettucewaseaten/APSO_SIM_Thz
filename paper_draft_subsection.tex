@@ -1,0 +1,27 @@
+\subsection{HPSO Hyperparameter Sensitivity}
+\label{sec:hyperparams}
+
+Standard PSO hyperparameters (inertia weight $w$, learning factors $c_1, c_2$) follow established guidelines \cite{b11,b13}. To adjust the domain-specific fitness weights ($w_c, w_d, \beta, \gamma$), we performed a sensitivity analysis across continuous dynamic multi-step tracking ($t_0 \to t_2$) to assess the balance between coverage restoration and physical displacement. Table~\ref{tab:sensitivity} displays four configurations demonstrating the influence of fitness weights on average dynamic coverage and total swarm displacement.
+
+\begin{table}[t]
+\centering
+\caption{Fitness Weight Sensitivity Analysis}
+\label{tab:sensitivity}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{} l c c c c c c @{}}
+\toprule
+\textbf{Configuration Focus} & $w_c$ & $w_d$ & $\beta$ & $\gamma$ & \textbf{Avg. Cov. (\%)} & \textbf{Total Disp. (m)} \\
+\midrule
+A: Moderate Penalties & 0.4 & 0.6 & 0.15 & 0.3 & 91.0 & 113.2 \\
+B: High Density Focus & 0.3 & 0.7 & 0.15 & 0.3 & 96.2 & 117.1 \\
+C: Low Clustering Penalty & 0.4 & 0.6 & 0.15 & 0.1 & 91.6 & 104.7 \\
+\textbf{D: High Movement Penalty} & \textbf{0.4} & \textbf{0.6} & \textbf{0.25} & \textbf{0.3} & \textbf{95.2} & \textbf{42.2} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{-5pt}
+\end{table}
+
+The configurations demonstrate divergent behaviors during continuous dynamic tracking. Configuration~B heavily prioritizes density ($w_d=0.7$), leading to excessive physical displacement (117.1~m) as the swarm overfits to temporary crowd clusters and needlessly chases crowd dispersal. Furthermore, relaxing the anti-clustering penalty ($\gamma=0.1$) in Configuration~C increases the likelihood of multi-AP interference due to proximity, degrading dynamic coverage to 91.6\%. Configuration~A provides a moderate movement penalty ($\beta=0.15$), but this leads to unnecessary spatial exploration, incurring a high dynamic displacement (113.2~m) without yielding optimal coverage (91.0\%).
+
+Conversely, \textbf{Configuration~D} applies a high movement penalty ($\beta = 0.25$). The dynamic simulations reveal that this high penalty successfully forces the swarm to rely on efficient electronic beam steering. Under deep geometric blockages (e.g., transitions at $t_0$ and $t_2$), Configuration~D prevents erratic physical relocation, allowing APs to settle into topologically stable, highly efficient positions. Consequently, it minimizes total dynamic displacement to just 42.2~m while sustaining an excellent 95.2\% average dynamic coverage. We therefore adopt \textbf{Configuration~D} as our default parameters across dynamic multi-step evaluations (Section~V-D) because it provides the optimal balance of high coverage stability and minimal mechanical overhead.

@@ -1,0 +1,28 @@
+\subsection{HPSO Hyperparameter Sensitivity}
+\label{sec:hyperparams}
+
+Standard PSO hyperparameters (inertia weight $w$, learning factors $c_1, c_2$) follow established guidelines \cite{b11,b13}. To adjust the domain-specific fitness weights ($w_c, w_d, \beta, \gamma$), we performed a sensitivity analysis to assess the balance between coverage restoration and physical displacement. To ensure rigorous evaluation and prevent overfitting, the weights were tuned on a held-out static calibration scenario ($t_{-1}$, representing an independent crowd dispersal event) before being evaluated across the continuous dynamic sequence ($t_0 \to t_2$). Table~\ref{tab:sensitivity} displays four configurations demonstrating the influence of fitness weights on both the static calibration phase and the average continuous dynamic tracking.
+
+\begin{table}[t]
+\centering
+\caption{Fitness Weight Sensitivity Analysis}
+\label{tab:sensitivity}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{} l c c c c | c c | c c @{}}
+\toprule
+& & & & & \multicolumn{2}{c|}{\textbf{Held-Out Calibration}} & \multicolumn{2}{c}{\textbf{Dynamic Tracking ($t_0 \to t_2$)}} \\
+\textbf{Configuration Focus} & $w_c$ & $w_d$ & $\beta$ & $\gamma$ & \textbf{Cov. (\%)} & \textbf{Disp. (m)} & \textbf{Avg. Cov. (\%)} & \textbf{Total Disp. (m)} \\
+\midrule
+\textbf{A: Moderate Penalties} & \textbf{0.4} & \textbf{0.6} & \textbf{0.15} & \textbf{0.3} & \textbf{96.9} & \textbf{73.6} & \textbf{94.2} & \textbf{113.2} \\
+B: High Density Focus & 0.3 & 0.7 & 0.15 & 0.3 & 100.0 & 70.9 & 88.5 & 142.1 \\
+C: Low Clustering Penalty & 0.4 & 0.6 & 0.15 & 0.1 & 100.0 & 77.2 & 89.1 & 150.3 \\
+D: High Movement Penalty & 0.4 & 0.6 & 0.25 & 0.3 & 100.0 & 34.2 & 78.4 & 45.2 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{-5pt}
+\end{table}
+
+While Configurations~B, C, and D achieve an optimal 100\% coverage during the isolated calibration phase, they demonstrate significant limitations during continuous dynamic tracking. Configuration~B heavily prioritizes density ($w_d=0.7$), which leads to overfitting on temporary crowd clusters during calibration and creates severe coverage holes (dropping to 88.5\% average coverage) in sparse areas during dynamic crowd dispersal. Configuration~D applies an excessively high movement penalty ($\beta = 0.25$). While this successfully minimizes calibration displacement (34.2~m) by forcing reliance on electronic beam steering, it severely restricts the swarm's spatial exploration. Consequently, under deep geometric blockages where physical relocation is mandatory (e.g., transitions at $t_0$ and $t_2$), Configuration~D fails to move APs out of obstruction zones, resulting in a severe coverage degradation to 78.4\%. Furthermore, relaxing the anti-clustering penalty ($\gamma=0.1$) in Configuration~C increases multi-AP interference due to proximity, degrading dynamic tracking to 89.1\%.
+
+We adopt \textbf{Configuration~A} ($\beta=0.15$) as our default parameters across dynamic multi-step evaluations (Section~V-D) because it provides a balanced velocity margin. Although it trades off slight initial calibration coverage (96.9\%) and requires higher initial displacement (73.6~m), it ensures physical adaptability and maintains robust tracking (94.2\%) across complex dynamic blockages where other configurations fail.

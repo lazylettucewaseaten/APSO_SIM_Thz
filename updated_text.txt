@@ -1,0 +1,25 @@
+We evaluate the Hierarchical HPSO against heuristic based algorithms : standard Particle Swarm Optimization (PSO) and a Genetic Algorithm (GA). The unconstrained  PSO serves as a baseline to isolate the benefits of the proposed hierarchical tier constraints. Baseline PSO optimizes the identical composite objective function Eq. (19) (including displacement penalty $\beta M$), but without the tier-clamping hierarchy, updating all 3D coordinates and beam parameters simultaneously. GA serves as a population-based benchmark to verify that improvements are not specific to the PSO framework.
+
+Simulation parameters are set as follows: Swarm size $S = 50$, maximum iterations $T = 20$, evaluated over 30 Monte Carlo runs with independent random seeds.
+
+Fig.~\ref{fig:coverage_vs_density} illustrates network coverage as human density increases. By incorporating footfall density into the fitness function, HPSO maintains over 88\% coverage under dense blockage scenarios, whereas standard PSO degrades to approximately 74\%. 
+
+The hierarchical structure reduces mechanical movement by prioritizing electronic beam-steering before starting physical relocation. Under unconstrained optimization, standard PSO updates all spatial coordinates and beam parameters simultaneously which results in a total displacement of over 450~m across the simulated scenarios. In contrast, the proposed hierarchical model limits total physical displacement to 157.6~m. During a single blockage event, HPSO requires only 72.0~m of displacement compared to 205.8~m for standard PSO, achieving up to a 65\% reduction in mechanical movement while maintaining high network coverage.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{coverage_vs_density.png}
+\caption{HPSO maintains high coverage under high-density blockage; standard PSO degrades significantly. Results are averaged over 30 independent runs; error bars denote $\pm 1$ standard deviation.}
+\vspace{-5pt}
+\label{fig:coverage_vs_density}
+\end{figure}
+
+Fig.~\ref{fig:convergence_comparison} compares convergence rates. By restricting physical movement variables in early tiers and allowing the swarm to first explore the beam-steering solution space (Tier~2), HPSO reaches optimal fitness faster than both standard PSO and GA. Standard PSO explores all dimensions simultaneously, which leads to slower convergence and is highly sensitive to local optima. GA exhibits the slowest convergence because it relies on randomized search processes, which are less efficient than velocity-based updates for continuous optimization in high-dimensional spaces.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{convergence_comparison.png}
+\caption{Convergence comparison: Hierarchical HPSO achieves optimal fitness faster than standard PSO and GA. Results are averaged over 30 independent runs; standard deviations are within $\pm 2.8\%$.}
+\vspace{-5pt}
+\label{fig:convergence_comparison}
+\end{figure}

@@ -1,0 +1,82 @@
+Claude Response when I asked to review the paper:
+
+Summary
+The paper proposes a two-stage system for indoor THz AP deployment: a MILP for static 3D placement, and a 4-tier cascading APSO that escalates from beam steering to height adjustment to full 3D physical relocation when crowd blockage degrades coverage, with Hungarian assignment to minimize travel. Simulation in a 32×20×3 m academic layout at 300 GHz.
+
+The problem is real and the tier-cascade idea is sensible. But there are several issues that I think are disqualifying in their current form, and a couple I'd call potentially fatal to the headline result.
+
+Major concerns
+
+1. The gain–beamwidth coupling is unspecified, and the main result may depend on it.
+
+Section III states that narrowing θ_HPBW raises G_max because radiated energy is conserved. But Table II lists a single fixed G_max = 30 dBi, and beamwidth is a Tier 2 decision variable. If the implementation lets APSO widen the beam to 120° while retaining 30 dBi, Tier 2's +26.5 pp is partly a free lunch created by an inconsistent antenna model. You need to state the functional form explicitly (e.g. G_max(θ) = 10log₁₀(κ/θ_az·θ_el) or a normalized flat-top G = 2π/θ) and confirm it is enforced in both the MILP and the APSO. As written, a reviewer cannot tell, and the single most important number in the paper rests on it.
+
+2. The dynamic blockage model accumulates loss without bound and averages in the wrong domain.
+
+Eq. (7) sums P_h(c)·L_h over every eligible cell along the link. With L_h = 20 dB and a link crossing even a handful of dense cells, the accumulated loss reaches 60–120 dB. Physically, human blockage saturates: the second body behind the first adds almost nothing. You need a saturating formulation, e.g. L_dyn = L_h·(1 − Π_c(1 − P_h(c))), or an explicit multi-blocker model with correlated shadowing.
+
+Separately, E[loss in dB] is not the loss corresponding to E[received power]. Averaging a Bernoulli blockage event in the dB domain is not a defensible expectation. Either compute outage probability over blockage realizations, or average in the linear domain.
+
+I suspect the dramatic 16.6% coverage collapse, which motivates the entire paper, is partly an artifact of this. If so, the case for moving hardware weakens considerably.
+
+3. Re-association and macro-diversity are excluded by construction.
+
+Eq. (12) forces each user onto exactly one AP. The standard answer to THz blockage is multi-connectivity: when the serving link drops, hand over to another of the 14 APs. The paper never evaluates this. You also assume pure LoS with no first-order specular reflection, which THz does exhibit off smooth surfaces. Together these two assumptions inflate the blockage problem and make physical relocation look necessary when cheaper mechanisms would recover most of the loss. A "beam steering + opportunistic re-association, zero movement" baseline is mandatory here, and I'd expect it to be strong.
+
+4. The economic and latency case for Tier 4 is never made.
+
+Section V-B argues static over-provisioning is cost-prohibitive (26 APs vs. 14). But Section VI then requires ceiling-mounted bidirectional robotic rail systems, linear actuators, cable chains, and retractable reels across a 640 m² space for 14 APs. That infrastructure almost certainly costs more than 12 extra THz transceivers. Without a cost model, the central motivation collapses.
+
+Worse, no timing is reported. Tier 4 costs 48.1 m of aggregate displacement. At a plausible rail speed of 0.1–0.5 m/s that is tens of seconds to minutes of movement with service interruption, while crowds reconfigure on a similar or faster timescale. Your t₀/t₁/t₂ snapshots have no stated interval, and the crowd is frozen during adaptation. The "real-time reactive adaptation" claim in Section VI is unsupported by any latency measurement.
+
+5. Table IV undermines your own configuration choice.
+
+Configurations B, C, and D all reach 100% coverage; D does so with 34.2 m of displacement against Config A's 96.9% / 73.6 m. On the table's own two metrics, your chosen configuration is dominated. The justification ("D fails to move APs out of obstruction zones at t₀ and t₂") is asserted with no supporting data. You must show that failure quantitatively, or a reviewer reads Table IV as evidence against your design. Also, β and γ are tuned on the same scenarios you report results for, with no held-out evaluation.
+
+6. Numbers are inconsistent across sections.
+
+Single-event displacement appears as 51.2 m (Table III tiers summed), 72.0 m (Section V-E), and 73.6 m (Table IV, Config A). Coverage recovers to 96.9% from a 63.6% baseline in V-C and to 96.9% from 16.6% in V-D, which reads like a copy-paste. The MILP needs 14 APs for 100% coverage but 26 APs at τ = 0.001; the drop from 15 APs at 60% area to 3 APs at 41.3% area is implausible and needs explanation. Each of these is individually recoverable; together they read as carelessness and will cost you reviewer trust.
+
+7. The MILP linearization argument is inconsistent with the claimed contribution.
+
+You claim to "jointly optimize 3D AP coordinates and azimuth orientations," then justify linearity by asserting P_rx^(u,b) is "a precomputed constant for each link." That only holds if azimuth is fixed a priori. If A enumerates (position, azimuth) tuples, say so, add the constraint that at most one azimuth is selected per physical position, and report the resulting |A|. Also missing: solver name, model size, runtime, and optimality gap. You cannot claim "provably optimal" without these.
+
+8. PerCom fit: the sensing contribution is asserted, not delivered.
+
+The framing is context-awareness from WiFi CSI or THz ISAC, but Section IV-A says the density map comes from "an empirical pedestrian density model" that is never named or cited. There is no sensing implementation, no real trace, no testbed, and critically no sensitivity analysis to density estimation error. CSI-based crowd counting has large errors; if your adaptation is brittle to ±25% density error, the system does not work. For PerCom specifically, this gap is the one I'd weigh most heavily. The venue rewards real deployments and real traces.
+
+9. Statistical rigor.
+
+PSO and GA are stochastic. There is no mention of seed count, no confidence intervals, no error bars in Figs. 5 and 6. Fig. 6 shows a single run over only 20 iterations, with APSO's normalized fitness exceeding 1.0, which suggests inconsistent normalization. Swarm size is never stated. Baseline PSO's fitness function is never specified: if it omits the movement penalty M, the 65% displacement reduction is trivially true and the comparison is a strawman.
+
+10. "Adaptive" PSO is mislabeled.
+
+Eq. (17) with linearly decreasing inertia is Shi & Eberhart [11], i.e. standard PSO. Adaptive PSO in the accepted sense adapts parameters from evolutionary-state estimation. Rename, or adopt an actual APSO variant.
+
+Smaller but fixable
+Reference [24] is a Google Drive link. PerCom is double-blind. This is a de-anonymization risk and could draw a desk reject. Remove it.
+Broken cross-references: "Section V-G" (twice) and "Section IV-D" both point to the Hungarian algorithm, which is in IV-C-2. There is no Section V-G.
+Missing parameters in Table II: grid cell size, user height z_u (which drives the whole Tier 3 story via Eq. 6), k(f) at 300 GHz, swarm size, iteration count, bonus value B, and the definition of C_p (described in words only, never formalized).
+Tier 3's mechanism is unclear. With an azimuth-only flat-top pattern and no elevation pattern, changing z_a affects only 3D distance and the z(c) ≤ h_human indicator. Over a 2.0–3.0 m range that is a narrow lever, and the assumed downtilt is never reconciled with the azimuth-only gain model. Either add an elevation pattern or justify why Tier 3 deserves its own tier.
+Metric conflation. R_cell is grid-cell coverage; the abstract and text repeatedly call it "user coverage." Users are static grid points, not mobile entities.
+Writing. Section V-C drops into a colloquial register ("does most of the heavy lifting," "a solid 96.9%," "won't work anymore") that clashes with the rest of the paper. "severely effects" → "affects"; "another means of adapt"; the conclusion sentence "we introduced a Human Density to continuously track spatial blockage" is broken.
+Safety and regulatory aspects of moving powered equipment on ceiling rails above occupants go unmentioned.
+Recommendation and realistic odds
+
+Score: Weak Reject / Reject. PerCom's main track runs roughly 15–18% acceptance. My estimate for this submission as-is is around 10%, and I'd put it lower if the reviewer pool includes a mmWave/THz propagation specialist, because concerns 1, 2 and 3 are the kind that a domain expert raises in the first paragraph of their review.
+
+The gating issue is not polish. It is that the headline result (16.6% → 96.9%) rests on a blockage model that likely overstates the problem, an antenna model that may understate the cost of the fix, and the exclusion of the cheapest competing mechanism (re-association). Fix those three and the paper becomes evaluable on its merits.
+
+What I'd do:
+
+Fix the blockage saturation and the dB-domain averaging, then re-run. Report honestly if the collapse is less severe.
+Pin down and document G_max(θ). Re-run Tier 2.
+Add two baselines: beam steering + re-association with zero movement, and "buy N more static APs" with a cost comparison.
+Report Tier 3/4 wall-clock adaptation latency and evaluate with the crowd evolving during movement.
+Add sensing-error sensitivity, and name/cite the pedestrian model.
+Reconcile every number, fix the cross-references, remove the Drive link, uniform the prose register.
+Multi-seed runs with confidence intervals.
+
+Items 1–4 are substantial work. If you have time before the deadline, I'd focus on 2, 5, 6, 7 and the baselines in 3, and consider positioning for a PerCom workshop or a venue like WCNC/VTC this cycle, with the full version going to a journal after the propagation model is fixed. The core idea is publishable; the current evidence isn't yet.
+
+Want me to put this in a document, or draft a revision plan with a suggested section-by-section restructure?

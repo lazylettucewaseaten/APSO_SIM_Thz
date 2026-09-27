@@ -1,0 +1,469 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{booktabs} 
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+ 
+\usepackage{placeins}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{subcaption} 
+\usepackage{romannum}
+\usepackage{array}
+\usepackage{url}
+\usepackage{float}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{TeraMove: Context-Aware Reconfiguration of THz Access Points for Resilient Pervasive Connectivity}
+
+\maketitle
+
+% Previous
+% \begin{abstract}
+% The Terahertz (THz) band promises high-speed indoor
+% connectivity for 6G, but its dependence on line-of-sight
+% makes them highly vulnerable to dynamic blockages. Traditional indoor deployments rely on static Access Points (APs) and cannot adapt when physical obstructions arise
+% or crowd patterns shift, leading to low coverage. In this
+% paper, we present TeraMove, a blockage-aware framework that
+% continuously monitors human density, detects THz link degradation from dynamic blockages, and autonomously repositions
+% the AP nodes to restore pervasive connectivity. TeraMove first
+% establishes an optimal baseline layout for AP placement using
+% a Mixed Integer Linear Programming (MILP) model over 3D
+% coordinates and beam orientations, then employs a four-tier optimization that escalates from electronic beam steering to full 3D
+% node repositioning, doing physical movement only when lighter
+% adaptations prove insufficient to provide threshold coverage.
+% Evaluations in a realistic indoor environment show that crowd-induced blockages can reduce coverage percentage to 16.6\%;
+% Our algorithm recovers it to over 95\% while requiring 65\% less
+% physical displacement than other approaches that could have been used.
+% \end{abstract}
+
+\begin{abstract}
+The Terahertz (THz) band promises high-speed indoor
+connectivity for 6G, but its dependence on line-of-sight
+makes it highly vulnerable to dynamic blockages. Traditional indoor deployments rely on static Access Points (APs) and cannot adapt when physical obstructions arise
+or crowd patterns shift, leading to low coverage. In this
+paper, we present TeraMove, a blockage-aware framework that
+uses spatial human-density context to detect THz link degradation
+from dynamic blockages and adapt the AP configuration to restore
+pervasive connectivity. We describe how this context can be obtained from 3D LiDAR depth sensing; our evaluation uses an empirical pedestrian density model.
+TeraMove first establishes an optimal baseline layout for AP placement using a Mixed Integer Linear Programming (MILP) model over 3D
+coordinates and beam orientations, then employs a four-tier optimization that escalates from electronic beam steering to full 3D
+node repositioning, performing physical movement only when lighter
+adaptations prove insufficient to provide threshold coverage.
+Evaluations in a realistic indoor environment show that crowd-induced
+blockages can reduce coverage to 16.6\%; our algorithm recovers it
+to over 95\% while requiring 90.6\% less physical displacement than
+the alternative approaches evaluated.
+\end{abstract}
+
+\begin{IEEEkeywords}
+THz Communication, Context-Aware Adaptation, Pervasive Connectivity, Spatio-Temporal Blockage Modeling, Adaptive Infrastructure, HPSO, Dynamic Repositioning
+\end{IEEEkeywords}
+
+% Intro 
+\section{Introduction}
+
+The emergence of 6G networks is driven by a new class of applications, holographic communication, immersive extended reality, and digital twins, that demand sustained multi-Terabit-per-second data rates with ultra-low latency, far exceeding what current 5G infrastructure can deliver. The Terahertz (THz) band (0.1--10~THz), with orders of magnitude more available spectrum than sub-6~GHz or millimeter-wave (mmWave) bands, is widely regarded as the enabling physical layer for this next generational leap. However, THz signals suffer extreme path loss and molecular absorption, forcing transmitters to use narrow, highly directional beams that require an unobstructed Line-of-Sight (LoS) to every user. In populated indoor spaces, this LoS dependence is inherently fragile: a single human body crossing the beam can cause attenuation exceeding 20~dB, enough to collapse the link entirely.
+
+The straightforward solution is static placement optimization, fixing transmitting nodes at predetermined positions to maximize coverage of the people in the building. Existing methods typically treat this as a 2D problem at a uniform ceiling height. While adequate for an empty floor plan, such deployments assume the propagation environment never changes. However, dynamic blockages caused by human mobility continuously reshape the interference landscape, and a layout providing near-perfect user coverage at one moment can suffer severe degradation when a crowd clusters unexpectedly. 
+Depth sensing offers a highly reliable means to obtain such changing environmental context. Recent advancements in solid-state 3D LiDAR have shown that accurate human tracking and counting in indoor environments \cite{b27,b29}. Such sensing can provide the spatial human-density context needed to reason about changing blockage conditions. Static over-provisioning cannot anticipate every future crowd pattern and can lead to very high costs.
+
+We present \textit{TeraMove}, a context-aware framework that treats transmitting node deployment as a continuous adaptation problem rather than a one-time placement. TeraMove uses a spatial human-density representation to characterize dynamic blockage and first applies a Mixed-Integer Linear Programming (MILP) formulation to minimize the number of deployed transmitting nodes while satisfying coverage and SINR constraints. When crowd shifts degrade user coverage below a threshold, it triggers an Hierarchical Particle Swarm Optimization (HPSO) engine with a 4-tier cascading architecture: Tier~1 checks whether action is needed; Tier~2 electronically adjusts beam azimuth and beamwidth at zero physical cost; Tier~3 permits minor height changes; Tier~4, as a last resort, enables full 3D repositioning. Tier~2 alone recovers the majority of lost user coverage in most scenarios. A Hungarian algorithm-based assignment further minimizes aggregate physical displacement when movement is unavoidable.
+
+Although focused on THz, the framework is transmitter-agnostic and applies equally to mmWave small cells, Wi-Fi access points, or 5G base stations, anywhere LoS-dependent links face dynamic blockages. We use the term ``Access Points'' (APs) throughout, noting the methodology extends naturally across deployment paradigms.
+
+The main \textbf{contributions} of this paper are:
+\begin{itemize}
+    \item A MILP formulation that jointly optimizes 3D AP coordinates and azimuth orientations under a complete THz channel model, minimizing the number of nodes needed to guarantee user-level SINR coverage.
+
+    \item An HPSO algorithm for real-time dynamic repositioning, with a composite fitness function that prioritizes human-density-weighted coverage while penalizing unnecessary physical displacement.
+
+    \item A 4-tier cascading architecture that escalates from electronic beam steering to full spatial repositioning only when needed, significantly recovering user coverage while minimizing total physical node displacement compared to alternative approaches.
+\end{itemize}
+
+
+% \section{Introduction}
+
+% The emergence of 6G networks is driven by a new class of applications, holographic communication, immersive extended reality, and digital twins, that demand sustained multi-Terabit-per-second data rates with ultra-low latency, far exceeding what current 5G infrastructure can deliver. The Terahertz (THz) band (0.1--10~THz), with orders of magnitude more available spectrum than sub-6~GHz or millimeter-wave (mmWave) bands, is widely regarded as the enabling physical layer for this next generational leap. However, THz signals suffer extreme path loss and molecular absorption, forcing transmitters to use narrow, highly directional beams that require an unobstructed Line-of-Sight (LoS) to every user. In populated indoor spaces, this LoS dependence is inherently fragile: a single human body crossing the beam can cause attenuation exceeding 20~dB, enough to collapse the link entirely.
+
+% The straightforward solution is static placement optimization, fixing transmitting nodes at predetermined positions to maximize coverage of the people in the building. Existing methods typically treat this as a 2D problem at a uniform ceiling height. While adequate for an empty floor plan, such deployments assume the propagation environment never changes. However, dynamic blockages caused by human mobility continuously reshape the interference landscape, and a layout providing near-perfect user coverage at one moment can suffer severe degradation when a crowd clusters unexpectedly. Static over-provisioning cannot anticipate every future crowd pattern and leads to prohibitive costs.
+
+% We present \textit{TeraMove}, a context-aware framework that treats transmitting node deployment as a continuous adaptation problem rather than a one-time placement. TeraMove first uses a Mixed-Integer Linear Programming (MILP) formulation to minimize the number of deployed transmitting nodes while satisfying coverage and SINR constraints. When crowd shifts degrade user coverage below a threshold, it triggers an Adaptive Particle Swarm Optimization (HPSO) engine with a 4-tier cascading architecture: Tier~1 checks whether action is needed; Tier~2 electronically adjusts beam azimuth and beamwidth at zero physical cost; Tier~3 permits minor height changes; Tier~4, as a last resort, enables full 3D repositioning. Tier~2 alone recovers the majority of lost user coverage in most scenarios. A Hungarian algorithm-based assignment further minimizes aggregate physical displacement when movement is unavoidable.
+
+% Although focused on THz, the framework is transmitter-agnostic and applies equally to mmWave small cells, Wi-Fi access points, or 5G base stations, anywhere LoS-dependent links face dynamic blockages. We use the term ``Access Points'' (APs) throughout, noting the methodology extends naturally across deployment paradigms.
+
+% The main \textbf{contributions} of this paper are:
+% \begin{itemize}
+%     \item A MILP formulation that jointly optimizes 3D AP coordinates and azimuth orientations under a complete THz channel model, minimizing the number of nodes needed to guarantee user-level SINR coverage.
+
+%     \item An HPSO algorithm for real-time dynamic repositioning, with a composite fitness function that prioritizes human-density-weighted coverage while penalizing unnecessary physical displacement.
+
+%     \item A 4-tier cascading architecture that escalates from electronic beam steering to full spatial repositioning only when needed, significantly recovering user coverage while minimizing total physical node displacement compared to alternative approaches.
+% \end{itemize}
+
+
+\section{Related Work}
+
+The THz band (0.1--10~THz) offers very large bandwidth for 6G, but
+suffers from high path loss, molecular absorption, and severe
+line-of-sight (LoS) blockage~\cite{b5,b1,b2}. Human bodies can cause
+more than 20~dB attenuation~\cite{b6}, while pedestrian density and
+mobility strongly affect THz outage and SINR~\cite{b3,b14}. These
+characteristics make static deployments vulnerable to
+spatiotemporally varying human blockage.
+
+Existing AP placement methods primarily optimize the network before
+deployment. Baswade~\textit{et al.}~\cite{b4} formulated base-station
+placement using mixed-integer optimization, while graph clustering for efficient mmWave LoS
+coverage was proposed by Alameh~\textit{et
+al.}~\cite{b7}. Such approaches provide effective initial layouts but do
+not adapt the deployment after propagation conditions change. PSO and
+its variants have also been applied to wireless optimization,
+including 3D UAV-BS placement~\cite{b15} and mmWave massive-MIMO
+beamforming~\cite{b16}.However, these approaches mainly focus on optimizing placement or communication parameters, rather than combining electronic adaptation with physical AP reconfiguration when human blockage changes.
+Physical mobility offers another means of adapting wireless coverage as user locations vary. Wireless platforms based on UAV can adjust their position in three dimensions to improve coverage and optimize their trajectories~\cite{b15,b20}. Similarly, movable APs have been studied for indoor WLANs, where the AP locations are changed according to user distribution~\cite{b21}. Movable antennas further exploit spatial channel variations by dynamically changing antenna positions
+~\cite{b22}. Nevertheless, these approaches do not jointly consider
+indoor THz beam adaptation, vertical AP adjustment, and progressive
+full-3D repositioning based on human blockage.
+
+Dynamic adaptation also requires information about human
+movement. Vision-based learning has been used to predict impending
+mmWave/THz blockages~\cite{b25}.
+Specifically, 3D LiDAR point clouds have been extensively explored for high-resolution indoor crowd counting and geometry tracking~\cite{b27,b29}. These sensing approaches can provide the spatial
+human-density information required for blockage-aware adaptation,
+but existing work does not directly couple such contextual
+information with hierarchical AP reconfiguration that escalates from
+electronic beam adaptation to physical 3D repositioning.
+
+
+% TeraMove combines these complementary directions by using a
+% MILP-optimized 3D deployment as a static baseline and a four-tier
+% cascading HPSO for runtime adaptation. The framework progressively
+% moves from zero-displacement beam adaptation (Tier~2), through AP
+% height adjustment (Tier~3), to full 3D repositioning (Tier~4) only
+% when lighter adaptations are insufficient. The Hungarian algorithm
+% then minimizes aggregate AP displacement during physical
+% reconfiguration, enabling context-aware adaptation to dynamic human
+% blockage while limiting unnecessary infrastructure movement.
+
+
+
+
+
+
+
+% \section{Related Work}
+
+% The deployment of Terahertz (THz) communication networks depends primarily on addressing key propagation challenges, which has led to research on channel modeling and deployment methodologies. The fundamental physical characteristics of the THz channel, including free-space path loss and molecular absorption, have been extensively modeled by Akyildiz \textit{et al.} \cite{b5}. Their results show that THz waves exhibit exponential decay rates that depend on atmospheric constituents, thereby making LoS links and dense APs an absolute necessity. 
+
+% Because THz waves lack the diffraction capabilities of sub-6 GHz signals, they are highly susceptible to dynamic blockages. Research into THz channel reliability has shown that human bodies act as full blockers \cite{b6}, causing sudden signal degradation often exceeding 20 dB. Therefore, probabilistic obstruction analysis is an essential prerequisite for effective network planning.
+
+% To address these challenges, some recent research has adopted different methods of AP positioning. Methods like those of Alameh \textit{et al.} \cite{b7} involve graph clustering for optimal LoS coverage and minimum number of APs. Despite their computational efficiency, heuristic and graph-based approaches may not guarantee optimality, which is critical for critical applications and benchmark performance evaluations. Such benchmarks are usually performed in a fixed height, 2D planar deployment scenario and do not consider the vertical dimension. The application of MILP to the AP placement problem formulation has been reported for
+% lower frequencies to determine globally optimal placements.
+% However, MILP formulations for such optimization problems generally rely on static obstacle locations, 2D planar deployment scenarios, or simple path loss models. They fail to incorporate real THz channel characteristics, such as the THz molecular absorption effects, the probability of dynamic human blockages, azimuth orientation, and 3D volumetric deployment geometry within the same mathematical framework. This work fills this primary research gap by incorporating all realistic THz channel characteristics into a rigorous 3D MILP solver. Furthermore, recognizing that static deployments inherently fail under shifting pedestrian crowds, we extend beyond existing literature by introducing a dynamic, hierarchical Adaptive Particle Swarm Optimization (HPSO) framework to physically adapt AP parameters and positions in real time as human blockages evolve.
+
+
+\section{System Model and Problem Formulation}
+
+Designing indoor Terahertz (THz) networks requires strategic placement of APs to ensure reliable coverage. The positioning must account for the building's permanent structural layout as well as the random movement of people within it. The key notations used throughout this paper are given in Table~\ref{tab:notations}.
+
+% $|\mathcal{U}|$ & Total number of target user sub-regions \\
+
+\renewcommand{\arraystretch}{1.3}
+
+\setlength{\tabcolsep}{3pt} 
+
+\begin{table}[htbp]
+  \centering
+  \caption{Glossary of Proposed Model}
+  \label{tab:notations}
+
+  \begin{tabular}{@{} l >{\raggedright\arraybackslash}p{0.72\linewidth} @{}}
+    \toprule
+    \textbf{Notation} & \textbf{Definition} \\
+    \midrule
+    $\mathcal{U}, \mathcal{A}$ & Set of target user locations and candidate AP locations \\
+    $d_{u,a}$ & 3D Euclidean distance between $u$ and $a$ (meters) \\
+    $d_{u,a}^{2D}, d_{u,c}^{2D}$ & 2D projected distances on the horizontal plane (meters) \\
+    $\phi_a$ & Azimuth pointing direction (orientation) of AP $a$ \\
+    $\Delta\phi$ & Angular deviation between user location and AP orientation \\
+    $\theta_{\text{HPBW}}$ & Half-Power Beamwidth of the directional THz antenna \\
+    $h_{\text{human}}$ & Average physical height of a human blocker  \\
+    $z(c)$ & Interpolated elevation of the signal beam at grid cell $c$ \\
+    $W_a \in \{0,1\}$ & 1 if an AP is deployed at location $a$, 0 otherwise \\
+    $Y_{u,a} \in \{0,1\}$ & 1 if user $u$ is associated with AP $a$, 0 otherwise \\
+    $\eta$ & Target coverage threshold parameter (ratio, e.g., 0.90) \\
+    $f$ & Operating frequency (Hz) \\
+    $c$ & Speed of light (m/s) \\
+    $k(f)$ & Molecular absorption coefficient at frequency $f$ \\
+    $D_h(c)$ & Normalized human density score at grid cell $c$ \\
+    $P_{\text{tx}}, P_{\text{rx}}$ & Transmit and received signal power (dBm) \\
+    $G_{\text{tx}}, G_{\text{rx}}$ & Transmit and receive antenna gains (dBi) \\
+    $G_{\text{max}}, G_{\text{min}}$ & Main-lobe peak gain and side-lobe leakage floor (dBi) \\
+    $\text{SINR}_{\text{th}}$ & Minimum required SINR in each target sub-region \\
+    $N_0$ & System noise floor (linear scale) \\
+    $L_{w}$ & Penetration penalty for static walls (dB) \\
+    $L_{h}$ & Penetration penalty for human blockages (dB) \\
+    Inf & An arbitrarily large positive constant \\
+    \midrule
+    $v_i^{(t)}, x_i^{(t)}$ & Velocity and position of HPSO particle $i$ at iteration $t$ \\
+    $w$ & Inertia weight (linearly decreasing from $0.9$ to $0.4$) \\
+    $c_1, c_2$ & Cognitive and social learning factors \\
+    $p_i^{\text{best}}$ & Personal best position of particle $i$ \\
+    $g^{\text{best}}$ & Global best position discovered by the swarm \\
+    $F$ & Composite fitness score of a candidate AP configuration \\
+    $R_{\text{cell}}$ & Ratio of grid cells meeting the SINR threshold \\
+    $R_{\text{density}}$ & Ratio of covered human density to total density \\
+    $B$ & Bonus awarded when target coverage is achieved \\
+    $M$ & Normalized movement penalty for physical displacement \\
+    $C_p$ & Anti-clustering penalty for AP spatial diversity \\
+    $w_c, w_d$ & Coverage and density weights in fitness function \\
+    $\beta, \gamma$ & Displacement and clustering penalty coefficients \\
+    $\mathcal{R}_{\text{prev}}, \mathcal{R}_{\text{new}}$ & Sets of current and optimized AP positions \\
+    $C_{ij}$ & Displacement cost to move AP $r_i$ to new position $r'_j$ \\
+    $\sigma^*$ & Optimal AP-to-position assignment (Hungarian) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\renewcommand{\arraystretch}{1.0}
+\setlength{\tabcolsep}{6pt}
+
+% \subsection{3D Propagation and Path Loss Model}
+The indoor environment is discretized into a 3D volumetric grid. Let $\mathcal{U}$ denote the set of target user equipment locations requiring coverage, and let $\mathcal{A}$ denote the set of candidate AP locations. Unlike traditional 2D placement models, we explicitly optimize over the vertical Z-axis to accurately model signal propagation. Let the 3D coordinates of the user device $u$ be $(x_u, y_u, z_u)$ and the candidate AP $a$ be $(x_a, y_a, z_a)$. The volumetric Euclidean distance $d_{u,a}$ is calculated as:
+\begin{equation}
+    d_{u,a} = \sqrt{(x_u - x_a)^2 + (y_u - y_a)^2 + (z_u - z_a)^2}
+    \label{eq:3d_distance}
+\end{equation}
+where the user height $z_u$ is fixed to a standard level, and the optimization algorithm selects an optimal AP mounting elevation $z_a$ from a discrete set of candidate heights. 
+
+This 3D distance $d_{u,a}$ denotes the fundamental free-space propagation. The base Free Space Loss (FSL) for a signal operating at frequency $f$ over distance $d_{u,a}$ is derived from the Friis transmission equation:
+\begin{equation}
+    PL_{\text{FSL}}(d_{u,a}) = 20\log_{10}\left(\frac{4\pi f d_{u,a}}{c}\right)
+\end{equation}
+where $c$ is the speed of light in a vacuum. The total deterministic (line-of-sight) path loss $PL_{\text{LoS}}(u,a)$ for a THz link further incorporates molecular absorption loss and static attenuation \cite{b1}:
+\begin{equation}
+    PL_{\text{LoS}}(u,a) = PL_{\text{FSL}}(d_{u,a}) + PL_{\text{ABS}}(d_{u,a}) + L_{\text{static}}
+    \label{eq:total_pl}
+\end{equation}
+where $PL_{\text{FSL}}(d_{u,a})$ represents the free-space path loss, $L_{\text{static}}$ denotes the attenuation penalty from static infrastructure, and $PL_{\text{ABS}}(d_{u,a})$ accounts for atmospheric molecular absorption at high frequencies \cite{b2}, calculated in dB as:
+\begin{equation}
+    PL_{\text{ABS}}(d_{u,a}) = 4.343 \cdot k(f) \cdot d_{u,a}
+\end{equation}
+with $k(f)$ representing the frequency-dependent molecular absorption coefficient.
+
+Due to the highly directional nature of THz signals, line-of-sight (LoS) obstructions severely degrade link quality. We model two distinct types of blockages: static infrastructure and dynamic human mobility. For static obstacles, let $\mathcal{W}$ denote the set of walls within the environment. If the 3D line segment connecting $u$ and $a$ intersects a wall $w \in \mathcal{W}$, a material-specific penetration penalty $L_{w}$ (e.g., concrete, wood, glass) is accumulated:
+\begin{equation}
+    L_{\text{static}} = \sum_{w \in \mathcal{W}_{\text{intersect}}} L_{w}
+\end{equation}
+
+Furthermore, THz signals suffer severe attenuation when occluded by human bodies \cite{b3}. We define an expected dynamic loss based on the normalized human density score $D_h(c) \in [0,1]$ for each grid cell (computed in Section~IV-A) over the set of grid cells $\mathcal{C}_{u,a}$ intersected by the 2D projection of the link.  A human only obstructs the signal if the elevation of the beam $z(c)$ as it passes through cell $c$ drops below 
+% image dalo triangle ki
+the standard human height $h_{\text{human}}$.  
+This geometrical threshold is equivalent to the critical blockage distance limits derived from similar triangles in prior work on THz blockages for humans. Using linear interpolation based on 2D traversed distance $d_{u,c}^{2D}$ and total 2D distance $d_{u,a}^{2D}$, the beam elevation at cell $c$ is given as:
+\begin{equation}
+    z(c) = z_u + \frac{d_{u,c}^{2D}}{d_{u,a}^{2D}} (z_a - z_u)
+\end{equation}
+The expected dynamic blockage loss is then defined using an indicator function $\mathbb{I}(\cdot)$, which equals 1 if the beam strikes the human body and 0 otherwise:
+\begin{equation}
+    L_{\text{dynamic}} = \sum_{c \in \mathcal{C}_{u,a}} D_h(c) \cdot L_{h} \cdot \mathbb{I}\Big(z(c) \le h_{\text{human}}\Big)
+    \label{eq:dynamic_loss}
+\end{equation}
+where $L_{h}$ is the empirical penalty caused by human blockage.
+
+To overcome extreme path loss, THz networks use highly directional antennas rather than omnidirectional antennas. We adopt a flat-top sector antenna model parameterized by the half-power beamwidth (HPBW), $\theta_{\text{HPBW}}$, and the AP's mounting azimuth orientation $\phi_a$. Although our model specifically analyzes the horizontal beamwidth, we assume that APs above the users ($z_a > z_u$) are optimally angled downward. This downward tilt ensures the main signal beam reaches the users directly. As a result, we can simplify our analysis by calculating the signal gain only in the horizontal~plane. 
+
+Let $\phi_{u,a}$ denote the spatial angle of user $u$ relative to AP $a$. The shortest angular deviation $\Delta\phi$ between the user's location and the AP's orientation, is calculated as:
+\begin{equation}
+    \Delta\phi = \big|(\phi_{u,a} - \phi_a + 180^{\circ}) \bmod 360^{\circ} - 180^{\circ}\big|
+    \label{eq:ang_dev}
+\end{equation}
+This angular deviation ($\Delta\phi$) determines the transmit gain $G_{\text{tx}}(\Delta\phi)$ applied to the link:
+\begin{equation}
+    G_{\text{tx}}(\Delta\phi) = 
+    \begin{cases} 
+      G_{\text{max}}, & \text{if } \Delta\phi \le \frac{\theta_{\text{HPBW}}}{2} \\
+      G_{\text{min}}, & \text{otherwise}
+    \end{cases}
+    \label{eq:beamwidth}
+\end{equation}
+where $G_{\text{max}}$ is the gain in the main signal direction, and $G_{\text{min}}$ represents the small amount of signal leakage in other directions. In our evaluation, $G_{\text{max}}$ is held fixed at 30~dBi across all evaluated beamwidths (Table~\ref{tab:sim_params}); incorporating the physical gain--beamwidth trade-off is left to future work. $G_{\text{min}}$ is modeled as practically negligible, meaning the signal drops significantly outside the HPBW. The total path loss $PL(u,a)$ experienced by a link combines the deterministic LoS component with the expected dynamic human blockage:
+\begin{equation}
+    PL(u,a) = PL_{\text{LoS}}(u,a) + L_{\text{dynamic}}(u,a)
+    \label{eq:total_pl_combined}
+\end{equation}
+Finally, the received power $P_{\text{rx}}^{(u,a)}$ (in linear scale) is obtained from the total path loss and the antenna gain as:
+\begin{equation}
+    P_{\text{rx}}^{(u,a)} = 10^{\frac{P_{\text{tx}} + G_{\text{tx}}(\Delta\phi) + G_{\text{rx}} - PL(u,a) - 30}{10}}
+\end{equation}
+
+\section{Proposed Work}
+
+Our objective is to ensure that every user within the indoor environment receives a minimum required SINR ($\text{SINR}_{\text{th}}$) using the fewest THz APs possible, even as human crowds dynamically reshape the blockage landscape. We address this in two stages: first, we formulate the static baseline placement as a MILP to compute an optimal initial deployment over a discretized candidate set; second, we introduce an HPSO-based dynamic repositioning framework with a 4-tier cascading architecture to adapt the deployment in real time when crowd shifts degrade user coverage.
+
+\subsection{Context Acquisition from Human-Density Sensing}
+
+	TeraMove uses spatial human-density information to capture changes in the blockage environment. In practice, this contextual data is obtained using 3D LiDAR sensors, which generate real-time topographical point clouds of the room. The raw 3D point cloud is divided into the exact volumetric grid cells ($c$) used by our formulation. By subtracting the static background, we isolate dynamic points corresponding to humans or moving furniture. The human density score $D_h(c) \in [0,1]$ for a specific vertical column is calculated as:
+	\begin{equation}
+		D_h(c) = \min \left(1, \frac{N_{\text{dyn}}(c)}{N_{\text{max}}} \right)
+	\end{equation}
+	where $N_{\text{dyn}}(c)$ is the number of dynamic LiDAR points detected in the vertical column at cell $c$, and $N_{\text{max}}$ is the expected maximum number of points for a single human body. In our evaluation, we generate the equivalent human-density map using an empirical pedestrian density model to evaluate coverage and trigger AP adaptation when needed
+
+
+
+\subsection{Static Baseline Placement via MILP}
+
+We formulate the baseline optimization problem as a Mixed-Integer Linear Programming (MILP) model. The primary objective is to minimize the total number of APs deployed, expressed by Eq. \eqref{eq:objective}:
+\begin{equation}
+    \min \sum_{a \in \mathcal{A}} W_a
+    \label{eq:objective}
+\end{equation}
+
+Eq. \eqref{eq:assoc1} ensures that each target sub-region is associated with exactly one deployed AP. Eq. \eqref{eq:assoc2} mandates that a user $u$ can only logically associate with a candidate location $a$ if an AP is physically deployed there ($W_a = 1$).
+\begin{equation}
+    \sum_{a \in \mathcal{A}} Y_{u,a} = 1, \quad \forall u \in \mathcal{U}
+    \label{eq:assoc1}
+\end{equation}
+\begin{equation}
+    Y_{u,a} \le W_a, \quad \forall u \in \mathcal{U}, \forall a \in \mathcal{A}
+    \label{eq:assoc2}
+\end{equation}
+
+In practical deployment scenarios where satisfying 100\% coverage is physically or economically infeasible, Eq. \eqref{eq:assoc1} is relaxed to an inequality ($\sum_{a \in \mathcal{A}} Y_{u,a} \le 1$), and a global coverage constraint is introduced. Let $\eta \in (0,1]$ denote the required proportion of the total environment that must be served. To strictly enforce this spatial coverage ratio, the total number of successfully associated sub-regions must satisfy the following constraint:
+\begin{equation}
+    \sum_{u \in \mathcal{U}} \sum_{a \in \mathcal{A}} Y_{u,a} \ge \eta |\mathcal{U}|
+    \label{eq:coverage_constraint}
+\end{equation}
+where $|\mathcal{U}|$ represents the total number of target user sub-regions in the partitioned grid.
+
+The next constraint is to maintain the minimum SINR \textit{i.e.}, threshold in each sub-region considering multi AP interference. Eq. \eqref{eq:sinr} ensures that the minimum SINR is maintained in each sub-region:
+\begin{equation}
+    \frac{P_{\text{rx}}^{(u,a)} + \text{Inf} \cdot (1 - Y_{u,a})}{N_0 + \sum_{\substack{b \in \mathcal{A} \\ b \ne a}} P_{\text{rx}}^{(u,b)} W_b} \ge \text{SINR}_{\text{th}}, \quad \forall u \in \mathcal{U}, a \in \mathcal{A}
+    \label{eq:sinr}
+\end{equation}
+
+The Left Hand Side (LHS) of Eq. \eqref{eq:sinr} is the ratio of received signal power from the AP to which the user is associated, to the sum of system noise $N_0$ and interference from other deployed APs. When the $u^{\text{th}}$ user is associated with an AP located at $a$, $Y_{u,a} = 1$. So, the term $\textit{Inf} \cdot (1 - Y_{u,a})$ goes to zero, and the LHS of Eq. \eqref{eq:sinr} has to satisfy the constraint. Otherwise, if $Y_{u,a} = 0$, the term $\textit{Inf} \cdot (1 - Y_{u,a})$ takes on an arbitrarily large value. Because of this term, the numerator becomes extremely large and inherently satisfies the inequality, effectively ignoring the constraint for unassociated links \cite{b4}. The term $\textit{Inf} \cdot (1 - Y_{u,a})$ is needed because a single AP might not provide the minimum SINR to all sub-regions in the building simultaneously; this formulation ensures the overall feasibility of the MILP equations. 
+
+% rakhna haii ye ???? 
+The above constraint can be linearized by cross-multiplying the denominator to the right-hand side. Because the candidate set $\mathcal{A}$ enumerates discrete (position, height, azimuth) tuples, $P_{\text{rx}}^{(u,b)}$ is a precomputed constant for each $(u,b)$ pair and $W_b$ is a binary decision variable; their product $P_{\text{rx}}^{(u,b)} W_b$ is therefore inherently linear. The linearized form of Eq. \begin{equation}
+\begin{split}
+    P_{\text{rx}}^{(u,a)} + \text{Inf} \cdot (1 - Y_{u,a}) \ge \text{SINR}_{\text{th}} \cdot \left( N_0 + \sum_{\substack{b \in \mathcal{A} \\ b \ne a}} P_{\text{rx}}^{(u,b)} W_b \right), \\ 
+    \quad \forall u \in \mathcal{U}, a \in \mathcal{A}
+\end{split}
+\label{eq:sinr_linear}
+\end{equation}
+This equivalent formulation ensures that the entire optimization problem remains within the MILP framework, enabling standard solvers to compute optimal AP deployments over the discretized candidate set.
+
+
+\subsection{Dynamic AP Repositioning via HPSO}
+
+The MILP formulation produces an optimal AP layout for the discretized candidate set in a given static environment. However, indoor human crowds are inherently dynamic, and a deployment optimized for one crowd configuration may become suboptimal minutes later. Rather than deploying additional APs for every possible crowd pattern, we propose dynamically repositioning the existing APs to track the evolving human density landscape.
+
+To accomplish this, we employ a Hierarchical Particle Swarm Optimization (HPSO) algorithm built on the standard velocity-update formulation of \cite{b11,b13}, with the hierarchy realized through the tiered activation of search dimensions described below rather than through evolutionary-state-based parameter adaptation. HPSO is a population-based metaheuristic where a swarm of candidate solutions (particles) explores the search space cooperatively. Each particle maintains a position vector $x_i$ encoding the AP configuration parameters and a velocity vector $v_i$ governing its exploration trajectory. The swarm evolves over $T$ iterations according to the velocity update rule:
+\begin{equation}
+    v_i^{(t+1)} = w \cdot v_i^{(t)} + c_1 r_1 (p_i^{\text{best}} - x_i^{(t)}) + c_2 r_2 (g^{\text{best}} - x_i^{(t)})
+    \label{eq:pso_velocity}
+\end{equation}
+where $w$ is the inertia weight that linearly decreases from $0.9$ to $0.4$ over the course of optimization to transition from exploration to exploitation, $c_1$ and $c_2$ are cognitive and social learning factors (both set to $1.5$), $r_1, r_2 \sim U(0,1)$ are random coefficients, $p_i^{\text{best}}$ is the personal best position of particle $i$, and $g^{\text{best}}$ is the global best position discovered by the entire swarm. The position is subsequently updated as $x_i^{(t+1)} = x_i^{(t)} + v_i^{(t+1)}$, with per-dimension velocity clamping to prevent divergence.
+
+The fitness function that guides the swarm combines multiple objectives into a single composite score:
+\begin{equation}
+    F = w_c \cdot R_{\text{cell}} + w_d \cdot R_{\text{density}} + B - \beta \cdot M - \gamma \cdot C_p
+    \label{eq:fitness}
+\end{equation}
+where $R_{\text{cell}}$ is the ratio of grid cells meeting the SINR threshold, $R_{\text{density}}$ is the ratio of covered human density to total density, $B$ is a bonus awarded when target coverage is achieved, and $M$ is a normalized movement penalty encouraging minimal physical displacement. $C_p$ is an anti-clustering penalty that discourages APs from congregating too closely, formalized as:
+\begin{equation}
+    C_p = \frac{1}{n(n-1)} \sum_{i=1}^{n}\sum_{\substack{j=1 \\ j \ne i}}^{n} \max\left(0,\ 1 - \frac{\|r_i - r_j\|}{d_{\min}}\right)
+    \label{eq:clustering_penalty}
+\end{equation}
+where $n$ is the number of deployed APs, $r_i, r_j$ are their 3D positions, and $d_{\min}$ is a minimum desired inter-AP spacing (Table~\ref{tab:sim_params}). The weights $w_c = 0.4$ and $w_d = 0.6$ prioritize human-centric coverage, while $\beta = 0.15$ and $\gamma = 0.3$ govern the displacement and clustering penalties respectively.
+
+\subsubsection{4-Tier Cascading Optimization Architecture}
+
+A key design principle of our dynamic framework is the minimization of physical AP displacement. Moving APs incurs practical costs: service interruption during relocation, mechanical wear, and potential re-calibration requirements. To address this, we introduce a 4-tier cascading optimization architecture that progressively unlocks more degrees of freedom only when simpler adjustments prove insufficient.
+
+\begin{itemize}
+    \item \textbf{Tier 1 -- Baseline Evaluation:} The system evaluates the current AP configuration against the updated human density map. If the density-weighted coverage already meets the target threshold ($\ge 90\%$), no optimization is triggered. This avoids unnecessary computation and physical displacement.
+
+    \item \textbf{Tier 2 -- Beam Parameter Optimization:} If coverage is insufficient, the HPSO optimizes only the azimuth orientation ($\phi_a$) and beamwidth ($\alpha$) of each AP. Since these are electronic adjustments requiring no physical movement, Tier~2 achieves coverage improvements at zero displacement cost.
+
+      \item \textbf{Tier 3 -- Height Adjustment:} If Tier~2 fails to restore adequate coverage, the optimizer additionally adjusts the vertical mounting elevation ($z_a$) of each AP from the set of candidate heights. This involves minor physical adjustment along the Z-axis only.
+
+    \item \textbf{Tier 4 -- Full Spatial Repositioning:} As a last resort, the HPSO unlocks the horizontal coordinates ($x_a, y_a$), enabling complete 3D relocation of APs. To prevent excessive displacement, one-third of the particle swarm is seeded near the current AP positions, allowing the optimizer to preferentially discover nearby solutions.
+\end{itemize}
+
+At each tier, the HPSO locks the velocity components of the dimensions not yet activated (e.g., in Tier~2, the $x$, $y$, and $z$ velocity components are clamped to zero). This cascading structure ensures that the system always attempts the least disruptive adjustment first before escalating.
+
+\subsubsection{Displacement Minimization via Hungarian Algorithm}
+
+When the HPSO produces an optimized set of AP positions, a critical assignment problem arises: which \textit{existing} AP should move to which \textit{new} position? A naive assignment may result in unnecessarily large total displacement. To minimize the aggregate physical relocation distance, we formulate this as a classical assignment problem and solve it using the Hungarian algorithm \cite{b12}.
+
+Let $\mathcal{R}_{\text{prev}} = \{r_1, \ldots, r_n\}$ denote the $n$ current AP positions and $\mathcal{R}_{\text{new}} = \{r'_1, \ldots, r'_n\}$ denote the $n$ optimized positions. We construct a cost matrix $C \in \mathbb{R}^{n \times n}$ where each entry $C_{ij}$ represents the 3D Euclidean displacement required to move existing AP $r_i$ to new position $r'_j$:
+\begin{equation}
+    C_{ij} = \sqrt{(x_i - x'_j)^2 + (y_i - y'_j)^2 + (z_i - z'_j)^2}
+    \label{eq:cost_matrix}
+\end{equation}
+
+The Hungarian algorithm finds the optimal one-to-one assignment $\sigma^*: \{1, \ldots, n\} \to \{1, \ldots, n\}$ that minimizes the total displacement:
+\begin{equation}
+    \sigma^* = \arg\min_{\sigma} \sum_{i=1}^{n} C_{i, \sigma(i)}
+    \label{eq:hungarian}
+\end{equation}
+This assignment is computed in $O(n^3)$ time, which is negligible for the typical number of indoor APs ($n \le 30$).
+
+% Results Section
+
+% Results Section 
+%section ka heading bold kar dena chiahey??[TCPASHISH]
+%chalgea yr naya heading ??? [TCPASHISH] 
+% \vspace{0.5ex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
