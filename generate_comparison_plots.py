@@ -1,3 +1,5 @@
+# DEPRECATED: parts of this script plot hard-coded numbers (not simulation output).
+# The corrected TeraMove figures are produced by teramove_eval/run.py + teramove_eval/make_assets.py.
 import numpy as np
 import matplotlib.pyplot as plt
 import os

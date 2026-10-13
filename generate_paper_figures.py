@@ -1,3 +1,5 @@
+# DEPRECATED: parts of this script plot hard-coded numbers (not simulation output).
+# The corrected TeraMove figures are produced by teramove_eval/run.py + teramove_eval/make_assets.py.
 #!/usr/bin/env python3
 """
 Generate all 11 IEEE-formatted PDF figures for the paper.

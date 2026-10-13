@@ -1,0 +1,50 @@
+## Critical — fix regardless of what else you do
+
+1. **The re-association paragraph in Section V-B contradicts Eq. (14).** You claim "ideal, zero-cost user re-association to the best available AP," but the MILP binds each user to exactly one AP. Either show that evaluation-time association is separate from the MILP's design-time Yᵤ,ₐ and prove it with a baseline, or delete the paragraph and implement re-association properly.
+2. **Drop "absolute necessity of physical AP reconfiguration."** Overclaim that invites scrutiny.
+3. **Two `[?]` broken citations** — Related Work ("outage and SINR [?], [10]") and Section III ("occluded by human bodies [?]").
+4. **Mangled quote marks in references [2] and [3]** (`,´´`).
+5. **Stray accent character in Section IV-C** after "over physical motion".
+
+## Model corrections (batch these, then re-run once)
+
+6. **Implement re-association as explicit comparison arms**: static + handover only; handover + Tier 2 only; full TeraMove.
+7. **Gain–beamwidth coupling.** Replace fixed G_max with G_max(θ) = 10log₁₀(K/(θ_az·θ_el)), normalized so 60° → 30 dBi.
+8. **Saturating blockage model.** L_dyn = L_h·(1 − Π_c(1 − D_h(c))) instead of the unbounded additive sum.
+9. **Verify k(f) = 0.05 m⁻¹.** That's 0.217 dB/m, roughly 10× typical 300 GHz indoor values.
+10. **Re-run everything**: all scenarios, 30 seeds, all arms; regenerate every figure and table.
+
+## Figures and tables
+
+11. **Error bars on Fig. 3** from the 30 seeds.
+12. **Fig. 3 y-axis** starts at 60% — start at 0 or state the truncation.
+13. **Add the re-association arm** to Fig. 3.
+14. **Adaptation-latency column in Table II**: Tier 2 in ms, Tier 3 ~15 s, Tier 4 ~minutes at 0.2 m/s.
+15. **Fig. 2 caption** says "fully restore SINR"; t₁ recovers to 95.6%.
+
+## Missing parameters
+
+16. **d_min** — cited as "(Table I)" in Eq. (20), absent from Table I.
+17. **Grid cell size**, **user height z_u**, **bonus value B**.
+18. **Confirm β = 0.15** matches the run that produced 69.1 m.
+
+## Writing and framing
+
+19. **Restore a proper Limitations paragraph**: blockage modelling choice, re-association scope, no reflected paths, synthetic rather than measured density, sensitivity to density-estimation error.
+20. **Rewrite Section V** around the new numbers.
+21. **Retitle** — "Resilient Pervasive Connectivity" is PerCom framing. Suggested: *TeraMove: Cascading Beam-to-Motion Adaptation for Blockage-Resilient Indoor THz Networks.*
+22. **Rewrite the abstract opening** — lead with the mechanism, not two sentences of THz background.
+23. **Update Index Terms** to match the guidelines (academia) framing.
+24. **"zero- cost"** stray space in the Tier 2 bullet.
+25. **"router swarms"** → "mobile AP deployments."
+26. **Add one sentence to Section III** framing the channel model as evaluation substrate, since the mechanism is your contribution.
+27. **Reorder contribution bullets** so the 4-tier architecture comes first.
+28. **Note the dual role of D_h** — it functions both as occlusion in Eq. (7) and as demand weighting in R_density.
+
+## Final pass
+
+29. **Proofread the compiled PDF line by line**, checking every number against every table.
+
+## If time runs short
+
+Priority order: re-association → broken citations → gain coupling → error bars → saturating blockage → latency column → everything else.

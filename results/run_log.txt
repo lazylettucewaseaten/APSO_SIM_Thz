@@ -1,0 +1,6 @@
+[legacy] done in 2 s
+[main] done in 328 s
+[regime] done in 2291 s
+[temporal] done in 965 s
+[assoc] done in 4 s
+[sensing] done in 118 s

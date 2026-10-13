@@ -1,0 +1,6482 @@
+[
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.6968687855490072,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.5910212599504016,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.6049764224364349,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.5656229285163358,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.4343770714836644,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.4600470442083489,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7231686786041126,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.3401881768333953,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.833953454909784,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.24851059988554208,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.35497642243643507,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.31678427718753877,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.5656229285163357,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.7300235221041744,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.39669018877084117,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.4200940884166977,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.44349798806255425,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.49030578735426733,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.4161701999618474,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.5234038996458567,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.47812569049455483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6364079235207483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "fixed",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.4343770714836643,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.6968687855490072,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.5910212599504016,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.6049764224364349,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.5656229285163358,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.4343770714836644,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.4600470442083489,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7231686786041126,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.3401881768333953,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.833953454909784,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.24851059988554208,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.35497642243643507,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.31678427718753877,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.5656229285163357,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.7300235221041744,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.4200940884166977,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.4200940884166977,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.44349798806255425,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.49030578735426733,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.4161701999618474,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.5234038996458567,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.47812569049455483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6364079235207483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "handover",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.4343770714836643,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6735215101667286,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.6968687855490072,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.6329361599694779,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.6049764224364349,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.591250276197822,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.4343770714836644,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.6432627670208102,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7231686786041126,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.5000000000000001,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.8646220909318615,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.4161701999618474,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.35497642243643507,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.39669018877084117,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.8099294336874768,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.4200940884166977,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.5633568554375077,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.5475016571869314,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.5468077992917132,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.49030578735426733,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.6329361599694778,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.5234038996458567,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.591250276197822,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6763608793123995,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "ho_t2",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6735215101667286,
+"disp": 0.8000000000000003,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.7481234809119796,
+"disp": 2.8000000000000007,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.7167659600076306,
+"disp": 2.494744338499853,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.6049764224364349,
+"disp": 1.2000000000000002,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.591250276197822,
+"disp": 0.20000000000000018,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.6349988952087124,
+"disp": 8.477294835557402,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.7231686786041126,
+"disp": 9.380130297869474,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.6349988952087124,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7465725782499691,
+"disp": 2.0000000000000004,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.6598118231666048,
+"disp": 17.02172303245229,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.895290726953939,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.4580850999809237,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.7216823850423768,
+"disp": 20.555798101103676,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.39669018877084117,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.7662447522413839,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.8567372329791899,
+"disp": 1.4,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.6666666666666667,
+"disp": 4.2411306281528995,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.5633568554375077,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.6168776238793081,
+"disp": 9.549226050940725,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.5468077992917132,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.5702116989375697,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.6329361599694778,
+"disp": 0.8000000000000007,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.5468077992917132,
+"disp": 2.0000000000000004,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.6349988952087124,
+"disp": 1.6000000000000005,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6763608793123995,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "teramove",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.6349988952087124,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.650117610520872,
+"disp": 2.741877913670737,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.6968687855490072,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.6748510599885542,
+"disp": 3.045893467083026,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.7300235221041744,
+"disp": 5.893403555975429,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.875,
+"disp": 7.425421775038804,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.5656229285163358,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.6862535905716848,
+"disp": 12.181822543716969,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.6900705663125233,
+"disp": 14.683318016360833,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.7043748619010891,
+"disp": 5.196147719439529,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7231686786041126,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.9765961003541435,
+"disp": 46.665088106022054,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.8646220909318615,
+"disp": 3.9694865739974565,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.8916170199961847,
+"disp": 51.1956527516262,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.7737508285934658,
+"disp": 10.395201624665402,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.8183647700847535,
+"disp": 22.842740552848387,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.7066196224583179,
+"disp": 32.27253836455472,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.7481234809119794,
+"disp": 7.624749752605007,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.8099294336874768,
+"disp": 6.217817981530742,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.5234038996458567,
+"disp": 4.8739418836592465,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.8567372329791899,
+"disp": 33.032551450394855,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.503753038176041,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.4834509438542054,
+"disp": 3.5208283428945926,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.650117610520872,
+"disp": 7.921513412578772,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.6257447000572289,
+"disp": 5.870673510536889,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.7300235221041744,
+"disp": 6.639973699462553,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.6606262428901987,
+"disp": 8.363124528370525,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6364079235207483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "pso",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.6168776238793081,
+"disp": 10.892209151717779,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 0,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 1,
+"cov_before": 0.6968687855490072,
+"coverage": 0.6968687855490072,
+"disp": 0.20978688314398575,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 2,
+"cov_before": 0.5910212599504016,
+"coverage": 0.5910212599504016,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 3,
+"cov_before": 0.6101646547292209,
+"coverage": 0.6101646547292209,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 4,
+"cov_before": 0.6049764224364349,
+"coverage": 0.9233411925211884,
+"disp": 25.536433953560703,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 5,
+"cov_before": 0.5656229285163358,
+"coverage": 0.9049966856261371,
+"disp": 67.70555079823113,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 6,
+"cov_before": 0.4343770714836644,
+"coverage": 0.9125027619782191,
+"disp": 62.37678046564617,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 7,
+"cov_before": 0.4600470442083489,
+"coverage": 0.849882389479128,
+"disp": 39.158144497441356,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 8,
+"cov_before": 0.6093715475272262,
+"coverage": 0.6093715475272262,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 9,
+"cov_before": 0.7231686786041126,
+"coverage": 0.7231686786041126,
+"disp": 1.9010522893437276,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 10,
+"cov_before": 0.3401881768333953,
+"coverage": 0.9132392449166358,
+"disp": 71.93066120084907,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 11,
+"cov_before": 0.6349988952087124,
+"coverage": 0.6349988952087124,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 12,
+"cov_before": 0.833953454909784,
+"coverage": 0.938662727955845,
+"disp": 57.338805829747905,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 13,
+"cov_before": 0.24851059988554208,
+"coverage": 0.9161701999618472,
+"disp": 80.64621331405468,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 14,
+"cov_before": 0.503753038176041,
+"coverage": 0.9125027619782191,
+"disp": 72.3884702259054,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 15,
+"cov_before": 0.35497642243643507,
+"coverage": 0.9433647700847535,
+"disp": 84.20908701193488,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 16,
+"cov_before": 0.5731290048684177,
+"coverage": 0.5731290048684177,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 17,
+"cov_before": 0.31678427718753877,
+"coverage": 0.849882389479128,
+"disp": 66.81403516113924,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 18,
+"cov_before": 0.5656229285163357,
+"coverage": 0.9125027619782189,
+"disp": 52.52565375533779,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 19,
+"cov_before": 0.7300235221041744,
+"coverage": 0.7300235221041744,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 20,
+"cov_before": 0.4200940884166977,
+"coverage": 0.4200940884166977,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 21,
+"cov_before": 0.4200940884166977,
+"coverage": 0.5867607550833642,
+"disp": 6.771091484849157,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 22,
+"cov_before": 0.503753038176041,
+"coverage": 0.8174994476043562,
+"disp": 40.6343575610365,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 23,
+"cov_before": 0.44349798806255425,
+"coverage": 0.44349798806255425,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 24,
+"cov_before": 0.49030578735426733,
+"coverage": 0.6033098112291589,
+"disp": 7.459651156625213,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 25,
+"cov_before": 0.4161701999618474,
+"coverage": 0.7658723199389558,
+"disp": 28.4166609718285,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 26,
+"cov_before": 0.5234038996458567,
+"coverage": 0.5234038996458567,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 27,
+"cov_before": 0.47812569049455483,
+"coverage": 0.7043748619010891,
+"disp": 29.490602293539435,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 28,
+"cov_before": 0.6364079235207483,
+"coverage": 0.6364079235207483,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Low",
+"arm": "ga",
+"seed": 29,
+"cov_before": 0.4343770714836643,
+"coverage": 0.9125027619782191,
+"disp": 44.51883313742584,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.4909393643352978,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.8003178649385712,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.5444199782550339,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.4634744659583795,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.46000441916515034,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.5320933888884435,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.4758421500028517,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.3851470053011292,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.5859482931508808,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.6184358417046877,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.3167842771875386,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.45625138098910933,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.45937240964378845,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.49070105709233264,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.3937967631344815,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.46555220856210205,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6017112882062999,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.37753260766543206,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.46789090013032253,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.562671694176165,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.34773171023155347,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.4600044191651503,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.4471907453244072,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.4146890552211037,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.6795988659005361,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.4318262955965416,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.39184308244797456,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.33979943295026804,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.5613656287033548,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "fixed",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.4460982831233699,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.4909393643352978,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.8003178649385712,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.5444199782550339,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.4634744659583795,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.46000441916515034,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.5320933888884435,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.4758421500028517,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.3851470053011292,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.5859482931508808,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.6184358417046877,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.3167842771875386,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.45625138098910933,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.45937240964378845,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.49070105709233264,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.3937967631344815,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.46555220856210205,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6017112882062999,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.37753260766543206,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.46789090013032253,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.5750557887505541,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.3603832710977804,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.4600044191651503,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.4471907453244072,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.4146890552211037,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.6795988659005361,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.4318262955965416,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.39184308244797456,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.33979943295026804,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.5613656287033548,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "handover",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.4460982831233699,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.5128136738407431,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.831944623616698,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.5853303973906038,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.4634744659583795,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.5037530381760409,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.5320933888884435,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.5384892380204174,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.4182619728128208,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.6992500501375545,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.6479679622105619,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.3884156606979436,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.45625138098910933,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.4859206626846256,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.49070105709233264,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.44779409331869496,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.4885174028540339,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6246764824982318,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.45333961772020653,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.5107030332898922,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.6384787042309394,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.3603832710977804,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.5821896405331195,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.4690650548298525,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.4485102900239815,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.6795988659005361,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.5060638515719498,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.40354503227090277,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.45137694032451237,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.6022760478389249,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "ho_t2",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.4460982831233699,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.5256273476814861,
+"disp": 1.2000000000000006,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.845044855995079,
+"disp": 2.0000000000000004,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.629750375645638,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.47517641578130776,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.5037530381760409,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.5553717398371376,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.5384892380204174,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.4182619728128208,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.685975923617136,
+"disp": 0.40000000000000036,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.6602005670497315,
+"disp": 2.2000000000000006,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.5082745280728971,
+"disp": 18.864588505958427,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.45625138098910933,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.5351292671227975,
+"disp": 1.2000000000000002,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.5170024394438447,
+"disp": 1.8000000000000003,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.6724331718889013,
+"disp": 14.104126008969875,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.5383879958533268,
+"disp": 1.4,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6246764824982318,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.45333961772020653,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.5107030332898922,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.7725789698356764,
+"disp": 3.0000000000000004,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.4631306497384524,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.5821896405331195,
+"disp": 1.4,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.48187872867059556,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.46100378863213526,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.700481228573058,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.5631502452808196,
+"disp": 1.1999999999999997,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.40354503227090277,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.48449190783620394,
+"disp": 1.0000000000000004,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.6022760478389249,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "teramove",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.4820327610411232,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.4909393643352978,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.8003178649385712,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.5444199782550339,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.4634744659583795,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.5821896405331196,
+"disp": 6.062558954173982,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.6252067926832199,
+"disp": 4.270495976003362,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.642901051383027,
+"disp": 8.440826179940833,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.4722593029970343,
+"disp": 10.38254921151174,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.6351568975890527,
+"disp": 4.244757084587344,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.7106150502281275,
+"disp": 7.381205776406778,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.6949176726353894,
+"disp": 38.36617670110721,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.5565622928516333,
+"disp": 6.617412444286123,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.7296862048218942,
+"disp": 15.996156684258942,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.49070105709233264,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.7055481394005929,
+"disp": 19.674467294384105,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.7450747444807133,
+"disp": 17.065990422749522,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6017112882062999,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.44095552314581743,
+"disp": 5.526435464799756,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.6214060665797846,
+"disp": 10.052321608357884,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.7390539034344923,
+"disp": 8.908692896818796,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.4973797759520098,
+"disp": 3.3436539555034637,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.4600044191651503,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.6131245857032669,
+"disp": 11.984643124800455,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.5249869972163073,
+"disp": 8.577984067514945,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.6795988659005361,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.5888769886806272,
+"disp": 7.21168213445827,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.4352234599896566,
+"disp": 5.528170942216036,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.62708559953804,
+"disp": 14.578318171863247,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.5613656287033548,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "pso",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.4460982831233699,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 0,
+"cov_before": 0.4909393643352978,
+"coverage": 0.4909393643352978,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 1,
+"cov_before": 0.8003178649385712,
+"coverage": 0.8003178649385712,
+"disp": 0.20978688314398575,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 2,
+"cov_before": 0.5444199782550339,
+"coverage": 0.5444199782550339,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 3,
+"cov_before": 0.4634744659583795,
+"coverage": 0.5984627049062922,
+"disp": 25.895778439210556,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 4,
+"cov_before": 0.46000441916515034,
+"coverage": 0.6259382595440101,
+"disp": 19.447335817441342,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 5,
+"cov_before": 0.5320933888884435,
+"coverage": 0.7319563387540606,
+"disp": 26.247070906622636,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 6,
+"cov_before": 0.4758421500028517,
+"coverage": 0.6133689308771527,
+"disp": 15.242705192506612,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 7,
+"cov_before": 0.3851470053011292,
+"coverage": 0.7681952274181586,
+"disp": 33.48693052900295,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 8,
+"cov_before": 0.5859482931508808,
+"coverage": 0.5859482931508808,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 9,
+"cov_before": 0.6184358417046877,
+"coverage": 0.6479679622105619,
+"disp": 0.9996586187756158,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 10,
+"cov_before": 0.3167842771875386,
+"coverage": 0.6900705663125231,
+"disp": 47.03437000884324,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 11,
+"cov_before": 0.45625138098910933,
+"coverage": 0.45625138098910933,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 12,
+"cov_before": 0.45937240964378845,
+"coverage": 0.7617327810961452,
+"disp": 25.23837376330114,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 13,
+"cov_before": 0.49070105709233264,
+"coverage": 0.49070105709233264,
+"disp": 1.0664311754604938,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 14,
+"cov_before": 0.3937967631344815,
+"coverage": 0.7890775900906807,
+"disp": 53.8695391024027,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 15,
+"cov_before": 0.46555220856210205,
+"coverage": 0.8083980368336867,
+"disp": 35.24814664771277,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 16,
+"cov_before": 0.6017112882062999,
+"coverage": 0.6017112882062999,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 17,
+"cov_before": 0.37753260766543206,
+"coverage": 0.37753260766543206,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 18,
+"cov_before": 0.46789090013032253,
+"coverage": 0.5660545499348384,
+"disp": 14.195195101148752,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 19,
+"cov_before": 0.5750557887505541,
+"coverage": 0.726669808860103,
+"disp": 19.24376315386878,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 20,
+"cov_before": 0.3603832710977804,
+"coverage": 0.3603832710977804,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 21,
+"cov_before": 0.4600044191651503,
+"coverage": 0.5475016571869311,
+"disp": 4.847658798851642,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 22,
+"cov_before": 0.4471907453244072,
+"coverage": 0.6787475142196027,
+"disp": 33.645071380918644,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 23,
+"cov_before": 0.4146890552211037,
+"coverage": 0.4146890552211037,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 24,
+"cov_before": 0.6795988659005361,
+"coverage": 0.6795988659005361,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 25,
+"cov_before": 0.4318262955965416,
+"coverage": 0.4974882704386806,
+"disp": 5.51720121328106,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 26,
+"cov_before": 0.39184308244797456,
+"coverage": 0.5433803775416818,
+"disp": 35.8411760214895,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 27,
+"cov_before": 0.33979943295026804,
+"coverage": 0.6688503248830838,
+"disp": 47.13670861614314,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 28,
+"cov_before": 0.5613656287033548,
+"coverage": 0.5613656287033548,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Medium",
+"arm": "ga",
+"seed": 29,
+"cov_before": 0.4460982831233699,
+"coverage": 0.6710913755068059,
+"disp": 36.54856850984299,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6105861797949536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6351911928575166,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.4999999999999998,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.472554175836908,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.3589606810148193,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5608350110205511,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.459988352171405,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.5165604654201608,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.4355961036317942,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.5721008563147921,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.4069083188348319,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.41326690660268955,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.41701647350082927,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.403563721450065,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.34326051378887523,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.36730997990928527,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.4742696237909343,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.39798724602183333,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.4753074682772813,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.5493799420045716,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.281411490639327,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.3927730774256507,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.40205787081287214,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.35280497137959504,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6083289421645801,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.416524739693961,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.38691806872655005,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.37096887736859163,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.473319267778058,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "fixed",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6105861797949536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6351911928575166,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.4999999999999998,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.472554175836908,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.3589606810148193,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5608350110205511,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.459988352171405,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.5165604654201608,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.4355961036317942,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.5721008563147921,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.4069083188348319,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.41326690660268955,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.41701647350082927,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.403563721450065,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.34326051378887523,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.36730997990928527,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.5166186919431472,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.39798724602183333,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.4753074682772813,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.5577293094198325,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.2902333071351219,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.3927730774256507,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.40205787081287214,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.35280497137959504,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6083289421645801,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.416524739693961,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.38691806872655005,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.37096887736859163,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.473319267778058,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "handover",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6105861797949536,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6638670153494086,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.5287465388814578,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.472554175836908,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.38812642702207967,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5608350110205511,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.4750481349337598,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.5248406981302414,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.49443018278026746,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.5834621313454451,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.44931404306237543,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.4443218330184436,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.435091773565023,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.403563721450065,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.37872269267082803,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.38337928427923446,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.5329963275962598,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.4671139453284811,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.489477074154863,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.6004890946194622,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.2902333071351219,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.47172951718163725,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.43275357764221445,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.37485528209081975,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6362053847375446,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.465423415058614,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.38691806872655005,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.4070101409358199,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.4872574890645402,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "ho_t2",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6256459625573085,
+"disp": 1.0000000000000004,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6638670153494086,
+"disp": 3.0000000000000004,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.5455858714869305,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.518027906232347,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.38208600324561154,
+"disp": 1.4,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5755435308076695,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.5139895169542645,
+"disp": 0.8000000000000003,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.5389759395394226,
+"disp": 1.8000000000000007,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.5030462341891284,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.591495765962545,
+"disp": 1.8000000000000003,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.46344928447155664,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.4844725367921227,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.4930611909728802,
+"disp": 2.3999999999999995,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.4122546543838746,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.4520000475365072,
+"disp": 2.4000000000000004,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.4437574347051776,
+"disp": 1.8000000000000003,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.5753453957484729,
+"disp": 1.4000000000000004,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.47521264191483054,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.5710565865140071,
+"disp": 1.1999999999999997,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.6825502437980842,
+"disp": 1.6000000000000005,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.37693788767192593,
+"disp": 1.2000000000000006,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.5107054567210602,
+"disp": 2.0000000000000004,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.477584525880738,
+"disp": 1.6000000000000005,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.38300062414546887,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6501436060240268,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.4870484776662203,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.4034785341467112,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.42911318321656594,
+"disp": 1.6000000000000005,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.5011957103510224,
+"disp": 3.4,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "teramove",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": 4
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6105861797949536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6351911928575166,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.5802860135063813,
+"disp": 5.7212027014368605,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.472554175836908,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.3589606810148193,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5608350110205511,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.5503470487455342,
+"disp": 4.626554714184371,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.5165604654201608,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.5963445189730452,
+"disp": 9.300220434770397,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.5721008563147921,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.6627633275339325,
+"disp": 30.103205054932655,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.5958288707552352,
+"disp": 15.984287335392743,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.7079600113469817,
+"disp": 21.116955672904925,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.403563721450065,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.5640672216976923,
+"disp": 16.30676058950592,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.6958252272707384,
+"disp": 30.20300184532254,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.5589677600953604,
+"disp": 3.2168926750262523,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.4890379817761601,
+"disp": 6.9889668108315695,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.5827950723699586,
+"disp": 8.935852445972998,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.5577293094198325,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.43976086895058025,
+"disp": 9.636174914250347,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.3927730774256507,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.494144991300899,
+"disp": 6.628269862103069,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.35280497137959504,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6083289421645801,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.416524739693961,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.38691806872655005,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.543010374210469,
+"disp": 15.878802249365986,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.473319267778058,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "pso",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 0,
+"cov_before": 0.6105861797949536,
+"coverage": 0.6105861797949536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 1,
+"cov_before": 0.6351911928575166,
+"coverage": 0.6351911928575166,
+"disp": 0.20978688314398575,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 2,
+"cov_before": 0.4999999999999998,
+"coverage": 0.4999999999999998,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 3,
+"cov_before": 0.472554175836908,
+"coverage": 0.6159332882963686,
+"disp": 27.750037072716946,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 4,
+"cov_before": 0.3589606810148193,
+"coverage": 0.5268783604068329,
+"disp": 34.56256627368515,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 5,
+"cov_before": 0.5608350110205511,
+"coverage": 0.5608350110205511,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 6,
+"cov_before": 0.459988352171405,
+"coverage": 0.6796471273401679,
+"disp": 22.64922376919685,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 7,
+"cov_before": 0.5165604654201608,
+"coverage": 0.530695706829342,
+"disp": 5.746729523844264,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 8,
+"cov_before": 0.4355961036317942,
+"coverage": 0.5679727817158591,
+"disp": 31.197682896103856,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 9,
+"cov_before": 0.5721008563147921,
+"coverage": 0.5834621313454451,
+"disp": 0.9996586187756158,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 10,
+"cov_before": 0.4069083188348319,
+"coverage": 0.6651885515449124,
+"disp": 34.73004217239556,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 11,
+"cov_before": 0.41326690660268955,
+"coverage": 0.6075887396211335,
+"disp": 37.59326146992766,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 12,
+"cov_before": 0.41701647350082927,
+"coverage": 0.48776705815605953,
+"disp": 3.061976294936887,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 13,
+"cov_before": 0.403563721450065,
+"coverage": 0.403563721450065,
+"disp": 1.0664311754604938,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 14,
+"cov_before": 0.34326051378887523,
+"coverage": 0.643025214078698,
+"disp": 40.84596708562974,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 15,
+"cov_before": 0.36730997990928527,
+"coverage": 0.7734146923664034,
+"disp": 50.98079186783941,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 16,
+"cov_before": 0.5166186919431472,
+"coverage": 0.5166186919431472,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 17,
+"cov_before": 0.39798724602183333,
+"coverage": 0.5352581079828878,
+"disp": 29.00146505019667,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 18,
+"cov_before": 0.4753074682772813,
+"coverage": 0.6253038900027035,
+"disp": 17.13784769612788,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 19,
+"cov_before": 0.5577293094198325,
+"coverage": 0.5577293094198325,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 20,
+"cov_before": 0.2902333071351219,
+"coverage": 0.2902333071351219,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 21,
+"cov_before": 0.3927730774256507,
+"coverage": 0.5930916811651673,
+"disp": 33.72673962023884,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 22,
+"cov_before": 0.40205787081287214,
+"coverage": 0.5175650260973016,
+"disp": 13.77045346110262,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 23,
+"cov_before": 0.35280497137959504,
+"coverage": 0.35280497137959504,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 24,
+"cov_before": 0.6083289421645801,
+"coverage": 0.6083289421645801,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 25,
+"cov_before": 0.416524739693961,
+"coverage": 0.45977486490917363,
+"disp": 5.51720121328106,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 26,
+"cov_before": 0.38691806872655005,
+"coverage": 0.38691806872655005,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 27,
+"cov_before": 0.37096887736859163,
+"coverage": 0.4430514045030481,
+"disp": 2.8765140183493996,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 28,
+"cov_before": 0.473319267778058,
+"coverage": 0.473319267778058,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "High",
+"arm": "ga",
+"seed": 29,
+"cov_before": 0.49058431588024404,
+"coverage": 0.49058431588024404,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.5859436861749638,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.6042660645783048,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.45563998601498684,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.45377681635982053,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.36687762387930783,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5306947063735407,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.41975792217303254,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.4909393643352976,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.4082081802162864,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.4738324671436589,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.40362576105147513,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.4039636266515173,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.3650737212107298,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.37187104834025536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.36038327109778023,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.3796697927742676,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.41166057950718493,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.39125866383764324,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.416977801142986,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.49868154773647416,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.28164397087677284,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.42439376167924775,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.39140573212908364,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.34511148618356324,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5452907658714061,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.356828077540022,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.3729144004619593,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.3472020598923943,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.4510944027850591,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "fixed",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.5347908058889583,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.5859436861749638,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.6042660645783048,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.45563998601498684,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.45377681635982053,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.36687762387930783,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5306947063735407,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.41975792217303254,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.4909393643352976,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.4082081802162864,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.4738324671436589,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.40362576105147513,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.4039636266515173,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.3650737212107298,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.37187104834025536,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.36038327109778023,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.3796697927742676,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.4423229444249166,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.39125866383764324,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.416977801142986,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.505047598408364,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.28828103413698214,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.42439376167924775,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.3978125690494552,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.34511148618356324,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5452907658714061,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.356828077540022,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.3729144004619593,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.3472020598923943,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.4510944027850591,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "handover",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.5347908058889583,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.6125185744883611,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.626382262361446,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.49072666899750195,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.46021281037866457,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.39515877030512464,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5306947063735407,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.4373270387759464,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.4973462012556692,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.44226491192387785,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.5171882551554188,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.4358778454267976,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.4529900180469233,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.3782858417638421,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.37187104834025536,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.3991053995518894,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.4025898322458356,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.49670139391293605,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.441737529629962,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.45542719931520137,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.5485177114938059,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.28828103413698214,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.44665415526569613,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.49546968216764875,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.3730348319640071,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5561095934328463,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.37836920031942506,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.3729144004619593,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.391377729584134,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.4954108786636287,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "ho_t2",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.5347908058889583,
+"disp": 0.0,
+"tier": 2
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.6299744028068016,
+"disp": 2.4,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.6218018478264946,
+"disp": 3.0000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.518131073040798,
+"disp": 1.4,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.5014946505016862,
+"disp": 1.4000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.4015656072254962,
+"disp": 1.7999999999999998,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5419719566685769,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.5102917502270724,
+"disp": 4.811176198801026,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.4973462012556692,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.46496939972893864,
+"disp": 1.2000000000000002,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.5298868714603768,
+"disp": 2.400000000000001,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.4529261514226592,
+"disp": 1.2000000000000002,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.5020164094423294,
+"disp": 2.0000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.4677023946218038,
+"disp": 3.4000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.38454609325328687,
+"disp": 1.4000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.4676036519790041,
+"disp": 2.400000000000001,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.4705355121339824,
+"disp": 2.6000000000000005,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.5036476742603798,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.441737529629962,
+"disp": 0.20000000000000018,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.4831538735212729,
+"disp": 0.6000000000000001,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.6301841286105876,
+"disp": 1.8000000000000007,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.3535129267122794,
+"disp": 1.6,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.4773441070476879,
+"disp": 2.2000000000000006,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.5565622928516334,
+"disp": 1.2000000000000002,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.3964851755038994,
+"disp": 0.7999999999999998,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5777472485557266,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.4322220072679329,
+"disp": 2.0,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.37903070288154417,
+"disp": 1.0,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.43298390926131763,
+"disp": 5.488037048989338,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.5019008762969003,
+"disp": 1.4000000000000004,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "teramove",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.552878091305349,
+"disp": 0.3999999999999999,
+"tier": 4
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.5859436861749638,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.6042660645783048,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.50442887101915,
+"disp": 4.9057208607382,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.45377681635982053,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.36687762387930783,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5306947063735407,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.41975792217303254,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.4909393643352976,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.5189761029807352,
+"disp": 11.907093539786826,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.4738324671436589,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.5085241529979305,
+"disp": 17.2212101595829,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.5166205385112385,
+"disp": 12.581991275944068,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.5664613275167254,
+"disp": 19.373273017452817,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.4017024432712429,
+"disp": 1.8654375594760155,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.6072203808812235,
+"disp": 37.11684928414894,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.6281951213718674,
+"disp": 28.15963255599073,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.4729853093426482,
+"disp": 3.5675786368119904,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.48120871626432127,
+"disp": 8.164212298845909,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.48943509979505695,
+"disp": 6.942013627091815,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.505047598408364,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.3941405170684909,
+"disp": 11.92104520216265,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.42439376167924775,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.4935931630796282,
+"disp": 10.435702775412869,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.34511148618356324,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5452907658714061,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.356828077540022,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.3729144004619593,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.5936461851182614,
+"disp": 26.08193911751293,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.4510944027850591,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "pso",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.5347908058889583,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 0,
+"cov_before": 0.5859436861749638,
+"coverage": 0.5859436861749638,
+"disp": 0.16603361925288812,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 1,
+"cov_before": 0.6042660645783048,
+"coverage": 0.6042660645783048,
+"disp": 0.20978688314398575,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 2,
+"cov_before": 0.45563998601498684,
+"coverage": 0.45563998601498684,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 3,
+"cov_before": 0.45377681635982053,
+"coverage": 0.5719671597155551,
+"disp": 23.159866147536444,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 4,
+"cov_before": 0.36687762387930783,
+"coverage": 0.4434377071483662,
+"disp": 27.785179711436005,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 5,
+"cov_before": 0.5306947063735407,
+"coverage": 0.5306947063735407,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 6,
+"cov_before": 0.41975792217303254,
+"coverage": 0.5519199810661717,
+"disp": 21.289511303556225,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 7,
+"cov_before": 0.4909393643352976,
+"coverage": 0.5018765190880202,
+"disp": 5.551731574941343,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 8,
+"cov_before": 0.4082081802162864,
+"coverage": 0.4082081802162864,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 9,
+"cov_before": 0.4738324671436589,
+"coverage": 0.5822219371730586,
+"disp": 51.87830440582091,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 10,
+"cov_before": 0.40362576105147513,
+"coverage": 0.5344786261691654,
+"disp": 44.60538323315193,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 11,
+"cov_before": 0.4039636266515173,
+"coverage": 0.6166897307443805,
+"disp": 33.61141185184184,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 12,
+"cov_before": 0.3650737212107298,
+"coverage": 0.4167887826674305,
+"disp": 3.061976294936887,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 13,
+"cov_before": 0.37187104834025536,
+"coverage": 0.37187104834025536,
+"disp": 1.0664311754604938,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 14,
+"cov_before": 0.36038327109778023,
+"coverage": 0.5316289021655671,
+"disp": 65.0809707540373,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 15,
+"cov_before": 0.3796697927742676,
+"coverage": 0.5756419182925724,
+"disp": 32.67591847762375,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 16,
+"cov_before": 0.4423229444249166,
+"coverage": 0.4423229444249166,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 17,
+"cov_before": 0.39125866383764324,
+"coverage": 0.5923918353354449,
+"disp": 42.62701218371241,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 18,
+"cov_before": 0.416977801142986,
+"coverage": 0.5644941675580634,
+"disp": 20.678505962403936,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 19,
+"cov_before": 0.505047598408364,
+"coverage": 0.5957169707240868,
+"disp": 15.75500030443168,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 20,
+"cov_before": 0.28828103413698214,
+"coverage": 0.28828103413698214,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 21,
+"cov_before": 0.42439376167924775,
+"coverage": 0.4754344671817338,
+"disp": 4.205909546128634,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 22,
+"cov_before": 0.3978125690494552,
+"coverage": 0.3978125690494552,
+"disp": 0.10053752029826768,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 23,
+"cov_before": 0.34511148618356324,
+"coverage": 0.4929067737114581,
+"disp": 30.002792282168514,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 24,
+"cov_before": 0.5452907658714061,
+"coverage": 0.5452907658714061,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 25,
+"cov_before": 0.356828077540022,
+"coverage": 0.3909876978948554,
+"disp": 5.51720121328106,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 26,
+"cov_before": 0.3729144004619593,
+"coverage": 0.3729144004619593,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 27,
+"cov_before": 0.3472020598923943,
+"coverage": 0.5202709310323858,
+"disp": 30.315411882863685,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 28,
+"cov_before": 0.4510944027850591,
+"coverage": 0.4510944027850591,
+"disp": 0.0,
+"tier": null
+},
+{
+"level": "Ultra-dense",
+"arm": "ga",
+"seed": 29,
+"cov_before": 0.5347908058889583,
+"coverage": 0.5347908058889583,
+"disp": 0.0,
+"tier": null
+}
+]

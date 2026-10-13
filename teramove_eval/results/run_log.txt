@@ -1,0 +1,6 @@
+[commission] 7 s
+[tiers] 39 s
+[temporal] 423 s
+[density] 374 s
+[sensitivity] 148 s
+[convergence] 134 s

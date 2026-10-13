@@ -4,6 +4,13 @@ from .config import *
 from .physics import calculate_sinr
 
 
+# AP positions stay inside the building, 0.25 m from the outer walls.  (The earlier
+# bounds [0, LENGTH-1] x [0, BREADTH-1] moved APs mounted at y = 19.5 m by 0.5 m.)
+WALL_MARGIN = 0.25
+X_LO, X_HI = WALL_MARGIN, LENGTH - WALL_MARGIN
+Y_LO, Y_HI = WALL_MARGIN, BREADTH - WALL_MARGIN
+
+
 def snap_phi(phi_raw, candidates):
     """Snap to nearest candidate angle using circular distance."""
     phi_raw = phi_raw % 360
@@ -15,8 +22,8 @@ def decode_routers(pos, n_routers, original_routers=None):
     """Decode a flat position vector into a list of router dicts."""
     routers = []
     for i in range(n_routers):
-        x = np.clip(pos[i*5 + 0], 0, LENGTH - 1)
-        y = np.clip(pos[i*5 + 1], 0, BREADTH - 1)
+        x = np.clip(pos[i*5 + 0], X_LO, X_HI)
+        y = np.clip(pos[i*5 + 1], Y_LO, Y_HI)
         z = CANDIDATE_Z[np.argmin(np.abs(CANDIDATE_Z - pos[i*5 + 2]))]
         phi = snap_phi(pos[i*5 + 3], CANDIDATE_PHI)
         alpha = CANDIDATE_ALPHA[np.argmin(np.abs(CANDIDATE_ALPHA - pos[i*5 + 4]))]
@@ -49,7 +56,7 @@ def compute_fitness(test_routers, human_density, walls, prev_routers):
 
     # Bonus for meeting target
     if density_ratio >= TARGET_COVERAGE:
-        coverage_score += 0.5
+        coverage_score += BONUS
 
     # Movement penalty
     movement_penalty = 0.0
@@ -112,13 +119,26 @@ def compute_total_movement(prev_routers, new_routers):
     return total
 
 
-def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
+def apso_optimize(routers, human_density, walls, tier, prev_routers=None,
+                  iters=None, seed_near=True, history=None, verbose=True, include_current=True,
+                  seed_routers=None):
     """
     APSO with composite fitness, movement penalty, anti-clustering, and velocity clamping.
+
+    Optional arguments (defaults reproduce the original behaviour):
+      iters      number of iterations (default APSO_ITERS)
+      seed_near  Tier 4 seeds one third of the swarm near the current positions;
+                 False gives the uniform initialisation of a standard PSO
+      history    list that receives the global-best fitness after each iteration
+      include_current  particle 0 is the current configuration, so the returned
+                 configuration is never worse (in fitness) than the input
+      seed_routers  Tier 4 only: particle 1 starts at this configuration (e.g. the
+                 crowd-aware greedy layout of chsr_sim.greedy_seed)
     """
-    print(f"    Running APSO Optimization Tier {tier}...")
+    if verbose:
+        print(f"    Running APSO Optimization Tier {tier}...")
     num_particles = NUM_PARTICLES
-    iters = APSO_ITERS
+    iters = APSO_ITERS if iters is None else iters
 
     best_global_pos = None
     best_global_score = -float('inf')
@@ -142,13 +162,13 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
         for r in routers:
             if tier < 4:
                 x, y = r['x'], r['y']
-            elif p_idx < num_particles // 3:
+            elif seed_near and p_idx < num_particles // 3:
                 # Seed 1/3 near current positions
-                x = np.clip(r['x'] + np.random.uniform(-2, 2), 0, LENGTH - 1)
-                y = np.clip(r['y'] + np.random.uniform(-2, 2), 0, BREADTH - 1)
+                x = np.clip(r['x'] + np.random.uniform(-2, 2), X_LO, X_HI)
+                y = np.clip(r['y'] + np.random.uniform(-2, 2), Y_LO, Y_HI)
             else:
-                x = np.random.uniform(0, LENGTH - 1)
-                y = np.random.uniform(0, BREADTH - 1)
+                x = np.random.uniform(X_LO, X_HI)
+                y = np.random.uniform(Y_LO, Y_HI)
 
             z = r['z'] if tier < 3 else np.random.choice(CANDIDATE_Z)
             phi = np.random.choice(CANDIDATE_PHI)
@@ -156,6 +176,12 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
             p.extend([x, y, z, phi, alpha])
 
         pos = np.array(p, dtype=float)
+        if include_current and p_idx == 0:
+            pos = np.array([v for r in routers for v in (r['x'], r['y'], r['z'], r['phi'], r['alpha'])],
+                           dtype=float)
+        if seed_routers is not None and tier >= 4 and p_idx == 1:
+            pos = np.array([v for r in seed_routers for v in (r['x'], r['y'], r['z'], r['phi'], r['alpha'])],
+                           dtype=float)
         swarm.append({
             'pos': pos,
             'vel': np.random.uniform(-0.1, 0.1, dim) * v_max,
@@ -175,6 +201,8 @@ def apso_optimize(routers, human_density, walls, tier, prev_routers=None):
             if score > best_global_score:
                 best_global_score = score
                 best_global_pos = particle['pos'].copy()
+        if history is not None:
+            history.append(best_global_score)
 
         # Velocity and position update
         w = 0.9 - 0.5 * (it / iters)
