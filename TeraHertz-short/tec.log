@@ -89,13 +89,11 @@ Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 1
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 26: invalid constant used : monospace
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 34: invalid constant used : emoji
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/49-sansserif.conf", line 42: invalid constant used : math
-warning: paper.tex:278: Underfull \hbox (badness 2285) in paragraph at lines 275--278
-warning: paper.tex:304: Underfull \hbox (badness 1394) in paragraph at lines 303--304
+warning: paper.tex:240: Underfull \hbox (badness 2285) in paragraph at lines 237--240
 note: Rerunning TeX because "paper.aux" changed ...
-warning: paper.tex:278: Underfull \hbox (badness 2285) in paragraph at lines 275--278
-warning: paper.tex:304: Underfull \hbox (badness 1394) in paragraph at lines 303--304
+warning: paper.tex:240: Underfull \hbox (badness 2285) in paragraph at lines 237--240
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-note: Writing `paper.log` (10.888671875 KiB)
-note: Writing `paper.pdf` (230.271484375 KiB)
+note: Writing `paper.pdf` (221.6630859375 KiB)
+note: Writing `paper.log` (10.6435546875 KiB)
 note: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)

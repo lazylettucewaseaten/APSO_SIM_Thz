@@ -270,12 +270,12 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 
 -- Lines per column: 56 (exact).
-LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
 
 (umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 59.
 
  (umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -283,27 +283,20 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-17.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
+8.
  (ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [2] [3]
-Underfull \hbox (badness 2285) in paragraph at lines 275--278
+) [2]
+Underfull \hbox (badness 2285) in paragraph at lines 237--240
 []\T1/ptm/b/n/10 Tier 1 (Base-line Eval-u-a-tion): \T1/ptm/m/n/10 If cur-rent d
 ensity-
  []
 
-
-Underfull \hbox (badness 1394) in paragraph at lines 303--304
-\T1/ptm/m/n/10 with the least to-tal dis-place-ment, $\OML/cmm/m/it/10 ^^[[] \O
-T1/cmr/m/n/10 : \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n\OM
-S/cmsy/m/n/10 g !
- []
-
-[4]
+[3]
 File: figures/thz_sinr_heatmap.pdf Graphic file (type pdf)
 <use figures/thz_sinr_heatmap.pdf>
- (tables/tiers.tex)
+ [4] (tables/tiers.tex)
 File: figures/fig2a_aps_before.pdf Graphic file (type pdf)
 <use figures/fig2a_aps_before.pdf>
 File: figures/fig2b_sinr_prev.pdf Graphic file (type pdf)
@@ -319,7 +312,7 @@ File: figures/fig2f_sinr_after.pdf Graphic file (type pdf)
  [5]
 File: figures/fig3_coverage_density.pdf Graphic file (type pdf)
 <use figures/fig3_coverage_density.pdf>
- [6]
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -331,9 +324,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (paper.aux)
+[6] (paper.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  )
-Output written on paper.xdv (7 pages, 61364 bytes).
+Output written on paper.xdv (6 pages, 53048 bytes).

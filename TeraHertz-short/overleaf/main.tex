@@ -30,8 +30,7 @@
 
 	\begin{abstract}
 		We present TeraMove, a framework that adapts indoor THz Access Points (APs) to human blockage with a four-tier cascade. The cascade escalates from electronic beam steering to AP height changes and then to full 3D repositioning, and it moves an AP only when lighter adaptations do not provide threshold coverage. TeraMove
-		uses spatial human-density context to detect THz link degradation
-		from dynamic blockages. We describe how this context can be obtained from 3D LiDAR depth sensing; our evaluation uses a synthetic crowd-density model.
+		uses spatial human-density context, obtainable from 3D LiDAR, to detect THz link degradation; our evaluation uses a synthetic crowd model.
 		TeraMove first establishes an optimal baseline layout for AP placement using a Mixed Integer Linear Programming (MILP) model over 3D
 		coordinates and beam orientations.
 		Simulations of an indoor floor with synthetic crowds show that crowd-induced
@@ -65,15 +64,7 @@
 
 	\section{Related Work}
 
-	The THz band (0.1--10~THz) offers very large bandwidth for 6G, but
-	suffers from high path loss, molecular absorption, and severe
-	line-of-sight (LoS) blockage~\cite{b5,b1,b2}. Human bodies can cause
-	more than 20~dB attenuation~\cite{b6}, while pedestrian density and
-	mobility strongly affect THz outage and SINR~\cite{b14}. These
-	characteristics make static deployments vulnerable to
-	spatiotemporally varying human blockage.
-
-	Existing AP placement methods primarily optimize the network before
+	Pedestrian density and mobility strongly affect THz outage and SINR~\cite{b14}, so static deployments are vulnerable to changing human blockage. Existing AP placement methods primarily optimize the network before
 	deployment. Baswade~\textit{et al.}~\cite{b4} formulated base-station
 	placement using mixed-integer optimization, while Liu~\textit{et al.}~\cite{b7}
 	maximized mmWave LoS coverage with multiple APs. Such approaches provide effective initial layouts but do
@@ -93,32 +84,17 @@
 
 	\section{System Model and Problem Formulation}
 
-	The indoor environment is discretized into a 3D volumetric grid. Let $\mathcal{U}$ denote the set of target user equipment locations requiring coverage, and let $\mathcal{A}$ denote the set of candidate AP locations. Let the 3D coordinates of the user device $u$ be $(x_u, y_u, z_u)$ and the candidate AP $a$ be $(x_a, y_a, z_a)$. The volumetric Euclidean distance $d_{u,a}$ is calculated as:
-	\begin{equation}
-		d_{u,a} = \sqrt{(x_u - x_a)^2 + (y_u - y_a)^2 + (z_u - z_a)^2}
-		\label{eq:3d_distance}
-	\end{equation}
-	where the user height is fixed at $z_u = 1.0$~m, and the optimization algorithm selects an optimal AP mounting elevation $z_a$ from a discrete set of candidate heights. The floor is divided into $1~\text{m} \times 1~\text{m}$ cells, and each user is placed at the centre of its cell. This channel model serves as the evaluation setting; our contribution is the adaptation mechanism of Section~IV, which does not depend on the details of the model.
+	The indoor environment is discretized into a 3D volumetric grid. Let $\mathcal{U}$ denote the set of target user equipment locations requiring coverage, and let $\mathcal{A}$ denote the set of candidate AP locations. Let user $u$ be at $(x_u, y_u, z_u)$ and AP $a$ at $(x_a, y_a, z_a)$, with 3D distance $d_{u,a}$. The user height is fixed at $z_u = 1.0$~m, and the optimization algorithm selects an AP mounting elevation $z_a$ from a discrete set of candidate heights. The floor is divided into $1~\text{m} \times 1~\text{m}$ cells, and each user is placed at the centre of its cell. This channel model serves as the evaluation setting; our contribution is the adaptation mechanism of Section~IV, which does not depend on the details of the model.
 
-	The base Free Space Loss (FSL) for a signal operating at frequency $f$ over distance $d_{u,a}$ is derived from the Friis transmission equation:
+	The deterministic line-of-sight path loss combines the Friis free-space loss, molecular absorption \cite{b1,b2} and wall losses:
 	\begin{equation}
-		PL_{\text{FSL}}(d_{u,a}) = 20\log_{10}\left(\frac{4\pi f d_{u,a}}{c}\right)
-	\end{equation}
-	where $c$ is the speed of light in vacuum. The total deterministic (line-of-sight) path loss $PL_{\text{LoS}}(u,a)$ for THz link further incorporates molecular absorption loss and static attenuation \cite{b1}:
-	\begin{equation}
-		PL_{\text{LoS}}(u,a) = PL_{\text{FSL}}(d_{u,a}) + PL_{\text{ABS}}(d_{u,a}) + L_{\text{static}}
+		\begin{split}
+			PL_{\text{LoS}}(u,a) = {} & 20\log_{10}\!\left(\frac{4\pi f d_{u,a}}{c}\right) \\
+			& + 4.343\, k(f)\, d_{u,a} + \sum_{w \in \mathcal{W}_{u,a}} L_{w}
+		\end{split}
 		\label{eq:total_pl}
 	\end{equation}
-	where $PL_{\text{FSL}}(d_{u,a})$ represents the free-space path loss, $L_{\text{static}}$ denotes the attenuation penalty from static infrastructure, and $PL_{\text{ABS}}(d_{u,a})$ accounts for atmospheric molecular absorption at high frequencies \cite{b2}, calculated in dB as:
-	\begin{equation}
-		PL_{\text{ABS}}(d_{u,a}) = 4.343 \cdot k(f) \cdot d_{u,a}
-	\end{equation}
-	with $k(f)$ representing the frequency-dependent molecular absorption coefficient. At 300~GHz in indoor air (23~\textdegree C, 10~g/m$^3$ water vapour), ITU-R P.676 gives 6.68~dB/km, i.e., $k(f) = 1.54 \times 10^{-3}$~m$^{-1}$~\cite{itu676}.
-
-	We model two distinct types of blockages: static and dynamic. For static obstacles, let $\mathcal{W}$ denote the set of walls within the environment. If the 3D line segment connecting $u$ and $a$ intersects a wall $w \in \mathcal{W}$, a material-specific penetration penalty $L_{w}$ (e.g., concrete, wood, glass) is accumulated:
-	\begin{equation}
-		L_{\text{static}} = \sum_{w \in \mathcal{W}_{\text{intersect}}} L_{w}
-	\end{equation}
+	where $c$ is the speed of light and $k(f)$ is the molecular absorption coefficient. At 300~GHz in indoor air (23~\textdegree C, 10~g/m$^3$ water vapour), ITU-R P.676 gives 6.68~dB/km, i.e., $k(f) = 1.54 \times 10^{-3}$~m$^{-1}$~\cite{itu676}. $\mathcal{W}_{u,a}$ is the set of walls crossed by the segment from $u$ to $a$, and $L_w$ is the material-specific penetration penalty of wall $w$ (e.g., concrete, wood, glass).
 
 	Furthermore, THz signals suffer severe attenuation when occluded by human bodies \cite{b6}. We define an expected dynamic loss based on the normalized human density score $D_h(c) \in [0,1]$ for each grid cell (computed in Section~IV-A) over the set of grid cells $\mathcal{C}_{u,a}$ intersected by the 2D projection of the link, excluding the cells of the AP and of the user. A human only obstructs the signal if the elevation of the beam $z(c)$ as it passes through cell $c$ drops below
 	the standard human height $h_{\text{human}}$.
@@ -136,12 +112,7 @@
 
 	We adopt a flat-top sector antenna model parameterized by the half-power beamwidth (HPBW), $\theta_{\text{HPBW}}$, and the AP's mounting azimuth orientation $\phi_a$. Since APs are mounted above users ($z_a > z_u$) with optimal downward tilt, signal gain is calculated only in the horizontal~plane.
 
-	Let $\phi_{u,a}$ denote the spatial angle of user $u$ relative to AP $a$. The shortest angular deviation $\Delta\phi$ between the user's location and the AP's orientation, is calculated as:
-	\begin{equation}
-		\Delta\phi = \big|(\phi_{u,a} - \phi_a + 180^{\circ}) \bmod 360^{\circ} - 180^{\circ}\big|
-		\label{eq:ang_dev}
-	\end{equation}
-	The transmit gain $G_{\text{tx}}(\Delta\phi)$ is:
+	Let $\phi_{u,a}$ be the angle of user $u$ seen from AP $a$, and $\Delta\phi = |(\phi_{u,a} - \phi_a + 180^{\circ}) \bmod 360^{\circ} - 180^{\circ}|$ its deviation from the AP orientation. The transmit gain is:
 	\begin{equation}
 		G_{\text{tx}}(\Delta\phi) =
 		\begin{cases}
@@ -150,19 +121,14 @@
 		\end{cases}
 		\label{eq:beamwidth}
 	\end{equation}
-	where $G_{\text{min}}$ is practically negligible. A user directly below the AP is treated as inside the main lobe. The main-lobe gain depends on the beamwidth as $G_{\text{max}} = 10\log_{10}\big(K/(\theta_{\text{HPBW}}\,\theta_{\text{el}})\big)$. The elevation beamwidth $\theta_{\text{el}}$ is fixed, and $K$ is set so that a $60^{\circ}$ beam has 30~dBi:
+	where $G_{\text{min}}$ is practically negligible. A user directly below the AP is treated as inside the main lobe. With the elevation beamwidth fixed, the main-lobe gain scales inversely with $\theta_{\text{HPBW}}$, and a $60^{\circ}$ beam has 30~dBi:
 	\begin{equation}
 		G_{\text{max}}(\theta_{\text{HPBW}}) = 30 + 10\log_{10}\left(\frac{60^{\circ}}{\theta_{\text{HPBW}}}\right)~\text{dBi}
 		\label{eq:gain_bw}
 	\end{equation}
-	which gives 33.0~dBi at $30^{\circ}$ and 27.0~dBi at $120^{\circ}$. The total path loss $PL(u,a)$ combines the deterministic LoS component with the expected dynamic human blockage:
+	which gives 33.0~dBi at $30^{\circ}$ and 27.0~dBi at $120^{\circ}$. The received power (in W) is
 	\begin{equation}
-		PL(u,a) = PL_{\text{LoS}}(u,a) + L_{\text{dynamic}}(u,a)
-		\label{eq:total_pl_combined}
-	\end{equation}
-	Finally, the received power $P_{\text{rx}}^{(u,a)}$ (in W) is obtained from the total path loss and the antenna gain as:
-	\begin{equation}
-		P_{\text{rx}}^{(u,a)} = 10^{\frac{P_{\text{tx}} + G_{\text{tx}}(\Delta\phi) + G_{\text{rx}} - PL(u,a) - 30}{10}}
+		P_{\text{rx}}^{(u,a)} = 10^{\left(P_{\text{tx}} + G_{\text{tx}}(\Delta\phi) + G_{\text{rx}} - PL_{\text{LoS}} - L_{\text{dynamic}} - 30\right)/10}
 	\end{equation}
 	where $P_{\text{tx}}$ is transmit power in dBm and $G_{\text{rx}}$ is receive antenna gain. User $u$ is served by AP $a^*(u)$, and its SINR is
 	\begin{equation}
@@ -178,7 +144,7 @@
 
 	\section{Proposed Work}
 
-	Our objective is to ensure that every user within the indoor environment receives a minimum required SINR ($\text{SINR}_{\text{th}}$) using the fewest THz APs possible, even as human crowds dynamically reshape the blockage landscape. We address this in two stages: first, we formulate the static baseline placement as a MILP to compute an optimal initial deployment over a discretized candidate set; second, we introduce an HPSO-based dynamic repositioning framework with a 4-tier cascading architecture to adapt the deployment in real time when crowd shifts degrade user coverage.
+	We place the APs with a MILP (Section~IV-B) and adapt them with a 4-tier HPSO (Section~IV-C) when crowd shifts degrade user coverage below the target.
 
 	\subsection{Context Acquisition from Human-Density Sensing}
 
@@ -196,14 +162,12 @@
 		\label{eq:objective}
 	\end{equation}
 	where $W_a \in \{0,1\}$ equals 1 if an AP is deployed at location $a$, and 0 otherwise. Let $Y_{u,a} \in \{0,1\}$ denote whether user $u$ is associated with AP $a$. Eq. \eqref{eq:assoc1} ensures that each target sub-region is associated with exactly one deployed AP. Eq. \eqref{eq:assoc2} mandates that a user $u$ can only logically associate with a candidate location $a$ if an AP is physically deployed there.
-	\begin{equation}
+	\begin{gather}
 		\sum_{a \in \mathcal{A}} Y_{u,a} = 1, \quad \forall u \in \mathcal{U}
-		\label{eq:assoc1}
-	\end{equation}
-	\begin{equation}
+		\label{eq:assoc1} \\
 		Y_{u,a} \le W_a, \quad \forall u \in \mathcal{U}, \forall a \in \mathcal{A}
 		\label{eq:assoc2}
-	\end{equation}
+	\end{gather}
 
 	In practical deployment scenarios where satisfying 100\% coverage is physically or economically infeasible, Eq. \eqref{eq:assoc1} is relaxed to an inequality ($\sum_{a \in \mathcal{A}} Y_{u,a} \le 1$), and a global coverage constraint is introduced. Let $\eta \in (0,1]$ denote the required proportion that must be served. To strictly enforce this spatial coverage ratio, the total number of successfully associated sub-regions must satisfy the following constraint:
 	\begin{equation}
@@ -262,9 +226,7 @@
 		\label{eq:clustering_penalty}
 	\end{equation}
 	where $n$ is the AP count, $\|r_i - r_j\|$ is the horizontal (2D) distance between APs $i$ and $j$, and $d_{\min}$ is
-	the minimum inter-AP spacing (Table~\ref{tab:sim_params}). We prioritize
-	human-centric coverage ($w_c = 0.4, w_d = 0.6$) over displacement ($\beta =
-	0.25$) and clustering ($\gamma = 0.3$) penalties.
+	the minimum inter-AP spacing. The weights are listed in Table~\ref{tab:sim_params}.
 
 	\subsubsection{4-Tier Cascading Optimization Architecture}
 
@@ -280,7 +242,7 @@
 
 		\item \textbf{Tier 3 (Height Adjustment):} If Tier~2 coverage
 		remains insufficient, the optimizer adjusts the mounting height
-		($z_a$), which needs a minor Z-axis movement.
+		($z_a$), which needs a minor Z-axis movement and takes less time and energy than moving the AP horizontally.
 
 		\item \textbf{Tier 4 (Full Spatial Repositioning):} As a last resort,
 		horizontal coordinates ($x_a, y_a$) are unlocked for complete 3D relocation.
@@ -291,17 +253,9 @@
 
 	\subsubsection{Displacement Minimization via Hungarian Algorithm}
 
-	When the HPSO produces an optimized set of AP positions, we use the Hungarian algorithm \cite{b12} to find the assignment of existing APs to new positions that minimizes aggregate physical relocation distance.
-
-	Let $\mathcal{R}_{\text{prev}} = \{r_1, \ldots, r_n\}$ denote the $n$ current AP positions and $\mathcal{R}_{\text{new}} = \{r'_1, \ldots, r'_n\}$ denote the $n$ optimized positions. We construct a cost matrix $C \in \mathbb{R}^{n \times n}$ where each entry $C_{ij}$ represents the displacement required to move existing AP $r_i$ to new position $r'_j$:
+	Let $r_1, \ldots, r_n$ be the current AP positions and $r'_1, \ldots, r'_n$ the positions returned by HPSO. The Hungarian algorithm \cite{b12} finds the one-to-one assignment $\sigma^*$ of current APs to new positions with the least total 3D displacement:
 	\begin{equation}
-		C_{ij} = \sqrt{(x_i - x'_j)^2 + (y_i - y'_j)^2 + (z_i - z'_j)^2}
-		\label{eq:cost_matrix}
-	\end{equation}
-
-	The Hungarian algorithm finds the one-to-one assignment with the least total displacement, $\sigma^*: \{1, \ldots, n\} \to \{1, \ldots, n\}$:
-	\begin{equation}
-		\sigma^* = \arg\min_{\sigma} \sum_{i=1}^{n} C_{i, \sigma(i)}
+		\sigma^* = \arg\min_{\sigma} \sum_{i=1}^{n} \|r_i - r'_{\sigma(i)}\|
 		\label{eq:hungarian}
 	\end{equation}
 
@@ -309,11 +263,9 @@
 
 	For the experimental setup, we considered IIT Bhilai Engineering department layout. A synthetic crowd model generates the human density. A crowd has 9 circular clusters of radius 2~m with random centres, and the density falls linearly from 1 at a cluster centre to 0 at its edge. Each run and each time step draws a new crowd, and every result is the mean over 30 runs with independent random seeds. The simulation parameters are summarized in Table~\ref{tab:sim_params}.
 
-	We set $\text{SINR}_{\text{th}} = 5$~dB as evaluation criterion, the minimum signal quality for reliable THz link establishment. At 300~GHz, the short wavelength makes signals susceptible to blockage; a 5~dB threshold ensures sufficient power for basic connectivity after accounting for molecular absorption, wall penetration losses, and co-channel interference, consistent with the minimum SINR for low-order modulation in THz feasibility studies \cite{b5}.
-	\renewcommand{\arraystretch}{1.2}
+	We set $\text{SINR}_{\text{th}} = 5$~dB. At 300~GHz this threshold leaves enough power for basic connectivity after molecular absorption, wall losses and co-channel interference, consistent with the minimum SINR for low-order modulation in THz feasibility studies \cite{b5}.
 
 	\begin{table}[htbp]
-		\vspace*{0.05in}
 		\centering
 		\caption{Simulation Parameters}
 		\label{tab:sim_params}
@@ -327,7 +279,6 @@
 				Transmit Power ($P_{\text{tx}}$) & $20 \text{ dBm}$ \\
 				Main-Lobe Gain ($G_{\text{max}}$) & $30 + 10\log_{10}(60^{\circ}/\theta_{\text{HPBW}})$ dBi \\
 				Receive Gain ($G_{\text{rx}}$) & $0 \text{ dBi}$ \\
-				Side-Lobe Leakage ($G_{\text{min}}$) & Negligible ($\le \text{Noise Floor}$) \\
 				Evaluated Beamwidths ($\theta_{\text{HPBW}}$) & $30^{\circ}, 45^{\circ}, 60^{\circ}, 75^{\circ}, 90^{\circ}, 120^{\circ}$ \\
 				Azimuth Rotation Increments & $45^{\circ}$ ($\pi/4$ rad, from North) \\
 				Evaluated Elevations ($z_a$) & $2.0 \text{ m}$ to $3.0 \text{ m}$ ($0.2 \text{ m}$ step) \\
@@ -347,17 +298,16 @@
 			\end{tabular}%
 		}
 	\end{table}
-	\renewcommand{\arraystretch}{1.0}
 
 	\subsection{Static Baseline Deployment}
 
 	We first evaluate the MILP formulation in a static environment using the HiGHS solver. Solving to a 1\% optimality gap, the solver identifies that 14 APs are needed for 100\% coverage at $\text{SINR}_{\text{th}} = 5$~dB. By evaluating candidate elevations in $0.2$~m increments from $2.0$~m to $3.0$~m, the optimization enables APs to transmit above $1.0$~m cubicles, yielding a 20\% higher peak SINR compared to APs at a uniform height. Fig.~\ref{fig:static_heatmap} shows the SINR of this 14-AP layout.
 
-	Raising $\text{SINR}_{\text{th}}$ from $1$~dB to $5$~dB increases the AP count from 9 to 10 for 90\% coverage. Wider beamwidths ($90^{\circ}$--$120^{\circ}$) require only 10 APs for 90\% coverage, whereas narrow beams ($60^{\circ}$--$75^{\circ}$) require 15, as broader beams yield better overall indoor coverage.
+	Raising $\text{SINR}_{\text{th}}$ from $1$~dB to $5$~dB increases the AP count from 9 to 10 for 90\% coverage. Wider beamwidths ($90^{\circ}$--$120^{\circ}$) require only 10 APs for 90\% coverage, whereas narrow beams ($60^{\circ}$--$75^{\circ}$) require 15, since broader beams cover more of the floor from each AP.
 
 	\begin{figure}[t]
 		\centering
-		\includegraphics[width=0.95\columnwidth]{APSO_Results_ICC/thz_sinr_heatmap.pdf}
+		\includegraphics[width=\columnwidth]{APSO_Results_ICC/thz_sinr_heatmap.pdf}
 		\vspace{-8pt}
 		\caption{SINR distribution of the 14-AP MILP layout.}
 		\label{fig:static_heatmap}
@@ -366,9 +316,9 @@
 
 	\subsection{Tier-wise Coverage and Displacement Analysis}
 
-	The MILP of Section~V-A uses its own link budget, with $120^{\circ}$ beams, a fixed 30~dBi main lobe and $k(f) = 0.05$~m$^{-1}$. The dynamic evaluation uses the channel model of Section~III, under which the same 14 APs and beams cover 93.3\% of the empty floor, so we first re-tune their heights and beams on the empty floor, keeping their positions. The re-tuned layout covers 97.5\% of the empty floor.
+	The commissioned layout, the starting point of all dynamic runs, keeps the positions of the 14 MILP APs, while the AP heights and beamwidths are not fixed and vary as HPSO requires. The crowd density then causes the coverage loss: human blockage lowers the coverage of this layout to 44.0\% (mean over 30 crowds), and HPSO raises it back to 99.0\%.
 
-	We tested the 4-tier cascading HPSO under human blockage conditions that drop initial coverage to 44.0\% (mean over 30 crowds; all tiers are run on every crowd). Table~\ref{tab:tier_summary} summarizes each tier's contribution, with 95\% confidence intervals. From a 14-AP baseline, Tier~2 recovers 4.3~pp (to 48.3\%) without any physical movement ($0.0$~m). Tier~3 adds 2.5~pp for 1.4~m of displacement, and Tier~4 contributes a final 48.2~pp at 83.5~m in total, for a coverage of 99.0\%. Tier~4 meets the 90\% target on 100.0\% of the crowds. Without the body loss, the same layout would cover 97.7\% of these crowds, so the outages come from blockage. By~\eqref{eq:beam_height}, the ray is below head height on the part of the link within $(h_{\text{human}} - z_u)/(z_a - z_u)$ of its length from the user, i.e., 60\% of the link for $z_a = 2.0$~m and 30\% for $z_a = 3.0$~m. The people around a user inside a crowd therefore block the user from the current APs, and only APs moved close to the crowd (Tier~4) restore the link.
+	We ran all tiers on every crowd. Table~\ref{tab:tier_summary} summarizes each tier's contribution, with 95\% confidence intervals. From the 14-AP baseline, Tier~2 recovers 4.3~pp (to 48.3\%) without any physical movement ($0.0$~m). Tier~3 adds 2.5~pp for 1.4~m of displacement, and Tier~4 contributes a final 48.2~pp at 83.5~m in total, for a coverage of 99.0\%. Tier~4 meets the 90\% target on 100.0\% of the crowds. Without the body loss, the same layout would cover 97.7\% of these crowds, so the outages come from blockage. By~\eqref{eq:beam_height}, the ray is below head height on the part of the link within $(h_{\text{human}} - z_u)/(z_a - z_u)$ of its length from the user, i.e., 60\% of the link for $z_a = 2.0$~m and 30\% for $z_a = 3.0$~m. The people around a user inside a crowd therefore block the user from the current APs, and only APs moved close to the crowd (Tier~4) restore the link.
 
 	All coverage values assume best-server re-association: each user is served by the strongest AP for the current crowd ($a^*$ in~\eqref{eq:sinr_eval}). This evaluation-time association is separate from the design-time association $Y_{u,a}$ of the MILP. Section~V-D compares it with a layout that keeps the design-time association.
 
@@ -395,160 +345,144 @@ Tier~4 & 99.0 $\pm$ 0.4 (+48.2) & 83.5 & 73.8 & Full 3D repositioning \\
 		\centering
 		\begin{minipage}{0.32\textwidth}
 			\centering
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2a_aps_before.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2a_aps_before.pdf}
 			\vspace{2pt}
 			\centerline{\small (a) Step 1: Baseline AP Positions}
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2b_sinr_prev.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2b_sinr_prev.pdf}
 			\vspace{2pt}
 			\centerline{\small (b) Step 2: Established Stable SINR}
 		\end{minipage}\hfill
 		\begin{minipage}{0.32\textwidth}
 			\centering
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2c_density.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2c_density.pdf}
 			\vspace{2pt}
 			\centerline{\small (c) Step 3: New Human Density Shifts}
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2d_sinr_before.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2d_sinr_before.pdf}
 			\centerline{\small (d) Step 4: Blockage Degrades SINR}
 		\end{minipage}\hfill
 		\begin{minipage}{0.32\textwidth}
 			\centering
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2e_aps_after.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2e_aps_after.pdf}
 			\centerline{\small (e) Step 5: HPSO Repositions APs}
-			\includegraphics[width=0.9\linewidth]{APSO_Results_ICC/fig2f_sinr_after.pdf}
+			\includegraphics[width=\linewidth]{APSO_Results_ICC/fig2f_sinr_after.pdf}
 			\centerline{\small (f) Step 6: SINR After Adaptation}
 		\end{minipage}
-		\caption{Adaptation sequence at $t_{0}$: The commissioned AP layout~(a)
-			yields stable SINR~(b). A crowd shift~(c) degrades signals~(d), triggering
-			HPSO to reposition and re-angle APs~(e), which raises coverage from 41.2\% to 97.6\%~(f).}
+		\caption{Adaptation sequence at $t_{0}$ for one run: the commissioned layout~(a) gives stable SINR~(b); a crowd shift~(c) degrades it~(d); HPSO re-angles and moves the APs~(e) and raises coverage from 41.2\% to 97.6\%~(f).}
 		\label{fig:dynamic_lifecycle_combined}
 		\vspace{-12pt}
 	\end{figure*}
 
-	The 4-tier approach prioritizes the least disruptive adjustments. Tier~1 retains the existing configuration when coverage is sufficient, conserving computational and mechanical resources. Tier~2 gives 7.8\% of the total improvement at zero physical cost by electronically adjusting beam direction and width via phased-array controls. The actuation time in Table~\ref{tab:tier_summary} is the largest single-AP displacement divided by the 0.2~m/s actuator speed, since APs move in parallel. The optimizer takes about 3.6~s for Tier~2 and 66.8~s for Tier~4 on one CPU core.
-
-	Tier~3 is preferred over Tier~4 as minor vertical adjustments consume less time and energy than horizontal robotic relocation. Tier~4 is reserved for when blockage severity renders current AP coordinates entirely unviable. For physical movements in Tiers~3 and~4, the Hungarian assignment algorithm (Section~IV-C2) replaces the nearest-neighbor approach. This reduces the Tier-4 displacement from 105.0~m to 83.5~m, a 20.5\% saving (Wilcoxon $p <0.001$).
+	Tier~2 gives 7.8\% of the total improvement at zero physical cost, by adjusting beam direction and width through phased-array control. The optimizer takes about 3.6~s for Tier~2 and 66.8~s for Tier~4 on one CPU core. For the moves of Tiers~3 and~4, the Hungarian assignment (Section~IV-C2) replaces a nearest-neighbor matching and reduces the Tier-4 displacement from 105.0~m to 83.5~m, a 20.5\% saving (Wilcoxon $p <0.001$).
 
 	\subsection{Temporal Crowd Adaptation}
 
-	To evaluate robustness under changing crowds, we simulated three consecutive crowd shifts at discrete time steps ($t_0, t_1, t_2$), each drawn independently from the synthetic crowd model. Each step starts from the layout left by the previous step. Before adaptation, coverage is 42.7\% at $t_0$, 28.5\% at $t_1$ and 27.1\% at $t_2$.
-
-	HPSO raises coverage from 42.7\% to 98.9\% at $t_0$, from 28.5\% to 99.0\% at $t_1$, and from 27.1\% to 98.7\% at $t_2$. The total AP displacement is 87.5~m, 89.2~m and 88.3~m at the three steps. Tiers~2 and~3 do not reach the 90\% target, so the cascade reaches Tier~4 at every step and meets the target in 100.0\% of the steps. Coverage before adaptation is lower at $t_1$ and $t_2$, since the layout from the previous step was placed for a different crowd.
+	To evaluate robustness under changing crowds, we simulated three consecutive crowd shifts at discrete time steps ($t_0, t_1, t_2$), each drawn independently from the synthetic crowd model. Each step starts from the layout left by the previous step. HPSO raises coverage from 42.7\% to 98.9\% at $t_0$, from 28.5\% to 99.0\% at $t_1$, and from 27.1\% to 98.7\% at $t_2$. The total AP displacement is 87.5~m, 89.2~m and 88.3~m at the three steps. Tiers~2 and~3 do not reach the 90\% target, so the cascade reaches Tier~4 at every step and meets the target in 100.0\% of the steps. Coverage before adaptation is lower at $t_1$ and $t_2$, since the layout from the previous step was placed for a different crowd.
 
 	Fig.~\ref{fig:dynamic_lifecycle_combined} presents the adaptation sequence at $t_{0}$ for one run: from the commissioned AP configuration~(a) and its SINR on the empty floor~(b), a new crowd shift~(c) lowers coverage to 41.2\%~(d), and HPSO re-angles and moves the APs by 75.4~m in total~(e), which raises coverage to 97.6\%~(f).
 
 	\subsection{Comparison with Alternative Approaches}
 
-	We evaluate HPSO against standard Particle Swarm Optimization (PSO) and a Genetic Algorithm (GA). The crowd-aware greedy layout of Tier~4, used alone and matched to the current APs by the Hungarian step, reaches 98.6\% with 107.2~m of movement in the events of Fig.~\ref{fig:coverage_vs_density}. The unconstrained PSO serves as a baseline to isolate the benefits of hierarchical tier constraints; it optimizes the identical composite objective function~\eqref{eq:fitness} (including displacement penalty $\beta M$) but without tier-clamping, updating all 3D coordinates and beam parameters simultaneously. GA serves as a population-based benchmark to verify improvements are not PSO-specific. Simulations use swarm size $S = 50$ and $T = 20$ iterations per tier; PSO and GA get no seed and $3T$ iterations, the same worst-case budget as Tiers~2--4. We add three reference arms: the static layout with design-time association, the static layout with re-association, and re-association plus Tier~2 only.
+	We evaluate HPSO against standard Particle Swarm Optimization (PSO) and a Genetic Algorithm (GA). The crowd-aware greedy layout of Tier~4, used alone and matched to the current APs by the Hungarian step, reaches 98.6\% with 107.2~m of movement in the events of Fig.~\ref{fig:coverage_vs_density}. The unconstrained PSO serves as a baseline to isolate the benefits of hierarchical tier constraints; it optimizes the identical composite objective function~\eqref{eq:fitness} (including displacement penalty $\beta M$) but without tier-clamping, updating all 3D coordinates and beam parameters simultaneously. GA serves as a population-based benchmark to verify improvements are not PSO-specific. PSO and GA get no seed and $3T$ iterations, the same worst-case budget as Tiers~2--4. We add three reference arms: the static layout with design-time association, the static layout with re-association, and re-association plus Tier~2 only.
 
 	Fig.~\ref{fig:coverage_vs_density} shows coverage after one adaptation step as human density increases. Coverage falls as the crowd grows for the static arms and the unseeded baselines, while HPSO stays above 95\%. Re-association alone gives the same coverage as the design-time association (44.7\% and 44.7\%), because for 98.9\% of the crowd the design-time AP is still the strongest one. HPSO reaches 97.6\% on average, against 44.7\% for the static layout, and Tier~2 alone reaches 50.2\%. HPSO meets the 90\% target in 99.2\% of the events. Standard PSO and GA reach 62.9\% and 64.5\% (Wilcoxon test against HPSO: $p <0.001$ for both).
 
-	The hierarchical structure tries electronic beam steering before physical relocation, but under these crowds Tier~4 is needed in every event. Over the three crowd shifts of Section~V-C, HPSO moves the APs by 265.0~m in total, against 47.0~m for standard PSO and 124.3~m for GA; the extra movement raises mean coverage to 98.9\%, against 59.8\% and 61.5\%. In those runs (9 clusters) the HPSO result equals its greedy seed in every step. In the single-step events of Fig.~\ref{fig:coverage_vs_density}, HPSO moves the APs by 102.4~m on average, against 14.8~m for PSO and 28.8~m for GA. The greedy seed therefore does most of the work at high density, and the swarm refines the seed rather than replacing it. HPSO returns the seed unchanged in 84.2\% of the events of Fig.~\ref{fig:coverage_vs_density}; in the others, mostly at lower crowd levels, the swarm finds layouts with higher fitness than the seed, with less coverage but less movement.
+	The cascade tries beam steering before physical relocation, but under these crowds Tier~4 is needed in every event. Over the three crowd shifts of Section~V-C, HPSO moves the APs by 265.0~m in total, against 47.0~m for standard PSO and 124.3~m for GA; the extra movement raises mean coverage to 98.9\%, against 59.8\% and 61.5\%. In those runs (9 clusters) the HPSO result equals its greedy seed in every step. In the single-step events of Fig.~\ref{fig:coverage_vs_density}, HPSO moves the APs by 102.4~m on average, against 14.8~m for PSO and 28.8~m for GA. The greedy seed therefore does most of the work: HPSO returns it unchanged in 84.2\% of these events; in the others, mostly at lower crowd levels, the swarm finds layouts with higher fitness than the seed, with less coverage but less movement.
 
 	\begin{figure}[t]
 		\centering
-		\includegraphics[width=0.80\columnwidth]{APSO_Results_ICC/fig3_coverage_density.pdf}
-		\caption{Coverage after one adaptation step for the static layout with fixed association, the static layout with re-association, re-association with Tier~2, HPSO, the greedy seed alone, standard PSO and GA (mean over 30 crowds per level; error bars are 95\% CIs; dashed line: 90\% target).}
+		\includegraphics[width=\columnwidth]{APSO_Results_ICC/fig3_coverage_density.pdf}
+		\caption{Coverage after one adaptation step for the static layout (fixed association and re-association), re-association with Tier~2, HPSO, the greedy seed alone, standard PSO and GA (mean over 30 crowds per level; error bars: 95\% CI; dashed line: 90\% target).}
 		\vspace{-8pt}
 		\label{fig:coverage_vs_density}
 	\end{figure}
 
 	\section{Discussion}
 
-	The results presented in this work show how far the 4-tier cascading HPSO framework can recover coverage, and the practical deployment of this system can be realized through two distinct operational paradigms: real-time reactive adaptation or scheduled time-based adaptation.
+	TeraMove can run in two modes. In a \textbf{real-time model}, HPSO updates the human-density map from crowd-sensing data such as LiDAR and runs when coverage falls below 90\%. A \textbf{time-based scheduled system} can instead use historical footfall data to estimate density patterns and pre-compute AP configurations for specific times, avoiding continuous sensing. For physical movement, Tier 3 can use linear actuators, while Tier 4 can use ceiling-mounted robotic rails. Flexible PoE cable management keeps the APs connected during movement.
 
-	In a \textbf{real-time adaptation model}, HPSO continuously updates the human-density spatial matrix using crowd-sensing data such as LiDAR, and is activated when coverage falls below 90\%. Tier 2 first handles the blockage using electronic beam steering. If this is not enough, Tiers 3 and 4 adjust the AP height and perform full 3D repositioning. Alternatively, a \textbf{time-based scheduled system} can use historical footfall data to estimate density patterns and pre-compute AP configurations for specific times, avoiding the need for continuous sensing. For physical movement, Tier 3 can use linear actuators, while Tier 4 can use ceiling-mounted robotic rails. Flexible PoE cable management keeps the APs connected during movement. The Hungarian algorithm minimizes the total AP displacement in each reconfiguration cycle.
-
-	Finally, practical deployments must account for actuation latency (rails moving at $0.2$~m/s need about 73.8~s for the largest single-AP move in Table~\ref{tab:tier_summary}) and the upfront hardware cost of robotic infrastructure compared to denser static over-provisioning. In our results the coverage target in a crowd is met only by moving APs close to the crowd: Tier~4 moves the APs by 83.5~m in total, against 1.4~m for Tiers~2 and~3.
+	Practical deployments must account for actuation latency (about 73.8~s for the largest single-AP move in Table~\ref{tab:tier_summary}) and the upfront hardware cost of robotic infrastructure compared to denser static over-provisioning. In our results the coverage target in a crowd is met only by moving APs close to the crowd: Tier~4 moves the APs by 83.5~m in total, against 1.4~m for Tiers~2 and~3.
 
 	\section{Conclusion}
 
-	This paper presents a framework for 6G Terahertz (THz) Access Point deployment in indoor spaces with moving crowds. We initially demonstrated that optimizing AP height and beam orientation via a 3D MILP formulation reduces the required number of APs. However, because static layouts degrade when moving human crowds block high-frequency signals, we introduced a human density metric to track blockage in each cell.
-
-	To overcome these blockages, we developed a 4-tier Hierarchical Particle Swarm Optimization (HPSO) architecture. By escalating from zero-movement electronic beam steering to full 3D robotic repositioning only when lighter tiers fall short, the framework restores coverage under crowd blockage. Beam steering and height changes add little in dense crowds, because the people around a user block the links from the current APs. Full repositioning with a crowd-aware seed reaches 98.9\% coverage over three crowd shifts, but it moves the APs by 265.0~m in total. The Hungarian algorithm then matches the APs to the new positions with the least total movement.
+	This paper presents TeraMove for indoor THz AP deployment with moving crowds. A 3D MILP over AP height and beam orientation reduces the required number of APs. Because crowds degrade static layouts, a per-cell human-density score tracks the blockage, and a 4-tier HPSO escalates from beam steering to full 3D repositioning only when lighter tiers fall short. Beam steering and height changes add little in dense crowds, because the people around a user block the links from the current APs. Full repositioning with a crowd-aware seed reaches 98.9\% coverage over three crowd shifts, but it moves the APs by 265.0~m in total. The Hungarian matching cuts the Tier-4 movement by 20.5\% against a nearest-neighbor matching of the APs.
 
 	\begin{thebibliography}{00}
 		\bibitem{b1} T. S. Rappaport et al., ``Millimeter Wave Mobile Communications for 5G Cellular: It Will Work!,'' \textit{IEEE Access}, vol. 1, pp. 335--349, 2013.
 
-		\bibitem{b2} Y. Niu et al., ``A survey of millimeter wave communications (mmWave) for 5G: opportunities and challenges,'' \textit{Wireless Networks}, vol. 21, pp. 2657--2676, 2015.
+		\bibitem{b2} Y. Niu et al., ``A survey of millimeter wave communications (mmWave) for 5G: opportunities and challenges,'' \textit{Wireless Netw.}, vol. 21, pp. 2657--2676, 2015.
 
 	\bibitem{b4}
 	A. M. Baswade, S. Kiran M. R., B. R. Tamma, and A. Franklin,
-	``On Placement of LAA/LTE-U Base Stations in Heterogeneous Wireless Networks,'' in \textit{Proc. 19th Int. Conf. Distributed Computing and Networking (ICDCN)}, 2018, pp. 37:1--37:10.
+	``On Placement of LAA/LTE-U Base Stations in Heterogeneous Wireless Networks,'' in \textit{Proc. ICDCN}, 2018, pp. 37:1--37:10.
 
 		\bibitem{itu676} ITU-R, ``Attenuation by atmospheric gases and related effects,'' Recommendation ITU-R P.676-13, Aug. 2022.
 
-		\bibitem{b5} I. F. Akyildiz, J. M. Jornet, and C. Han, ``Terahertz band: Next frontier for wireless communications,'' \textit{Physical Communication}, vol. 12, pp. 16--32, 2014.
+		\bibitem{b5} I. F. Akyildiz, J. M. Jornet, and C. Han, ``Terahertz band: Next frontier for wireless communications,'' \textit{Phys. Commun.}, vol. 12, pp. 16--32, 2014.
 
 		\bibitem{b6}
 		B. A. Bilgin, H. Ramezani, and O. B. Akan,
 		``Human Blockage Model for Indoor Terahertz Band Communication,''
-		in \textit{Proc. IEEE Int. Conf. Commun. Workshops (ICC Workshops)},
-		2019, pp. 1--6, doi: 10.1109/ICCW.2019.8757158.
+		in \textit{Proc. IEEE ICC Workshops},
+		2019, pp. 1--6.
 
 		\bibitem{b7}
 		Y. Liu, Y. Jian, R. Sivakumar, and D. M. Blough,
 		``Maximizing Line-of-Sight Coverage for mmWave Wireless LANs With
 		Multiple Access Points,'' \textit{IEEE/ACM Trans. Netw.}, vol. 30,
-		no. 2, pp. 698--716, 2022, doi: 10.1109/TNET.2021.3122378.
+		no. 2, pp. 698--716, 2022.
 
-		\bibitem{b11} J. Kennedy and R. Eberhart, ``Particle swarm optimization,'' in \textit{Proc. IEEE Int. Conf. Neural Networks (ICNN)}, Perth, Australia, 1995, vol. 4, pp. 1942--1948.
+		\bibitem{b11} J. Kennedy and R. Eberhart, ``Particle swarm optimization,'' in \textit{Proc. IEEE ICNN}, 1995, vol. 4, pp. 1942--1948.
 
-		\bibitem{b12} H. W. Kuhn, ``The Hungarian method for the assignment problem,'' \textit{Naval Research Logistics Quarterly}, vol. 2, no. 1--2, pp. 83--97, 1955.
+		\bibitem{b12} H. W. Kuhn, ``The Hungarian method for the assignment problem,'' \textit{Naval Res. Logist. Q.}, vol. 2, no. 1--2, pp. 83--97, 1955.
 
-		\bibitem{b13} Y. Shi and R. Eberhart, ``A modified particle swarm optimizer,'' in \textit{Proc. IEEE Int. Conf. Evolutionary Computation (ICEC)}, Anchorage, AK, USA, 1998, pp. 69--73.
+		\bibitem{b13} Y. Shi and R. Eberhart, ``A modified particle swarm optimizer,'' in \textit{Proc. IEEE ICEC}, 1998, pp. 69--73.
 
 		\bibitem{b14}
 		V. Petrov, M. Komarov, D. Moltchanov, J. M. Jornet, and
 		Y. Koucheryavy, ``Interference and SINR in Millimeter Wave and
 		Terahertz Communication Systems With Blocking and Directional
 		Antennas,'' \textit{IEEE Trans. Wireless Commun.}, vol.~16, no.~3,
-		pp.~1791--1808, 2017, doi: 10.1109/TWC.2017.2654351.
+		pp.~1791--1808, 2017.
 
 		\bibitem{b15}
 		M. Alzenad, A. El-Keyi, F. Lagum, and H. Yanikomeroglu,
 		``3-D Placement of an Unmanned Aerial Vehicle Base Station (UAV-BS)
 		for Energy-Efficient Maximal Coverage,'' \textit{IEEE Wireless
-			Commun. Lett.}, vol.~6, no.~4, pp.~434--437, 2017,
-		doi: 10.1109/LWC.2017.2700840.
+			Commun. Lett.}, vol.~6, no.~4, pp.~434--437, 2017.
 
 		\bibitem{b16}
 		T. A. Kareem, M. A. Hussain, and M. K. Jabbar,
 		``Particle Swarm Optimization Based Beamforming in Massive MIMO
 		Systems,'' \textit{Int. J. Interact. Mob. Technol.}, vol.~14,
-		no.~5, pp.~176--192, 2020,
-		doi: 10.3991/IJIM.V14I05.13701.
+		no.~5, pp.~176--192, 2020.
 
 		\bibitem{b20}
 		M. Tatar Mamaghani and Y. Hong, ``Terahertz Meets Untrusted UAV-Relaying:
 		Minimum Secrecy Energy Efficiency Maximization via Trajectory and
 		Communication Co-Design,'' \textit{IEEE Trans. Veh. Technol.},
-		vol.~71, no.~5, pp.~4991--5006, 2022,
-		doi: 10.1109/TVT.2022.3150011.
+		vol.~71, no.~5, pp.~4991--5006, 2022.
 
 		\bibitem{b21}
 		T. Murakami, S. Oka, Y. Takatori, M. Mizoguchi, and F. Maehara,
 		``On the Feasibility of an Adaptive Movable Access Point System in a
 		Static Indoor WLAN Environment,'' \textit{IEICE Trans. Commun.},
-		vol.~E101-B, no.~7, pp.~1693--1700, 2018,
-		doi: 10.1587/transcom.2017EBP3291.
+		vol.~E101-B, no.~7, pp.~1693--1700, 2018.
 
 		\bibitem{b22}
 		L. Zhu, W. Ma, and R. Zhang, ``Movable Antennas for Wireless
 		Communication: Opportunities and Challenges,'' \textit{IEEE Commun.
-			Mag.}, vol.~62, no.~6, pp.~114--120, 2024,
-		doi: 10.1109/MCOM.001.2300212.
+			Mag.}, vol.~62, no.~6, pp.~114--120, 2024.
 
 		\bibitem{b25}
 		G. Charan, M. Alrabeiah, and A. Alkhateeb, ``Vision-Aided 6G
 		Wireless Communications: Blockage Prediction and Proactive Handoff,''
 		\textit{IEEE Trans. Veh. Technol.}, vol.~70, no.~10,
-		pp.~10193--10208, 2021,
-		doi: 10.1109/TVT.2021.3104219.
+		pp.~10193--10208, 2021.
 		\bibitem{b27}
-		J.-S. Yoon, S.-H. Bae, and T.-Y. Kuc, ``Human Recognition and Tracking in Narrow Indoor Environment using 3D Lidar Sensor,'' in \textit{2020 20th International Conference on Control, Automation and Systems (ICCAS)}, 2020, pp. 978--981, doi: 10.23919/ICCAS50221.2020.9268208.
+		J.-S. Yoon, S.-H. Bae, and T.-Y. Kuc, ``Human Recognition and Tracking in Narrow Indoor Environment using 3D Lidar Sensor,'' in \textit{Proc. ICCAS}, 2020, pp. 978--981.
 
 		\bibitem{b29}
-		C. Romero-Gonz\'alez \textit{et al.}, ``InLiDa: A 3D Lidar Dataset for People Detection and Tracking in Indoor Environments,'' in \textit{Proc. 12th Int. Joint Conf. Comput. Vis., Imaging and Comput. Graph. Theory and Appl. (VISAPP)}, 2017, pp. 484--491, doi: 10.5220/0006148704840491.
+		C. Romero-Gonz\'alez \textit{et al.}, ``InLiDa: A 3D Lidar Dataset for People Detection and Tracking in Indoor Environments,'' in \textit{Proc. VISAPP}, 2017, pp. 484--491.
 
 	\end{thebibliography}
 
