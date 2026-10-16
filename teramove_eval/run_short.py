@@ -42,6 +42,8 @@ EMPTY = np.zeros((32, 20))
 TIER_CROWD = 100
 SEQ_CROWD = 200
 DEN_CROWD = 300
+# beamwidth of the MILP solution (Optimal-AP-Placement-for-THz/ED1: tbw = 120 deg)
+MILP_ALPHA = 120.0
 
 
 def save(name, obj):
@@ -66,7 +68,7 @@ def exp_commission():
     """Positions from the MILP layout stay fixed.  Heights and beams are re-tuned once for
     the empty floor under the simulator's model by per-AP coordinate descent.  The best
     server of each cell on the empty floor is the design-time association."""
-    cur = milp_routers()
+    cur = [dict(r, alpha=MILP_ALPHA) for r in milp_routers()]
     f0 = coverage(cur, EMPTY)
     best, improved = f0, True
     while improved:

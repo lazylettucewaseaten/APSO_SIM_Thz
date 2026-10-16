@@ -28,10 +28,10 @@ INK, INK2 = "#0b0b0b", "#52514e"
 # categorical slots 1-6 of the reference palette, fixed order (validated, light mode)
 ARM_STYLE = {
     "fixed": ("Static, fixed association", "#2a78d6"),
-    "handover": ("Static + handover", "#eb6834"),
-    "ho_t2": ("Handover + Tier 2", "#1baf7a"),
+    "handover": ("Static, re-association", "#eb6834"),
+    "ho_t2": ("Re-association + Tier 2", "#1baf7a"),
     "teramove": ("HPSO (TeraMove)", "#eda100"),
-    "greedy": ("Greedy re-placement", "#e87ba4"),
+    "greedy": ("Greedy seed alone", "#e87ba4"),
     "pso": ("Standard PSO", "#008300"),
     "ga": ("GA", "#6250d6"),
 }

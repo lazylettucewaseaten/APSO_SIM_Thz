@@ -210,53 +210,15 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
-) (subcaption.sty
-Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
- (caption.sty
-Package: caption 2022/03/01 v3.6b Customizing captions (AR)
- (caption3.sty
-Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
-\caption@tempdima=\dimen186
-\captionmargin=\dimen187
-\caption@leftmargin=\dimen188
-\caption@rightmargin=\dimen189
-\caption@width=\dimen190
-\caption@indent=\dimen191
-\caption@parindent=\dimen192
-\caption@hangindent=\dimen193
-Package caption Info: Unknown document class (or package),
-(caption)             standard defaults will be used.
-Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEta
-blestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\norma
-lfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace
- {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptio
-nsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspac
-e \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\nor
-malfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\n
-ormalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONcon
-ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
-\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi 
-\fi  on input line 1176.
-)
-
-Package caption Warning: Unknown document class (or package),
-(caption)                standard defaults will be used.
-See the caption package documentation for explanation.
-
-\c@caption@flags=\count280
-\c@continuedfloat=\count281
-)
-\c@subfigure=\count282
-\c@subtable=\count283
 ) (romannum.sty
 Package: romannum 2009/09/03 v1.0b roman numerals
  (stdclsdv.sty
 Package: stdclsdv 2009/09/04 v1.1a Sectional divisions
 )) (array.sty
 Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen194
+\col@sep=\dimen186
 \ar@mcellbox=\box54
-\extrarowheight=\dimen195
+\extrarowheight=\dimen187
 \NC@list=\toks23
 \extratabsurround=\skip53
 \backup@length=\skip54
@@ -264,58 +226,56 @@ Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
 ) (url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (float.sty
+)
+(float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count284
+\c@float@type=\count280
 \float@exts=\toks24
 \float@box=\box56
 \@float@everytoks=\toks25
 \@floatcapt=\box57
 ) (numbers.tex) (l3backend-xetex.def
 File: l3backend-xetex.def 2022-02-07 L3 backend support: XeTeX
-\c__kernel_sys_dvipdfmx_version_int=\count285
-\l__color_backend_stack_int=\count286
-\g__color_backend_stack_int=\count287
-\g__graphics_track_int=\count288
+\c__kernel_sys_dvipdfmx_version_int=\count281
+\l__color_backend_stack_int=\count282
+\g__color_backend_stack_int=\count283
+\g__graphics_track_int=\count284
 \l__pdf_internal_box=\box58
-\g__pdf_backend_object_int=\count289
-\g__pdf_backend_annotation_int=\count290
-\g__pdf_backend_link_int=\count291
+\g__pdf_backend_object_int=\count285
+\g__pdf_backend_annotation_int=\count286
+\g__pdf_backend_link_int=\count287
 ) (paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-2.
+1.
  (ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 -- Lines per column: 56 (exact).
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
-Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
 
 (umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
 
  (umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -324,25 +284,26 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-18.
+17.
  (ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [2] [3]
-Underfull \hbox (badness 2285) in paragraph at lines 276--279
+Underfull \hbox (badness 2285) in paragraph at lines 275--278
 []\T1/ptm/b/n/10 Tier 1 (Base-line Eval-u-a-tion): \T1/ptm/m/n/10 If cur-rent d
 ensity-
  []
 
 
-Underfull \hbox (badness 1394) in paragraph at lines 304--305
+Underfull \hbox (badness 1394) in paragraph at lines 303--304
 \T1/ptm/m/n/10 with the least to-tal dis-place-ment, $\OML/cmm/m/it/10 ^^[[] \O
 T1/cmr/m/n/10 : \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n\OM
 S/cmsy/m/n/10 g !
  []
 
+[4]
 File: figures/thz_sinr_heatmap.pdf Graphic file (type pdf)
 <use figures/thz_sinr_heatmap.pdf>
-[4] (tables/tiers.tex)
+ (tables/tiers.tex)
 File: figures/fig2a_aps_before.pdf Graphic file (type pdf)
 <use figures/fig2a_aps_before.pdf>
 File: figures/fig2b_sinr_prev.pdf Graphic file (type pdf)
@@ -356,8 +317,6 @@ File: figures/fig2e_aps_after.pdf Graphic file (type pdf)
 File: figures/fig2f_sinr_after.pdf Graphic file (type pdf)
 <use figures/fig2f_sinr_after.pdf>
  [5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 File: figures/fig3_coverage_density.pdf Graphic file (type pdf)
 <use figures/fig3_coverage_density.pdf>
  [6]
@@ -377,4 +336,4 @@ Before submitting the final camera ready copy, remember to:
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  )
-Output written on paper.xdv (7 pages, 61808 bytes).
+Output written on paper.xdv (7 pages, 61364 bytes).
