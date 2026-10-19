@@ -2,16 +2,17 @@
 
 Association rules
 -----------------
-* ``gap``      proposed: greedy GAP over THz and Wi-Fi APs.
+* ``gap``      proposed: PACE GAP solver over THz and Wi-Fi APs.
+* ``greedy``   greedy GAP over THz and Wi-Fi APs (ablation; the earlier solver).
 * ``maxsinr``  legacy: each user to its strongest-SINR THz AP (THz only).
 * ``naive``    strongest THz AP, else best Wi-Fi AP (threshold offload).
-* ``wifi``     Wi-Fi only.
+* ``wifi``     Wi-Fi only (PACE over the Wi-Fi APs).
 """
 from dataclasses import dataclass
 
 import numpy as np
 
-from .association import admit, gap_greedy, max_sinr_pref, naive_offload_pref
+from .association import admit, gap_greedy, gap_pace, max_sinr_pref, naive_offload_pref
 from .network import THzTerms, thz_capacity
 from .power import sinr_targets, yates_min_power
 
@@ -26,6 +27,8 @@ class Outcome:
     n_thz_served: int
     n_wifi_served: int
     yates_iters: int = 0
+    assoc_ub: float = float("nan")   # PACE dual bound on servable users (first association)
+    assoc_certified: bool = False    # True if that association is provably optimal
 
 
 def _caps(params, terms, p, view, use_thz, use_wifi):
@@ -41,9 +44,14 @@ def _caps(params, terms, p, view, use_thz, use_wifi):
     return sinr, cap_t, cap_w
 
 
-def _associate(rule, params, sinr, cap_t, cap_w, r_min):
+def _associate(rule, params, sinr, cap_t, cap_w, r_min, info=None):
     cap = np.hstack([cap_t, cap_w])
     if rule in ("gap", "wifi"):
+        a, load, inf = gap_pace(cap, r_min, params.opt.assoc_iters, params.opt.assoc_every, info=True)
+        if info is not None:
+            info.update(inf)
+        return a, load
+    if rule == "greedy":
         return gap_greedy(cap, r_min)
     if rule == "maxsinr":
         pref = max_sinr_pref(sinr)
@@ -80,7 +88,8 @@ def evaluate(params, cfg, view, rule="gap", use_wifi=True, power_control=False, 
     if not fast:
         cfg = cfg.copy()
     sinr, cap_t, cap_w = _caps(params, terms, p, view, use_thz, use_wifi)
-    assign, load = _associate(rule, params, sinr, cap_t, cap_w, r_min)
+    info = {}
+    assign, load = _associate(rule, params, sinr, cap_t, cap_w, r_min, info)
     if fast:
         return _outcome(assign, load, np.hstack([cap_t, cap_w]), p, n, k, r_min), terms
     best = (assign, load, p.copy(), np.hstack([cap_t, cap_w]))
@@ -115,6 +124,13 @@ def evaluate(params, cfg, view, rule="gap", use_wifi=True, power_control=False, 
         if np.any(load_f > 1 + 1e-6):
             raise RuntimeError("power control violated an airtime budget")
         out = _outcome(assign, load_f, best[3], p_fin, n, k, r_min, iters)
-        return out, terms
+        return _with_info(out, info), terms
     assign, load, p_b, cap = best
-    return _outcome(assign, load, cap, p_b, n, k, r_min), terms
+    return _with_info(_outcome(assign, load, cap, p_b, n, k, r_min), info), terms
+
+
+def _with_info(out, info):
+    if info:
+        out.assoc_ub = info["ub"]
+        out.assoc_certified = info["certified"]
+    return out

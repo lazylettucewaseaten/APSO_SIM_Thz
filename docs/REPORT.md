@@ -13,11 +13,11 @@ by `plots/make_paper_assets.py` from the raw results in `results/*.json`.
 
 * **What it is.** A new package, `teramove_h/` (about 1,450 lines; experiments, plots and tests add about 1,180 more). It has a corrected
   physical model, a hybrid THz + Wi-Fi network, airtime-aware user association (a
-  maximum generalised assignment problem, solved greedily and checked against an exact
-  solver), minimum-power control (Yates' framework), and an escalation that goes
+  maximum generalised assignment problem, solved with PACE, a Lagrangian price-and-chain
+  algorithm with an optimality certificate; see Section 13), minimum-power control (Yates' framework), and an escalation that goes
   re-associate → power → beams → mechanical. Every baseline and ablation lives in one
   pipeline.
-* **Tests.** 42 pytest tests (37 for TeraMove-H, 5 for the corrected legacy simulator).
+* **Tests.** 53 pytest tests (41 for TeraMove-H, 12 for the corrected legacy simulator).
   All pass.
 * **Experiments.** Six experiments with 30 seeds each, run with common random numbers
   and reported with 95 % confidence intervals and Wilcoxon tests.
@@ -91,7 +91,7 @@ versions of both.
 See `docs/TERAMOVE_H_README.md` for the file map and reproduction commands. Main points:
 
 * **Inner problem** (`evaluator.py`):
-  1. Greedy GAP at P_max.
+  1. PACE association at P_max (the greedy GAP remains available as an ablation).
   2. Switch off idle APs and re-associate, for at most 3 rounds, each kept only if S does
      not drop.
   3. Yates minimum-power iteration, with a run-time re-check that every served user still
@@ -117,11 +117,11 @@ See `docs/TERAMOVE_H_README.md` for the file map and reproduction commands. Main
 | ID | Experiment | Size | Wall time (22 workers) | File |
 |---|---|---|---|---|
 | E1 | Legacy simulator: both azimuth readings; corrected model before and after commissioning | 4 rows | 2 s | `results/legacy.json` |
-| E2 | Main comparison: 11 methods, 120 people, R_min = 1 Gb/s | 30 seeds × 11 | 328 s | `results/main.json` |
-| E3 | Regime map: R_min ∈ {0.1, 0.25, 0.5, 1, 2} Gb/s × {60, 120, 180, 240} people; 4 methods | 2,400 runs | 2,291 s | `results/regime.json` |
-| E4 | Temporal: 6 epochs of drifting crowds; 4 methods | 30 seeds × 4 × 6 | 965 s | `results/temporal.json` |
-| E5 | Association: greedy vs exact ILP (HiGHS) | 450 instances | 4 s | `results/assoc.json` |
-| E6 | Sensing error σ ∈ {0, 0.25, 0.5, 1} m | 30 seeds × 4 | 118 s | `results/sensing.json` |
+| E2 | Main comparison: 12 methods, 120 people, R_min = 1 Gb/s | 30 seeds × 12 | 383 s | `results/main.json` |
+| E3 | Regime map: R_min ∈ {0.1, 0.25, 0.5, 1, 2} Gb/s × {60, 120, 180, 240} people; 5 methods | 3,000 runs | 3,433 s | `results/regime.json` |
+| E4 | Temporal: 6 epochs of drifting crowds; 4 methods | 30 seeds × 4 × 6 | 1,006 s | `results/temporal.json` |
+| E5 | Association: greedy vs PACE vs exact ILP (HiGHS), plus LP bounds | 1,800 instances | 32 s | `results/assoc.json` |
+| E6 | Sensing error σ ∈ {0, 0.25, 0.5, 1} m | 30 seeds × 4 | 137 s | `results/sensing.json` |
 
 Statistics:
 * Every method sees the same crowd per seed and uses the same optimiser random stream
@@ -144,53 +144,58 @@ Main comparison (E2), from `paper/tables/main.tex`:
 | THz-only cascade | 77.2 ± 2.5 | 25.8 | 0.55 | 4.2 | 6400 |
 | Threshold offload | 83.0 ± 2.8 | 23.3 | 0.51 | 4.3 | 6400 |
 | Flat PSO | 78.3 ± 2.5 | 22.4 | 0.45 | 4.4 | 6400 |
-| Flat GA | 87.2 ± 2.6 | 30.3 | 0.61 | 4.0 | 6400 |
+| Flat GA | 87.3 ± 2.7 | 30.4 | 0.61 | 3.9 | 6400 |
 | TeraMove-H with HPSO tiers | 75.0 ± 2.5 | 13.5 | 0.43 | 4.5 | 6400 |
-| TeraMove-H without power control | 84.4 ± 2.6 | 24.6 | 1.40 | 0.0 | 6400 |
+| TeraMove-H with greedy association | 84.4 ± 2.6 | 24.6 | 0.53 | 4.1 | 6400 |
+| TeraMove-H without power control | 84.4 ± 2.6 | 24.7 | 1.40 | 0.0 | 6400 |
 | TeraMove-H without movement | 58.9 ± 2.6 | 0.0 | 0.36 | 4.9 | 1600 |
-| **TeraMove-H** | **84.4 ± 2.6** | **24.6** | **0.53** | **4.1** | 6400 |
+| **TeraMove-H** | **84.4 ± 2.6** | **24.7** | **0.53** | **4.0** | 6400 |
 
 Main comparison, interpreted:
 * **Against the starting points.** TeraMove-H beats the static network by 39.6 pp and the
   original TeraMove by 33.5 pp.
 * **Wi-Fi.** The Wi-Fi layer adds 7.2 pp over the THz-only cascade.
 * **Power control.** It cuts THz power by 62.1 % and leaves satisfaction and displacement
-  exactly unchanged. This is what Proposition 2 predicts, and the common random numbers
+  exactly unchanged. This is what Proposition 4 (Yates) predicts, and the common random numbers
   make it visible.
-* **Flat GA (honest finding).** The flat GA satisfies 2.8 pp more users (p = 0.02) but
-  moves APs 18.8 % more (p = 0.007). Neither dominates: it is a Pareto trade-off.
+* **Flat GA (honest finding).** The flat GA satisfies 2.9 pp more users (p = 0.02), and
+  TeraMove-H moves APs 18.8 % less (p = 0.005). Neither dominates: it is a Pareto trade-off.
+* **PACE vs greedy at 1 Gb/s.** Identical satisfaction (84.4 %, p = 0.65): the greedy is
+  already optimal on every 1 Gb/s test instance. PACE's gains are at lower demand (Section 13).
 * **PSO vs GA.** Under equal budgets the GA beats PSO (78.3 % flat PSO, 75.0 % with HPSO
   tiers). This contradicts the hard-coded TeraMove figure (defect D7).
 
 Regime map (E3):
-* At 0.1 Gb/s, re-association alone serves 93.2 % of users, and 78 % of snapshots reach
+* At 0.1 Gb/s, re-association alone serves 94.2 % of users, and 80 % of snapshots reach
   η = 0.9 without any movement.
 * At 2 Gb/s, re-association serves 41.7 %, and no snapshot is resolved without movement.
-* GAP minus threshold offload: +1.5 / 1.9 / 1.3 / 0.8 / 0.0 pp across the five demands.
+* PACE minus threshold offload: +1.8 / 2.0 / 1.5 / 0.9 / −0.1 pp across the five demands
+  (p < 0.001 for the first four; the −0.1 at 2 Gb/s is not significant, p = 0.64).
 * Without Wi-Fi, satisfaction is flat in demand up to 1 Gb/s. A THz AP's capacity far
   exceeds its users' demand, so coverage alone limits service.
-* Over the whole grid, TeraMove-H moves APs 24.2 % less than the flat GA.
+* Over the whole grid, TeraMove-H moves APs 23.7 % less than the flat GA.
 
 Temporal (E4):
 
 | Method | S (%) | Cumulative displacement (m) |
 |---|---|---|
-| TeraMove-H | 87.9 | 77.2 |
-| Flat GA | 90.3 | 98.0 |
+| TeraMove-H | 87.9 | 77.5 |
+| Flat GA | 90.1 | 97.2 |
 | TeraMove | 53.9 | 61.7 |
 | Static | 43.0 | — |
 
-Under TeraMove-H, 32.0 % of users served in consecutive epochs change their serving AP,
-and 10.4 % switch between THz and Wi-Fi.
+Under TeraMove-H, 31.7 % of users served in consecutive epochs change their serving AP,
+and 9.7 % switch between THz and Wi-Fi.
 
-Association (E5): the greedy is optimal in 90.9 % of instances. Its worst case is 92.4 % of
-the optimum (5 users short). It takes 0.29 ms against 32.9 ms for the exact ILP.
+Association (E5, 1,800 instances): PACE is optimal in 99.4 % of instances and the greedy in
+84.1 %. Summed over all instances, PACE is 12 users short of the optimum and the greedy 483.
+Details in Section 13.
 
 Sensing (E6):
 
 | σ (m) | 0 | 0.25 | 0.5 | 1 |
 |---|---|---|---|---|
-| S (%) | 84.4 | 68.0 | 63.7 | 62.7 |
+| S (%) | 84.4 | 68.0 | 63.6 | 62.8 |
 
 **This sensitivity is high, and the paper says so.** The method needs decimetre-level
 position context, or a robust search (future work).
@@ -226,13 +231,15 @@ ICNIRP 2020 general-public whole-body level of 10 W/m².
   * the 1e-6 numerical margin;
   * Hungarian matching per room;
   * Wi-Fi AP positions.
-* Proposition 1 is a reduction from PARTITION. Proposition 2's proof uses Yates' standard
+* Proposition 1 is a reduction from PARTITION (now cited to Garey and Johnson).
+  Propositions 2–3 (slot cut, Lagrangian bound of PACE) have short proofs in the paper.
+  Proposition 4's proof uses Yates' standard
   interference function. The power cap never binds because the iterates are
   non-increasing from p⁰ ≤ P_max.
 * The paper compiles without errors or overfull boxes. The only warnings are the XeTeX
   `TU/ptm` font-substitution notices from the IEEEtran class; the body text is Times
   (TeX Gyre Termes).
-* Seven pages including references.
+* Eight pages including references.
 
 ## 10. Open items for the team (cannot be done by code)
 
@@ -248,7 +255,7 @@ ICNIRP 2020 general-public whole-body level of 10 W/m².
      −54/−52 dBm);
    * the 3GPP self-blocking parameters;
    * the ICNIRP 10 W/m² level.
-4. **Venue.** Not applicable for now (project only). If the team submits later, check that venue's page limit and review rules. The paper is 7 pages.
+4. **Venue.** Not applicable for now (project only). If the team submits later, check that venue's page limit and review rules. The paper is 8 pages.
 5. **Weakest points a reviewer will attack:**
    * sensitivity to sensing error;
    * line of sight only;
@@ -261,8 +268,8 @@ ICNIRP 2020 general-public whole-body level of 10 W/m².
 
 See `docs/TERAMOVE_H_README.md`. In short:
 
-* `pytest -q` (37 tests).
-* `python -m experiments.run_experiments --exp all` (about 62 min on 22 cores).
+* `pytest -q` (53 tests).
+* `python -m experiments.run_experiments --exp all` (about 83 min on 22 cores).
 * `python plots/make_paper_assets.py`.
 * `tectonic paper/main.tex`.
 
@@ -308,3 +315,128 @@ See `docs/TERAMOVE_H_README.md`. In short:
 * **TeraMove-H is unaffected.** It uses only the floor plan from `chsr_sim`. Its legacy
   experiment E1 was re-run after the fixes and is identical.
 * **Tests.** 42 pass, including `tests/test_legacy_fixes.py`.
+
+## 13. PACE association (upgrade of the greedy)
+
+### Why
+
+The greedy GAP decides pair by pair in airtime order and never looks back. A user with other
+options can take the last airtime of an AP that another user cannot do without. In the
+earlier E5 (450 instances), the greedy missed the optimum in 9.1 % of instances. On the
+larger E5 set (1,800 instances, crowds of 60–240 people), it misses in 15.9 %.
+
+### What PACE is (`teramove_h/association.py: gap_pace`)
+
+PACE stands for Price-guided Association with Certified Ejection chains.
+
+1. **Slot cuts.** K_a is the largest number of users whose smallest airtimes fit in AP a.
+   The cut Σ_u x_ua ≤ K_a is valid (Proposition 2 in the paper). It removes the fake
+   fractional capacity that makes the plain LP loose.
+2. **Lagrangian dual.** Each AP gets an airtime price λ_a and a slot price ν_a. Then
+   L(λ, ν) = Σ_a (λ_a + K_a ν_a) + Σ_u max(0, max_a (1 − λ_a τ_ua − ν_a)).
+   For any prices, no association serves more than ⌊L⌋ users (Proposition 3). If PACE
+   serves n users and L < n + 1, the assignment is proven optimal.
+3. **Projected subgradient** with a Polyak step towards n + ½ updates the prices; θ halves
+   after 20 steps without improvement; at most 200 steps.
+4. **Price-guided restarts.** Every 5 steps, the greedy is re-run with pairs ordered by
+   λ_a τ_ua + ν_a.
+5. **Ejection chains** of depth 1 (inside the loop) and depth 2 (at the end without a
+   certificate) serve one more user per chain and drop nobody.
+6. **Relocation** to smaller-airtime APs, which keeps the count and lowers the total airtime.
+
+PACE starts from the greedy solution and accepts only strictly better ones, so it never serves
+fewer users than the greedy. It is used everywhere the greedy was used: T0, T1 and every
+fitness evaluation inside the GA/PSO, and also by the baselines that use GAP association
+(THz-only cascade, flat GA, flat PSO, HPSO ablation). The greedy is kept as the ablation
+`proposed_greedy`.
+
+### Research basis (all verified on Crossref)
+
+* Geoffrion, "Lagrangean relaxation for integer programming", Math. Prog. Study 2, 1974.
+* Fisher, Jaikumar, Van Wassenhove, "A multiplier adjustment method for the GAP",
+  Management Science 32(9), 1986.
+* Held, Wolfe, Crowder, "Validation of subgradient optimization", Math. Prog. 6(1), 1974.
+* Yagiura, Ibaraki, Glover, "An ejection chain approach for the GAP", INFORMS J. Computing
+  16(2), 2004.
+* Shen and Yu, "Distributed pricing-based user association for downlink HetNets", IEEE JSAC
+  32(6), 2014.
+* Garey and Johnson, *Computers and Intractability*, 1979 (PARTITION, now cited in
+  Proposition 1).
+
+### Tests (added)
+
+* `test_slot_limits_match_brute_force`: K_a equals the brute-force maximum.
+* `test_pace_is_feasible_certified_and_never_worse_than_greedy`: on 60 random small
+  instances, compared with brute force:
+  * PACE is feasible;
+  * its loads are consistent;
+  * greedy ≤ PACE ≤ optimum;
+  * the bound is at least the optimum;
+  * every certificate is correct;
+  * PACE beats greedy at least once.
+* `test_pace_ejection_chain_fixes_greedy_trap`: the two-user trap from the walkthrough.
+* `proposed_greedy` added to the end-to-end method test.
+
+`plots/make_paper_assets.py` also refuses to build the paper if `results/assoc.json` breaks
+any of these properties:
+* PACE < greedy;
+* PACE > exact;
+* bound < exact;
+* a wrong certificate;
+* an LP bound below the optimum.
+
+### Results
+
+**E5: association quality (1,800 instances)**
+
+| Check | Greedy | PACE |
+|---|---|---|
+| Equals the exact optimum | 84.1 % | **99.4 %** |
+| Users short of the optimum (sum) | 483 | **12** (−97.5 %) |
+| Worst instance | 7 users short (87.0 %) | 2 users short (96.6 %) |
+| Optimality certified by its own bound | — | 82.3 % (no wrong certificate) |
+| Median time (22 parallel workers) | 0.27 ms | 0.62 ms (exact ILP 34.0 ms) |
+
+PACE beats the greedy in 282 instances and loses in none. The rounded plain LP bound equals
+the optimum in 35.7 % of instances, and with slot cuts in 94.8 % (never more than 2 above).
+
+Per demand (greedy optimal / PACE optimal):
+* 0.1 Gb/s: 56.7 / 97.2 %
+* 0.25 Gb/s: 74.7 / 99.7 %
+* 0.5 Gb/s: 89.2 / 100 %
+* 1 and 2 Gb/s: 100 / 100 %
+
+**E3: full system (PACE / greedy, same seeds and crowds)**
+
+| R_min (Gb/s) | 0.1 | 0.25 | 0.5 | 1 | 2 |
+|---|---|---|---|---|---|
+| T0 S (%) | 94.2 / 93.2 | 73.2 / 72.8 | 60.8 / 60.3 | 48.7 / 48.7 | 41.7 / 41.7 |
+| Final S (%) | 98.3 / 98.0 | 92.5 / 92.4 | 86.1 / 85.9 | 80.4 / 80.3 | 75.1 / 75.2 |
+| No movement (%) | 80 / 78 | 33 / 30 | 20 / 19 | 2 / 2 | 0 / 0 |
+| Displacement (m) | 3.8 / 4.5 | 15.5 / 16.1 | 19.1 / 18.7 | 22.3 / 22.4 | 25.8 / 26.1 |
+
+**Certified escalation.** In 457 regime snapshots T0 missed η, and in 98.7 % of them the PACE
+bound proves that no association at the starting geometry reaches η.
+
+### Honest assessment
+
+* **Association quality.** PACE is clearly better as an association algorithm: 99.4 % vs
+  84.1 % optimal, and 97.5 % less shortfall.
+* **Full-system satisfaction.** The gains are small, because the GA then moves APs and repairs
+  most association mistakes:
+  * T0 at 0.1 Gb/s: +1.0 pp (+2.7 pp with 180 people);
+  * final S at 0.1 Gb/s: +0.3 pp (p = 0.01);
+  * 0.25–2 Gb/s: not significant (p ≥ 0.09).
+* **Main result.** At 1 Gb/s, the paper's main setting, nothing changes. The greedy is
+  already optimal there.
+* **Where PACE helps in practice.**
+  * Fewer unnecessary movements at low demand: 80 % vs 78 % of snapshots resolved
+    electronically at 0.1 Gb/s, and 16 % less displacement.
+  * The certificate, which explains why movement is necessary.
+* **Cost.** About 2.5× more run time per snapshot at 0.1 Gb/s, because PACE runs inside every
+  fitness evaluation. At 1 Gb/s the extra time is small (24.6 s vs 22.6 s per snapshot),
+  because certificates end PACE early.
+* **Reproducibility.**
+  * With the greedy, the re-run (`proposed_greedy`) reproduces the earlier `proposed`
+    results bit-for-bit in E2 and E3.
+  * The earlier results are kept in `results_v1_greedy/`.

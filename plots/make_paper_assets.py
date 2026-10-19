@@ -47,6 +47,7 @@ LABEL = {
     "thz_only": "THz-only cascade", "naive": "Threshold offload", "flat_pso": "Flat PSO",
     "ga": "Flat GA", "proposed": "TeraMove-H", "proposed_nopc": "w/o power ctrl",
     "proposed_nomove": "w/o movement", "proposed_hpso": "w/ HPSO tiers",
+    "proposed_greedy": "w/ greedy assoc.",
 }
 NUM = {}
 
@@ -143,7 +144,7 @@ def legacy_numbers():
 
 # ----------------------------------------------------------------------- E2
 MAIN_ORDER = ["static", "wifi_only", "teramove", "thz_only", "naive", "flat_pso", "ga",
-              "proposed_hpso", "proposed_nopc", "proposed_nomove", "proposed"]
+              "proposed_hpso", "proposed_greedy", "proposed_nopc", "proposed_nomove", "proposed"]
 
 
 def main_results():
@@ -205,7 +206,8 @@ def main_results():
             macro(prefix + "PD", pfmt(st["p_D"]))
     for m, pre in (("static", "Static"), ("wifi_only", "Wifi"), ("teramove", "Tm"), ("thz_only", "Thz"),
                    ("naive", "Naive"), ("flat_pso", "Fpso"), ("ga", "Ga"), ("proposed", "Prop"),
-                   ("proposed_nopc", "Nopc"), ("proposed_nomove", "Nomove"), ("proposed_hpso", "Hpso")):
+                   ("proposed_nopc", "Nopc"), ("proposed_nomove", "Nomove"), ("proposed_hpso", "Hpso"),
+                   ("proposed_greedy", "Greedy")):
         if m in stats:
             put(pre, m)
     macro("MainSeeds", str(len(seeds)))
@@ -385,9 +387,70 @@ def regime():
                 - round(100 * np.mean([x["satisfaction"] for x in by(rows, method="naive", r_min=r)]), 1)
                 for r in R]
     for r, g in zip(R, gap_gain):
-        macro("GapVsNaive" + {0.1e9: "A", 0.25e9: "B", 0.5e9: "C", 1e9: "D", 2e9: "E"}[r], fmt(g))
+        L = {0.1e9: "A", 0.25e9: "B", 0.5e9: "C", 1e9: "D", 2e9: "E"}[r]
+        macro("GapVsNaive" + L, fmt(g))
+        pr = sorted(by(rows, method="proposed", r_min=r), key=lambda x: (x["seed"], x["n_people"]))
+        nv = sorted(by(rows, method="naive", r_min=r), key=lambda x: (x["seed"], x["n_people"]))
+        pval = wilcoxon_p([x["satisfaction"] for x in pr], [x["satisfaction"] for x in nv])
+        macro("GapVsNaiveP" + L, pfmt(pval))
+        if L != "E" and pval >= 1e-3:
+            raise RuntimeError("paper states p < 1e-3 for PACE vs threshold offload at 0.1-1 Gb/s")
     macro("WifiGainLow", fmt(wifi_gain[0]))
     macro("WifiGainHigh", fmt(wifi_gain[-1]))
+    pace_vs_greedy(rows, R, eta)
+
+
+RLET = {0.1e9: "A", 0.25e9: "B", 0.5e9: "C", 1e9: "D", 2e9: "E"}
+
+
+def pace_vs_greedy(rows, R, eta):
+    """PACE versus greedy association inside the same cascade (paired by seed and crowd).
+
+    T0 runs at the same starting geometry for both, so its difference isolates the
+    association algorithm; the final S and displacement include the search."""
+    key = lambda x: (x["seed"], x["n_people"], x["r_min"])  # noqa: E731
+    pg = {key(x): x for x in by(rows, method="proposed_greedy")}
+    lines = [r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+             r"$R_{\min}$ (Gb/s) & " + " & ".join(f"{r / 1e9:g}" for r in R) + r" \\", r"\midrule"]
+    t0p, t0g, sp, sg, dp, dg, ep, eg, pv = ([] for _ in range(9))
+    for r in R:
+        pr = by(rows, method="proposed", r_min=r)
+        gr = [pg[key(x)] for x in pr]
+        t0p.append(100 * np.mean([x["stages"][0][1] for x in pr]))
+        t0g.append(100 * np.mean([x["stages"][0][1] for x in gr]))
+        sp.append(100 * np.mean([x["satisfaction"] for x in pr]))
+        sg.append(100 * np.mean([x["satisfaction"] for x in gr]))
+        dp.append(np.mean([x["displacement_m"] for x in pr]))
+        dg.append(np.mean([x["displacement_m"] for x in gr]))
+        ep.append(100 * np.mean([x["displacement_m"] == 0 and x["satisfaction"] >= eta for x in pr]))
+        eg.append(100 * np.mean([x["displacement_m"] == 0 and x["satisfaction"] >= eta for x in gr]))
+        pv.append(wilcoxon_p([x["satisfaction"] for x in pr], [x["satisfaction"] for x in gr]))
+    for name, vp, vg, d in (("T0 $S$ (\\%)", t0p, t0g, 1), ("Final $S$ (\\%)", sp, sg, 1),
+                            ("No movement (\\%)", ep, eg, 0), ("Displ. (m)", dp, dg, 1)):
+        lines.append(name + " & " + " & ".join(f"{fmt(a_, d)}/{fmt(b_, d)}" for a_, b_ in zip(vp, vg))
+                     + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}"]
+    (TAB / "pace_regime.tex").write_text("\n".join(lines) + "\n")
+    for i, r in enumerate(R):
+        L = RLET[r]
+        macro("PaceTzeroGain" + L, fmt(round(t0p[i], 1) - round(t0g[i], 1)))
+        macro("PaceSGain" + L, fmt(round(sp[i], 1) - round(sg[i], 1)))
+        macro("PaceSP" + L, pfmt(pv[i]))
+        macro("PaceElec" + L, fmt(ep[i], 0))
+        macro("GreedyElec" + L, fmt(eg[i], 0))
+        macro("PaceDisp" + L, fmt(dp[i]))
+        macro("GreedyDisp" + L, fmt(dg[i]))
+    macro("PaceSPMinRest", pfmt(min(pv[1:])))
+    rt = [np.mean([x["runtime_s"] for x in by(rows, method=m_, r_min=R[0])]) for m_ in ("proposed", "proposed_greedy")]
+    macro("PaceRtRatioA", fmt(rt[0] / rt[1]))
+    # Certified escalation: share of snapshots that leave T0 for which the PACE dual
+    # bound proves that no association at the starting geometry reaches eta.
+    pr = by(rows, method="proposed")
+    esc = [x for x in pr if x["stages"][0][1] < eta]
+    nec = [x for x in esc if np.floor(x["t0_ub"] + 1e-9) < eta * x["n_users"] - 1e-9]
+    macro("EscN", str(len(esc)))
+    macro("EscCertPct", fmt(100 * len(nec) / max(len(esc), 1)))
+    macro("TzeroCertPct", fmt(100 * np.mean([x["t0_certified"] for x in pr])))
 
 
 # ----------------------------------------------------------------------- E4 temporal
@@ -439,20 +502,58 @@ def assoc():
         return
     rows = d["rows"]
     g = np.array([r["greedy"] for r in rows])
+    p = np.array([r["pace"] for r in rows])
     e = np.array([r["exact"] for r in rows])
-    opt = np.mean(g == e) * 100
-    ratio = np.min(np.where(e > 0, g / np.maximum(e, 1), 1.0))
+    cert = np.array([r["certified"] for r in rows])
+    ub = np.array([r["ub"] for r in rows])
+    if np.any(p < g) or np.any(p > e) or np.any(ub < e - 1e-9) or np.any(cert & (p != e)):
+        raise RuntimeError("PACE property violated in results/assoc.json")
     macro("AssocInstances", str(len(rows)))
-    macro("AssocOptimalPct", fmt(opt))
-    macro("AssocWorstRatio", fmt(100 * ratio))
-    macro("AssocMeanGap", fmt(np.mean(e - g), 2))
-    mg = int(np.max(e - g))
-    macro("AssocMaxGap", str(mg))
-    macro("AssocMaxGapText", "no user" if mg == 0 else f"{mg} user" + ("s" if mg > 1 else ""))
-    macro("AssocTGreedy", fmt(1e3 * np.median([r["t_greedy"] for r in rows]), 2))
-    macro("AssocTExact", fmt(1e3 * np.median([r["t_exact"] for r in rows]), 1))
-    macro("AssocAllOptimalStatus", "yes" if all("Optimal" in r["status"] or "optimal" in r["status"]
+    macro("AssocOptimalPct", fmt(100 * np.mean(g == e)))
+    macro("AssocPaceOptimalPct", fmt(100 * np.mean(p == e)))
+    macro("AssocCertPct", fmt(100 * np.mean(cert)))
+    macro("AssocShortGreedy", str(int(np.sum(e - g))))
+    macro("AssocShortPace", str(int(np.sum(e - p))))
+    macro("AssocShortReduction", fmt(100 * (1 - np.sum(e - p) / np.sum(e - g))))
+    pos = e > 0
+    macro("AssocWorstRatio", fmt(100 * np.min(g[pos] / e[pos])))
+    macro("AssocPaceWorstRatio", fmt(100 * np.min(p[pos] / e[pos])))
+    for name, gap in (("AssocMaxGap", e - g), ("AssocPaceMaxGap", e - p)):
+        mg = int(np.max(gap))
+        macro(name, str(mg))
+        macro(name + "Text", "no user" if mg == 0 else f"{mg} user" + ("s" if mg > 1 else ""))
+    macro("AssocWins", str(int(np.sum(p > g))))
+    lp = np.floor(np.array([r["lp"] for r in rows]) + 1e-6)
+    lps = np.floor(np.array([r["lp_slot"] for r in rows]) + 1e-6)
+    if np.any(lps < e) or np.any(lp < lps):
+        raise RuntimeError("LP bound below the optimum in results/assoc.json")
+    macro("AssocLpTightPct", fmt(100 * np.mean(lp == e)))
+    macro("AssocLpSlotTightPct", fmt(100 * np.mean(lps == e)))
+    macro("AssocLpSlotMaxGap", str(int(np.max(lps - e))))
+    macro("AssocLpMaxGap", str(int(np.max(lp - e))))
+    for k, n, dd in (("t_greedy", "AssocTGreedy", 2), ("t_pace", "AssocTPace", 2), ("t_exact", "AssocTExact", 1)):
+        t = 1e3 * np.array([r[k] for r in rows])
+        macro(n, fmt(np.median(t), dd))
+        macro(n + "Pnn", fmt(np.percentile(t, 99), dd))
+    macro("AssocAllOptimalStatus", "yes" if all("Optimal" in r["status"] or r["status"] == "empty"
                                                   for r in rows) else "no")
+    # per-demand table
+    R = sorted({r["r_min"] for r in rows})
+    lines = [r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+             r"$R_{\min}$ (Gb/s) & " + " & ".join(f"{r / 1e9:g}" for r in R) + r" \\", r"\midrule"]
+    sel = [np.array([r["r_min"] == x for r in rows]) for x in R]
+    cells = {
+        "Greedy optimal (\\%)": [fmt(100 * np.mean(g[m] == e[m])) for m in sel],
+        "PACE optimal (\\%)": [fmt(100 * np.mean(p[m] == e[m])) for m in sel],
+        "PACE certified (\\%)": [fmt(100 * np.mean(cert[m])) for m in sel],
+        "Users short, greedy": [str(int(np.sum(e[m] - g[m]))) for m in sel],
+        "Users short, PACE": [str(int(np.sum(e[m] - p[m]))) for m in sel],
+    }
+    for name, vals in cells.items():
+        lines.append(name + " & " + " & ".join(vals) + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}"]
+    (TAB / "assoc.tex").write_text("\n".join(lines) + "\n")
+    macro("AssocPerDemand", str(int(sel[0].sum())))
 
 
 # ----------------------------------------------------------------------- E6 sensing

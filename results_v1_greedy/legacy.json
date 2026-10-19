@@ -1,0 +1,82 @@
+{
+"meta": {
+"commission": {
+"z": [
+2.2,
+2.2,
+2.6,
+2.2,
+2.6,
+2.6,
+2.8,
+3.0,
+2.2,
+2.6,
+2.0,
+2.2,
+2.4,
+3.0
+],
+"phi": [
+135.0,
+135.0,
+225.0,
+45.0,
+45.0,
+90.0,
+135.0,
+45.0,
+90.0,
+135.0,
+135.0,
+45.0,
+45.0,
+135.0
+],
+"alpha": [
+90.0,
+90.0,
+120.0,
+90.0,
+90.0,
+60.0,
+120.0,
+90.0,
+45.0,
+90.0,
+90.0,
+120.0,
+120.0,
+90.0
+],
+"milp_empty_coverage": 0.6625,
+"commissioned_empty_coverage": 1.0,
+"swarm": 60,
+"iters": 60
+}
+},
+"rows": [
+{
+"model": "legacy",
+"convention": "legacy_math",
+"coverage": 0.4390625
+},
+{
+"model": "legacy",
+"convention": "compass",
+"coverage": 0.6078125
+},
+{
+"model": "corrected",
+"convention": "compass",
+"layout": "milp",
+"coverage": 0.6625
+},
+{
+"model": "corrected",
+"convention": "compass",
+"layout": "commissioned",
+"coverage": 1.0
+}
+]
+}

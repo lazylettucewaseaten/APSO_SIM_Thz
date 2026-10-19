@@ -222,8 +222,8 @@ c_{u,1}=c_{u,2}=\frac{\Rmin\,T}{s_u}
 \]
 Both airtime budgets hold with everyone served \textbf{if and only if} the integers split into
 two halves that each sum to $T$. So an exact solver is too slow for every evaluation, and we
-use a greedy algorithm.
-\why{If an exact solver could always answer quickly, it would also solve PARTITION quickly, which is believed impossible. So we need a fast heuristic.}
+need a fast algorithm: the simple greedy (baseline) and \textbf{PACE} (proposed).
+\why{If an exact solver could always answer quickly, it would also solve PARTITION quickly, which is believed impossible. So we need a fast algorithm that is still close to optimal, and ideally one that can tell us when it \emph{is} optimal.}
 
 \subsection{Greedy algorithm (\texttt{gap\_greedy})}
 \begin{enumerate}
@@ -265,49 +265,220 @@ Step & Pair & Action & Load A & Load W\\
 \end{center}
 All 3 users are served, and Wi-Fi is spent only on the blocked user.
 
+\subsection{Where the greedy goes wrong}
+The greedy looks only at airtime. A user who has \emph{other options} can take the last
+airtime of an AP that another user \emph{cannot do without}.
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+User & AP A & AP B\\
+\midrule
+u1 & $\tau=0.4$ & $\tau=0.5$\\
+u2 & $\tau=0.7$ & blocked\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item \textbf{Greedy:} (u1, A) is the cheapest pair, so u1 takes A (load 0.4). u2 then needs
+  $0.4+0.7>1$ on A and is lost. \textbf{1 user served.}
+\item \textbf{Optimum:} u1 on B, u2 on A. \textbf{2 users served.}
+\end{itemize}
+\why{Greedy decides pair by pair and never looks back. It cannot see that A is the only option for u2. In real instances this happens on crowded Wi-Fi APs and on THz APs at the edge of a crowd, mostly at low demand when each AP packs many users.}
+
+\subsection{PACE: the proposed association algorithm}
+\textbf{PACE} = \textbf{P}rice-guided \textbf{A}ssociation with \textbf{C}ertified
+\textbf{E}jection chains. It starts from the greedy solution and adds four ideas. Code:
+function \texttt{gap\_pace} in \texttt{teramove\_h/association.py}.
+
+\subsubsection*{Part 1 --- Slot cuts: how many users can an AP hold at most?}
+Sort AP $a$'s airtimes from small to large. $K_a$ is the largest $n$ whose $n$ smallest
+airtimes still fit:
+\begin{keybox}[Slot cut --- Proposition 2 in the paper]
+\[
+\tau_{(1),a}+\tau_{(2),a}+\dots+\tau_{(n),a}\le1
+\quad\Longrightarrow\quad
+\sum_u x_{u,a}\le K_a\qquad\forall a .
+\]
+\end{keybox}
+\why{Any $n$ users on AP $a$ need at least the $n$ smallest airtimes. If those already exceed 1, $n$ users cannot fit. The fractional (LP) version of the problem ignores this: at 1\,Gb/s a Wi-Fi AP (at most 1.68\,Gb/s, so $\tau\ge0.6$) really holds \emph{one} user, but the fractional budget ``holds'' 1.68 users. The cut removes this fake capacity, so the bound in Part~2 becomes tight.}
+
+\subsubsection*{Part 2 --- Prices and an upper bound (Lagrangian dual)}
+Give each AP an \textbf{airtime price} $\lambda_a\ge0$ and a \textbf{slot price} $\nu_a\ge0$.
+For any prices define
+\begin{keybox}[Dual function]
+\[
+L(\boldsymbol\lambda,\boldsymbol\nu)=\sum_a\big(\lambda_a+K_a\nu_a\big)
++\sum_u\max\Big(0,\ \max_a\big(1-\lambda_a\tau_{u,a}-\nu_a\big)\Big).
+\]
+\end{keybox}
+\why{Read it as a market. Each user is worth 1. Joining AP $a$ costs $\lambda_a\tau_{u,a}+\nu_a$. Each user picks its cheapest AP and joins only if the cost is below 1. A crowded AP gets a high price, which pushes flexible users elsewhere.}
+
+\begin{keybox}[Upper bound (weak duality) --- Proposition 3 in the paper]
+For \emph{any} prices $\boldsymbol\lambda,\boldsymbol\nu\ge0$:
+\[
+\text{maximum number of users served}\;\le\;\big\lfloor L(\boldsymbol\lambda,\boldsymbol\nu)\big\rfloor .
+\]
+\end{keybox}
+\why{Take any valid assignment and add the non-negative leftovers $\lambda_a(1-\sum_u\tau_{u,a}x_{u,a})$ and $\nu_a(K_a-\sum_u x_{u,a})$ to the user count; the count can only grow. Rearranged, each user contributes at most its best ``value minus price'', which is the max term in $L$. The count is an integer, so take the floor.}
+
+\begin{keybox}[Optimality certificate]
+If PACE serves $n$ users and finds prices with $L<n+1$, then $n$ is \textbf{provably optimal}.
+\end{keybox}
+\why{No assignment can serve more than $\lfloor L\rfloor=n$ users, so $n$ is the best possible, and no exact solver is needed to know it. The best possible $L$ equals the LP relaxation \emph{with} slot cuts (Geoffrion 1974), and with the cuts it is very tight, so the certificate fires often.}
+
+\paragraph{Updating the prices (subgradient step).}
+Let $u\to a$ mean ``users whose cheapest AP is $a$''. Measure how far each AP is from its
+limits, then move the prices against that gap:
+\begin{keybox}[Price update]
+\[
+g^{\lambda}_a=1-\sum_{u\to a}\tau_{u,a},\qquad
+g^{\nu}_a=K_a-\big|\{u\to a\}\big|,
+\]
+\[
+(\boldsymbol\lambda,\boldsymbol\nu)\leftarrow
+\max\!\Big(0,\;(\boldsymbol\lambda,\boldsymbol\nu)-\vartheta\,\frac{L-(n+\tfrac12)}{\lVert\mathbf g\rVert^2}\,\mathbf g\Big).
+\]
+\end{keybox}
+\why{This is supply and demand. An over-booked AP ($g<0$) gets a \emph{higher} price, and an AP with spare time ($g>0$) gets a lower one. The step size shrinks as $L$ approaches the target $n+\tfrac12$ (Polyak's rule, Held--Wolfe--Crowder 1974). $\vartheta$ starts at 1 and halves after 20 steps without progress. Prices never go below 0.}
+
+\subsubsection*{Part 3 --- Price-guided restarts}
+Every 5 price steps, PACE re-runs the greedy, but sorts the pairs by the \textbf{priced cost}
+instead of the raw airtime (ties by airtime):
+\[
+\text{sort key}=\lambda_a\tau_{u,a}+\nu_a .
+\]
+It keeps the result if it serves more users.
+\why{With all prices at 0 this is exactly the old greedy. Nonzero prices tell greedy which APs are scarce, so each price vector gives a different, smarter order.}
+
+\subsubsection*{Part 4 --- Ejection chains (push someone along)}
+An unserved user $u$ can get in by moving other users:
+\begin{itemize}
+\item \textbf{depth 1:} $u$ enters AP $a$ by displacing $v$; $v$ moves to an AP $b$ with free time;
+\item \textbf{depth 2:} $v$ instead displaces $w$ at $b$, and $w$ moves to a third AP $c$.
+\end{itemize}
+\why{Each chain serves \emph{one more} user and drops nobody. It is the assignment-problem version of the ``augmenting path'' in matching (Yagiura, Ibaraki and Glover 2004). In the example above, one depth-1 chain fixes the greedy: u2 enters A, and u1 moves to B.}
+
+\subsubsection*{The full algorithm}
+\begin{enumerate}
+\item Run greedy, then depth-1 chains. This serves $n$ users.
+\item Repeat up to 200 times:
+  \begin{itemize}
+  \item compute $L$; if the best $L<n+1$, \textbf{stop} (optimal, certified);
+  \item every 5 steps, do a price-guided restart and keep it if it serves more users;
+  \item take one price step.
+  \end{itemize}
+\item If no certificate was found, try depth-2 chains.
+\item Move served users to an AP with smaller $\tau$ where it fits. The count stays the same,
+  and less airtime is used.
+\end{enumerate}
+Each price step costs $O(KM)$ for $K$ users and $M$ APs; the median run time is about
+0.6\,ms.
+
+\begin{keybox}[Guarantees]
+\begin{itemize}
+\item \textbf{Never worse than greedy:} PACE starts from the greedy solution and keeps a new one only if it serves strictly more users.
+\item \textbf{Always feasible:} every move checks the airtime budget with the same tolerance as the greedy.
+\item \textbf{Known gap:} $\lfloor L\rfloor$ is always a valid upper bound, even without a certificate.
+\end{itemize}
+\end{keybox}
+
+\paragraph{Can it guarantee that every user is served?}
+No algorithm can when capacity is short. PACE instead \emph{proves} when it is impossible:
+if $\lfloor L\rfloor<k$, no association can serve all $k$ users. TeraMove-H uses this at T0:
+when the bound shows that the target $\eta$ is unreachable at the current geometry, moving APs
+is truly necessary, not a failure of the association algorithm.
+
+\paragraph{Where the parts come from.}
+Lagrangian relaxation (Geoffrion 1974; Fisher, Jaikumar and Van Wassenhove 1986), subgradient
+steps (Held, Wolfe and Crowder 1974), ejection chains (Yagiura, Ibaraki and Glover 2004) and
+pricing-based association (Shen and Yu 2014). Our contribution is to combine them for
+THz/Wi-Fi airtime association, together with the slot cuts and a certificate that decides
+whether APs must move.
+
 \subsection{Baselines}
 \begin{center}
-\begin{tabular}{@{}p{0.2\textwidth}p{0.38\textwidth}p{0.34\textwidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
 \toprule
 Rule & How it decides & Weakness\\
 \midrule
 \textbf{Max-SINR} (old TeraMove) & strongest THz AP; no Wi-Fi & blocked users are lost; ignores load\\
 \textbf{Threshold offload} & strongest THz AP if $\mathrm{SINR}\ge5$\,dB, else best Wi-Fi & ignores load; cannot pick a second-best THz AP\\
-\textbf{Greedy GAP} (TeraMove-H) & cheapest airtime first, over all APs & not always optimal (see below)\\
+\textbf{Greedy GAP} (ablation) & cheapest airtime first, over all APs & blind to scarce APs (see above)\\
+\textbf{PACE} (TeraMove-H) & prices, restarts and ejection chains, from the greedy start & slower, but below 1\,ms median\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\subsection{How good is the greedy?}
-It was compared with the exact integer program, solved by HiGHS (\texttt{scipy.optimize.milp}),
-on \textbf{450} instances:
+\subsection{How good are greedy and PACE?}
+Both were compared with the exact integer program, solved by HiGHS (\texttt{scipy.optimize.milp}),
+on \textbf{1{,}800} instances: 4 crowd sizes $\times$ 5 demands $\times$ 3 AP configurations
+$\times$ 30 seeds.
 \begin{center}
-\begin{tabular}{@{}ll@{}}
+\begin{tabular}{@{}lll@{}}
 \toprule
-Check & Result\\
+Check & Greedy & PACE\\
 \midrule
-Greedy equals the optimum & \textbf{90.9\,\%} of instances\\
-Worst case & 92.4\,\% of the optimum (5 users short)\\
-Median time: greedy vs exact & \textbf{0.29\,ms} vs 32.9\,ms\\
+Equals the exact optimum & 84.1\,\% & \textbf{99.4\,\%}\\
+Users short of the optimum (all instances) & 483 & \textbf{12}\\
+Worst instance & 7 users short (87.0\,\%) & 2 users short (96.6\,\%)\\
+Optimality proved by its own bound & --- & 82.3\,\% (never wrong)\\
+Median time & 0.27\,ms & 0.62\,ms (exact ILP: 34\,ms)\\
 \bottomrule
 \end{tabular}
 \end{center}
-
-\subsection{When association matters}
-Gain of the greedy GAP over threshold offload, in satisfaction:
+PACE serves more users than the greedy in 282 instances and fewer in none.
 \begin{center}
 \begin{tabular}{@{}lccccc@{}}
 \toprule
 $\Rmin$ (Gb/s) & 0.1 & 0.25 & 0.5 & 1 & 2\\
 \midrule
-GAP $-$ offload (pp) & +1.5 & +1.9 & +1.3 & +0.8 & 0.0\\
+Instances where greedy is not optimal & 156 & 91 & 39 & 0 & 0\\
+Instances where PACE is not optimal & 10 & 1 & 0 & 0 & 0\\
+Users short, greedy & 320 & 123 & 40 & 0 & 0\\
+Users short, PACE & 11 & 1 & 0 & 0 & 0\\
+PACE certified optimal (\%) & 56.4 & 70.6 & 84.7 & 100 & 100\\
+\bottomrule
+\end{tabular}
+\end{center}
+\why{The greedy fails only at low demand, where each AP packs many users and the packing gets tight. At 1 and 2\,Gb/s an AP holds only a few users, and greedy, PACE and the optimum all coincide. This is why the main results at 1\,Gb/s do not change with PACE (84.4\,\% with both), while the benefit appears at 0.1--0.5\,Gb/s.}
+
+\subsection{When association matters (full system)}
+Same seeds, same crowds and same search; only the association algorithm differs. Each cell
+shows PACE / greedy, averaged over the four crowd sizes (60 to 240 people) and 30 seeds.
+\begin{center}
+\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+$\Rmin$ (Gb/s) & 0.1 & 0.25 & 0.5 & 1 & 2\\
+\midrule
+T0 $S$ (\%) & 94.2\,/\,93.2 & 73.2\,/\,72.8 & 60.8\,/\,60.3 & 48.7\,/\,48.7 & 41.7\,/\,41.7\\
+Final $S$ (\%) & 98.3\,/\,98.0 & 92.5\,/\,92.4 & 86.1\,/\,85.9 & 80.4\,/\,80.3 & 75.1\,/\,75.2\\
+No movement (\%) & 80\,/\,78 & 33\,/\,30 & 20\,/\,19 & 2\,/\,2 & 0\,/\,0\\
+Displacement (m) & 3.8\,/\,4.5 & 15.5\,/\,16.1 & 19.1\,/\,18.7 & 22.3\,/\,22.4 & 25.8\,/\,26.1\\
+\bottomrule
+\end{tabular}
+\end{center}
+\why{T0 uses the same AP positions for both, so its difference is purely the association algorithm: +1.0\,pp at 0.1\,Gb/s (+2.7\,pp with 180 people). After T0 the GA moves APs and repairs most association mistakes, so the final gain is small: +0.3\,pp at 0.1\,Gb/s ($p=0.01$, significant), and not significant at higher demand. The real benefit is \emph{less movement}: at 0.1\,Gb/s, 80\,\% instead of 78\,\% of snapshots need no movement, and displacement drops from 4.5 to 3.8\,m ($-16$\,\%). The cost is run time: about 2.5$\times$ longer per snapshot at 0.1\,Gb/s, because PACE runs inside every fitness evaluation.}
+
+\paragraph{Certified escalation.} In 457 snapshots, T0 fell short of $\eta=0.9$ and TeraMove-H
+escalated. In \textbf{98.7\,\%} of them, the PACE bound $\lfloor L\rfloor$ proves that \emph{no}
+association at the starting geometry could reach $\eta$. So the movement was truly necessary,
+not caused by a weak association heuristic.
+
+\paragraph{PACE versus threshold offload.}
+\begin{center}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+$\Rmin$ (Gb/s) & 0.1 & 0.25 & 0.5 & 1 & 2\\
+\midrule
+PACE $-$ offload (pp) & +1.8 & +2.0 & +1.5 & +0.9 & $-0.1$ (not significant)\\
 \bottomrule
 \end{tabular}
 \end{center}
 \begin{itemize}
 \item \textbf{Low demand.} Each Wi-Fi AP can carry many users, so sharing its time wisely
-  pays off. At 0.1\,Gb/s, re-association alone serves \textbf{93.2\,\%} of users, and
-  \textbf{78\,\%} of crowd snapshots need no AP movement at all.
+  pays off. At 0.1\,Gb/s, re-association alone serves \textbf{94.2\,\%} of users, and
+  \textbf{80\,\%} of crowd snapshots need no AP movement at all.
 \item \textbf{High demand.} One Wi-Fi AP tops out at 1.68\,Gb/s, so it carries about one user
   at 1\,Gb/s. There is little left to allocate, and the rule barely matters.
 \end{itemize}
@@ -347,7 +518,7 @@ I_a(\mathbf{p})=\max_{u\in\mathcal{U}_a}
 \end{keybox}
 \why{Each AP picks the smallest power that lets its \emph{weakest} user reach its target, given the interference it sees now. Changing one AP's power changes interference for the others, so we repeat until nothing changes. The $\min$ with $\Pmax$ keeps powers legal.}
 
-\paragraph{Proposition 2.} $\mathbf{I}$ is a \emph{standard interference function}:
+\paragraph{Proposition 4 (paper numbering).} $\mathbf{I}$ is a \emph{standard interference function}:
 \begin{center}
 \begin{tabular}{@{}ll@{}}
 \toprule
@@ -382,7 +553,7 @@ The stages run in order and stop at the first one that reaches $S\ge\eta=0.9$:
 \toprule
 Stage & What it does & Physical cost\\
 \midrule
-\textbf{T0} & greedy GAP over THz + Wi-Fi at full power & none\\
+\textbf{T0} & PACE association over THz + Wi-Fi at full power & none\\
 \textbf{T1} & sleep + re-associate + minimum power & none\\
 \textbf{T2} & genetic algorithm (GA) over azimuth $\phi$ and width $\alpha$ (1 budget unit) & none\\
 \textbf{M} & GA over height, position within the room and beams (3 units), then Hungarian matching per room & movement\\
@@ -442,22 +613,23 @@ Re-association only (T0) & 51.6\,\% & 0\,m\\
 T0--T2 (no movement) & 58.9\,\% & 0\,m\\
 THz only (no Wi-Fi) & 77.2\,\% & 25.8\,m\\
 Threshold offload & 83.0\,\% & 23.3\,m\\
-\textbf{TeraMove-H} & \textbf{84.4\,\%} & \textbf{24.6\,m}\\
-Flat GA (all dimensions at once) & 87.2\,\% & 30.3\,m\\
+TeraMove-H with greedy association & 84.4\,\% & 24.6\,m\\
+\textbf{TeraMove-H (PACE)} & \textbf{84.4\,\%} & \textbf{24.7\,m}\\
+Flat GA (all dimensions at once) & 87.3\,\% & 30.4\,m\\
 \bottomrule
 \end{tabular}
 \end{center}
-The flat GA satisfies 2.8\,pp more users but moves APs about 23\,\% more. That is a
+At 1\,Gb/s greedy is already optimal, so PACE and greedy give the same satisfaction here; PACE's gains appear at lower demand (Section~4). The flat GA satisfies 2.9\,pp more users but moves APs about 23\,\% more. That is a
 trade-off, not a win for either method.
 
 %==================================================================
 \section{Where it lives in the code}
 \begin{center}
-\begin{tabular}{@{}>{\ttfamily}l p{0.55\textwidth}@{}}
+\begin{tabular}{@{}>{\ttfamily}l >{\raggedright\arraybackslash}p{0.55\textwidth}@{}}
 \toprule
 \normalfont File & What is in it\\
 \midrule
-teramove\_h/association.py & \texttt{gap\_greedy}, \texttt{gap\_exact}, \texttt{max\_sinr\_pref}, \texttt{naive\_offload\_pref}\\
+teramove\_h/association.py & \texttt{gap\_pace} (proposed), \texttt{gap\_greedy}, \texttt{gap\_exact}, \texttt{slot\_limits}, \texttt{gap\_lp\_bound}, \texttt{max\_sinr\_pref}, \texttt{naive\_offload\_pref}\\
 teramove\_h/evaluator.py & association $\to$ sleep $\to$ power control pipeline\\
 teramove\_h/power.py & SINR targets $\gamma_u$ and the Yates iteration\\
 teramove\_h/network.py & SINR and capacity for every (user, AP) pair\\

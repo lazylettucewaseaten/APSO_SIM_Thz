@@ -15,7 +15,7 @@ APSO_SIM_Thz/
     antenna.py              energy-conserving flat-top AP sector and UE pencil beam
     channel.py              numba ray/wall/body geometry, THz loss, self-blocking, Wi-Fi rates
     network.py              AP configuration, scenario views, SINR / capacity, grid coverage
-    association.py          greedy GAP, exact GAP (HiGHS), max-SINR and threshold-offload rules
+    association.py          PACE (proposed), greedy GAP, exact GAP and LP bounds (HiGHS), max-SINR / offload rules
     power.py                SINR targets from airtime slack, Yates minimum-power iteration
     evaluator.py            inner problem: association + sleep + power control
     optimizer.py            hierarchical PSO tiers, GA (flat or tier-restricted), Hungarian per room
@@ -36,8 +36,8 @@ APSO_SIM_Thz/
 cd APSO_SIM_Thz
 uv venv .venv --python 3.13
 uv pip install --python .venv/bin/python numpy scipy numba matplotlib pytest pandas
-.venv/bin/python -m pytest -q                                   # 37 tests
-PYTHONPATH=. .venv/bin/python -m experiments.run_experiments --exp all   # ~1 h on 22 cores
+.venv/bin/python -m pytest -q                                   # 53 tests
+PYTHONPATH=. .venv/bin/python -m experiments.run_experiments --exp all   # ~1.4 h on 22 cores
 PYTHONPATH=. .venv/bin/python plots/make_paper_assets.py
 cd paper && tectonic main.tex                                   # or pdflatex + bibtex
 ```
@@ -46,7 +46,8 @@ Environment variables: `TMH_SEEDS` (default 30), `TMH_RESULTS` (default `results
 
 The placement MILP of the earlier work is **not** re-run; its Fig. 1 layout is hard-coded in
 `geometry.MILP_LAYOUT`. The only integer program solved here is the small association ILP
-used to measure the greedy's optimality gap (milliseconds per instance).
+used to measure the optimality gap of the greedy and PACE (milliseconds per instance).
+`results_v1_greedy/` holds the earlier run, made with greedy association.
 
 ## Conventions
 * Azimuths are compass bearings (0 = North = +y, clockwise), as in the MILP paper.

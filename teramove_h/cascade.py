@@ -57,6 +57,8 @@ METHODS = {
     "proposed_nomove": Method("proposed_nomove", "cascade", tier_alg="ga", schedule=PROPOSED_SCHEDULE,
                               max_tier=2),
     "proposed_hpso": Method("proposed_hpso", "cascade", tier_alg="pso", schedule=HPSO_SCHEDULE),
+    "proposed_greedy": Method("proposed_greedy", "cascade", rule="greedy", tier_alg="ga",
+                              schedule=PROPOSED_SCHEDULE),
 }
 
 
@@ -91,7 +93,7 @@ def _p_max(params):
     return 10 ** (params.thz.p_max_dbm / 10) / 1000.0
 
 
-def _final(params, scen, cfg, method, start_cfg, stages, evals, t0, curves):
+def _final(params, scen, cfg, method, start_cfg, stages, evals, t0, curves, t0_out=None):
     out, _ = evaluate(params, cfg, scen.true_view, method.rule, method.use_wifi,
                       power_control=method.power_control)
     cfg = cfg.copy()
@@ -114,6 +116,10 @@ def _final(params, scen, cfg, method, start_cfg, stages, evals, t0, curves):
         "n_asleep": int(np.sum(out.p <= 0)),
         "runtime_s": time.perf_counter() - t0,
         "curves": curves,
+        # T0 association bound (PACE): no association at the starting geometry and
+        # P_max serves more than floor(t0_ub) of the sensed users.
+        "t0_ub": t0_out.assoc_ub if t0_out is not None else float("nan"),
+        "t0_certified": bool(t0_out.assoc_certified) if t0_out is not None else False,
         "assign": out.assign,
         "cfg": cfg,
     }
@@ -158,17 +164,18 @@ def run_method(params, scen, start_cfg, method_name, rng):
 
     # T0: re-association only
     out, _ = evaluate(params, cfg, ctx, m.rule, m.use_wifi, power_control=False)
+    t0_out = out
     stages.append((0, out.satisfaction))
     best_s = out.satisfaction
     if best_s >= o.target_satisfaction:
-        return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves)
+        return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves, t0_out)
     # T1: sleep idle APs + re-association + minimum power
     if m.power_control:
         out, _ = evaluate(params, cfg, ctx, m.rule, m.use_wifi, power_control=True)
         stages.append((1, out.satisfaction))
         best_s = max(best_s, out.satisfaction)
         if best_s >= o.target_satisfaction:
-            return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves)
+            return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves, t0_out)
 
     fit = proposed_fitness(params, ctx, start_cfg, m)
     if m.kind == "cascade":
@@ -206,4 +213,4 @@ def run_method(params, scen, start_cfg, method_name, rng):
         stages.append((4, out.satisfaction))
         if out.satisfaction >= best_s:
             cfg = new
-    return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves)
+    return _final(params, scen, cfg, m, start_cfg, stages, evals, t0, curves, t0_out)

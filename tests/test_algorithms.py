@@ -4,7 +4,7 @@ import itertools
 import numpy as np
 import pytest
 
-from teramove_h.association import gap_exact, gap_greedy
+from teramove_h.association import airtime, gap_exact, gap_greedy, gap_pace, slot_limits
 from teramove_h.cascade import run_method
 from teramove_h.config import DEFAULT as P
 from teramove_h.crowd import density_map, drift_crowd, generate_crowd
@@ -49,6 +49,52 @@ def test_gap_greedy_feasible_and_exact_optimal():
         opt = _brute(cap, 1.0)
         assert np.sum(a_e >= 0) == opt
         assert np.sum(a_g >= 0) <= opt
+
+
+def test_slot_limits_match_brute_force():
+    rng = np.random.default_rng(11)
+    for _ in range(30):
+        k, m = rng.integers(2, 7), rng.integers(1, 3)
+        cap = rng.choice([0.0, 1.2, 2.0, 3.5, 6.0], size=(k, m))
+        tau = airtime(cap, 1.0)
+        lim = slot_limits(tau)
+        for a in range(m):
+            best = 0
+            for sub in itertools.product([0, 1], repeat=k):
+                idx = np.flatnonzero(sub)
+                if np.all(np.isfinite(tau[idx, a])) and tau[idx, a].sum() <= 1 + 1e-12:
+                    best = max(best, len(idx))
+            assert lim[a] == best
+
+
+def test_pace_is_feasible_certified_and_never_worse_than_greedy():
+    rng = np.random.default_rng(7)
+    wins = 0
+    for _ in range(60):
+        k, m = rng.integers(3, 7), rng.integers(2, 4)
+        cap = rng.choice([0.0, 1.1, 1.6, 2.2, 3.1, 4.5], size=(k, m))
+        a_p, load, info = gap_pace(cap, 1.0, info=True)
+        assert _feasible(a_p, cap, 1.0)
+        tau = airtime(cap, 1.0)
+        rows = np.flatnonzero(a_p >= 0)
+        assert np.allclose(load, np.bincount(a_p[rows], tau[rows, a_p[rows]], minlength=m))
+        opt = _brute(cap, 1.0)
+        n_p, n_g = np.sum(a_p >= 0), np.sum(gap_greedy(cap, 1.0)[0] >= 0)
+        assert n_g <= n_p <= opt
+        assert info["ub"] >= opt - 1e-9                 # weak duality
+        if info["certified"]:
+            assert n_p == opt
+        wins += n_p > n_g
+    assert wins > 0
+
+
+def test_pace_ejection_chain_fixes_greedy_trap():
+    # Greedy puts user 0 on AP 0 (smallest airtime 0.4); user 1 (only AP 0, 0.7) is
+    # then blocked.  Optimum: user 0 on AP 1, user 1 on AP 0.
+    cap = np.array([[2.5, 2.0], [1.0 / 0.7, 0.0]])
+    assert np.sum(gap_greedy(cap, 1.0)[0] >= 0) == 1
+    a, _, info = gap_pace(cap, 1.0, info=True)
+    assert list(a) == [1, 0] and info["certified"]
 
 
 def _scenario(seed=0, params=P):
@@ -177,7 +223,7 @@ def test_pso_never_worse_than_start():
 
 @pytest.mark.parametrize("method", ["static", "wifi_only", "teramove", "naive", "thz_only",
                                     "proposed", "proposed_nopc", "proposed_nomove",
-                                    "proposed_hpso", "flat_pso", "ga"])
+                                    "proposed_hpso", "proposed_greedy", "flat_pso", "ga"])
 def test_methods_run_and_are_consistent(method):
     sc = _scenario(4, FAST)
     cfg = milp_config(FAST)

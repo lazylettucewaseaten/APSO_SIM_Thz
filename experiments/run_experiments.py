@@ -9,7 +9,7 @@ import time
 
 import numpy as np
 
-from teramove_h.association import gap_exact, gap_greedy
+from teramove_h.association import gap_exact, gap_greedy, gap_lp_bound, gap_pace
 from teramove_h.cascade import run_method
 from teramove_h.config import DEFAULT
 from teramove_h.crowd import drift_crowd, generate_crowd, perturb_crowd
@@ -19,10 +19,10 @@ from teramove_h.optimizer import decode, encode
 from .common import N_SEEDS, RESULTS, commission, empty_crowd, pmap, rng_for, strip
 
 MAIN_METHODS = ["static", "wifi_only", "teramove", "thz_only", "naive", "flat_pso", "ga",
-                "proposed", "proposed_nopc", "proposed_nomove", "proposed_hpso"]
+                "proposed", "proposed_nopc", "proposed_nomove", "proposed_hpso", "proposed_greedy"]
 REGIME_RMIN = [0.1e9, 0.25e9, 0.5e9, 1e9, 2e9]
 REGIME_NP = [60, 120, 180, 240]
-REGIME_METHODS = ["proposed", "ga", "thz_only", "naive"]
+REGIME_METHODS = ["proposed", "proposed_greedy", "ga", "thz_only", "naive"]
 TEMPORAL_METHODS = ["static", "teramove", "ga", "proposed"]
 N_EPOCHS = 6
 SENSING_SIGMA = [0.0, 0.25, 0.5, 1.0]
@@ -144,31 +144,42 @@ def exp_temporal():
 
 # ---------------------------------------------------------------- E5 association gap
 def _assoc_task(seed):
+    """Greedy vs PACE vs exact ILP on the association instances of one seed:
+    every crowd size and rate, commissioned layout + two random re-configurations."""
     rows = []
     cfg0, _ = commission()
-    for r_min in REGIME_RMIN:
-        p = _params(r_min, 120)
-        sc = Scenario(p, generate_crowd(rng_for(seed, "crowd"), p.crowd))
-        rng = rng_for(seed, f"assoc-{r_min}")
-        for trial in range(3):   # commissioned layout + two random re-configurations
-            noise = (rng.normal(0, 1, (cfg0.n, 5)) * [2.0, 2.0, 0.4, 90.0, 30.0]).ravel()
-            cfg = cfg0 if trial == 0 else decode(encode(cfg0) + noise, cfg0, 0.25)
-            terms = THzTerms(p, cfg, sc.true_view.users)
-            cap = np.hstack([thz_capacity(p, terms.sinr(cfg.p)), sc.true_view.wifi_rate])
-            t = time.perf_counter()
-            a_g, _ = gap_greedy(cap, r_min)
-            t_g = time.perf_counter() - t
-            t = time.perf_counter()
-            a_e, _, status = gap_exact(cap, r_min)
-            t_e = time.perf_counter() - t
-            rows.append({"seed": seed, "r_min": r_min, "trial": trial, "k": cap.shape[0],
-                         "greedy": int(np.sum(a_g >= 0)), "exact": int(np.sum(a_e >= 0)),
-                         "t_greedy": t_g, "t_exact": t_e, "status": str(status)})
+    for n_people in REGIME_NP:
+        for r_min in REGIME_RMIN:
+            p = _params(r_min, n_people)
+            sc = Scenario(p, generate_crowd(rng_for(seed, f"crowd-{n_people}"), p.crowd))
+            rng = rng_for(seed, f"assoc-{n_people}-{r_min}")
+            for trial in range(3):
+                noise = (rng.normal(0, 1, (cfg0.n, 5)) * [2.0, 2.0, 0.4, 90.0, 30.0]).ravel()
+                cfg = cfg0 if trial == 0 else decode(encode(cfg0) + noise, cfg0, 0.25)
+                terms = THzTerms(p, cfg, sc.true_view.users)
+                cap = np.hstack([thz_capacity(p, terms.sinr(cfg.p)), sc.true_view.wifi_rate])
+                t = time.perf_counter()
+                a_g, _ = gap_greedy(cap, r_min)
+                t_g = time.perf_counter() - t
+                t = time.perf_counter()
+                a_p, _, info = gap_pace(cap, r_min, p.opt.assoc_iters, p.opt.assoc_every, info=True)
+                t_p = time.perf_counter() - t
+                t = time.perf_counter()
+                a_e, _, status = gap_exact(cap, r_min)
+                t_e = time.perf_counter() - t
+                rows.append({"seed": seed, "n_people": n_people, "r_min": r_min, "trial": trial,
+                             "k": cap.shape[0], "greedy": int(np.sum(a_g >= 0)),
+                             "pace": int(np.sum(a_p >= 0)), "exact": int(np.sum(a_e >= 0)),
+                             "ub": info["ub"], "certified": info["certified"],
+                             "lp": gap_lp_bound(cap, r_min, slot_cuts=False),
+                             "lp_slot": gap_lp_bound(cap, r_min),
+                             "t_greedy": t_g, "t_pace": t_p, "t_exact": t_e, "status": str(status)})
     return rows
 
 
 def exp_assoc():
     gap_greedy(np.ones((2, 2)) * 2e9, 1e9)   # compile before timing
+    gap_pace(np.ones((2, 2)) * 2e9, 1e9)
     out = pmap(_assoc_task, list(range(N_SEEDS)))
     _save("assoc", [r for rows in out for r in rows], {"seeds": N_SEEDS})
 

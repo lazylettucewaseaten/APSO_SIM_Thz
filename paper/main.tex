@@ -30,7 +30,9 @@
 Indoor terahertz (THz) access points (APs) need line of sight, so the people they serve are also what blocks them.
 Earlier work places APs with a mixed-integer program and moves them with a tiered swarm optimizer when crowds degrade coverage.
 We extend this line of work to a hybrid network in which fixed Wi-Fi APs coexist with movable THz APs, and we add two electronic control steps that run before any hardware moves.
-First, user association is posed as a maximum generalized assignment problem under per-AP airtime budgets and solved greedily.
+First, user association is posed as a maximum generalized assignment problem under per-AP airtime budgets.
+We solve it with PACE, a Lagrangian airtime-pricing algorithm with ejection chains.
+PACE reaches the exact optimum in \AssocPaceOptimalPct\% of \AssocInstances{} test instances, against \AssocOptimalPct\% for a greedy, and certifies optimality in \AssocCertPct\% of them.
 Second, a minimum-power control step, based on Yates' standard interference functions, switches idle THz APs off and lowers transmit power without losing any served user.
 Only when these steps fail does the network re-steer beams and, finally, move APs along per-room ceiling rails.
 We evaluate the scheme with an energy-conserving antenna model, discrete human blockers, 3GPP self-blocking and ITU-R absorption, over \MainSeeds{} crowd realizations on a 32\,m$\times$20\,m academic floor.
@@ -60,7 +62,9 @@ This paper adds a Wi-Fi layer and these two control knobs, and makes the followi
 \item A hybrid THz/Wi-Fi model in which every person is both a potential user and a cylinder-shaped blocker.
 Service is measured as the fraction of users who receive a demanded rate $\Rmin$ under per-AP airtime sharing (Sec.~\ref{sec:model}).
 \item An airtime-aware association that serves users over THz and Wi-Fi APs.
-We pose it as a maximum generalized assignment problem (GAP), show that the feasibility version is NP-complete, and solve it with a greedy that we compare with an exact solver.
+We pose it as a maximum generalized assignment problem (GAP) and show that the feasibility version is NP-complete.
+We solve it with PACE, which combines slot cuts, a Lagrangian airtime-price dual and ejection chains.
+PACE never serves fewer users than a greedy, and it certifies optimality in most instances.
 We also give a minimum-power control step with a monotone convergence guarantee (Sec.~\ref{sec:method}).
 \item The TeraMove-H escalation: re-association, then sleep and power control, then beam re-steering, then mechanical reconfiguration confined to per-room rails.
 \item An evaluation with real baselines over \MainSeeds{} seeds.
@@ -75,7 +79,8 @@ Multi-connectivity mitigates blockage by keeping links to several APs~\cite{petr
 Line-of-sight-aware placement has been studied for mmWave WLANs~\cite{liu2022los}.
 Mobility has been exploited through UAV base stations~\cite{alzenad2017uav}, movable indoor APs~\cite{murakami2018movable} and movable antennas~\cite{zhu2024movable}, and~\cite{anon2026milp,anon2026teramove} combined it with THz placement.
 \textbf{Association and power.}
-Load-aware association in heterogeneous networks maximizes a utility over AP loads~\cite{ye2013association}.
+Load-aware association in heterogeneous networks maximizes a utility over AP loads~\cite{ye2013association}, and dual prices can coordinate it~\cite{shen2014pricing}.
+For the GAP itself, Lagrangian relaxation~\cite{fisher1986multiplier} and ejection-chain search~\cite{yagiura2004ejection} are classical tools.
 The closest hybrid analogue is access-point selection in hybrid Li-Fi/Wi-Fi networks, where an optical layer that needs line of sight is backed by Wi-Fi~\cite{wu2017lifi}.
 Power control under SINR targets builds on the Foschini--Miljanic iteration and Yates' framework~\cite{foschini1993power,yates1995framework}.
 To our knowledge, no prior work combines airtime-aware hybrid association, minimum-power control and physical reconfiguration of THz APs under crowd blockage.
@@ -169,18 +174,74 @@ Given the link capacities $c_{u,a}$ (i.e., fixed $\theta$ and $\mathbf{p}$), dec
 \end{proposition}
 \begin{proof}
 The problem is in NP.
-Reduce from PARTITION with integers $s_1,\dots,s_k$ that sum to $2T$.
+Reduce from PARTITION~\cite{garey1979computers} with integers $s_1,\dots,s_k$ that sum to $2T$.
 Use two APs and set $c_{u,1}=c_{u,2}=\Rmin T/s_u$, so that $\tau_{u,a}=s_u/T$.
 Both airtime budgets hold with every user served if and only if the integers split into two halves of equal sum.
 \end{proof}
 
-\subsection{Association: greedy GAP}
+\subsection{Association: PACE}\label{sec:pace}
 For a fixed configuration, \eqref{eq:p1} is a maximum GAP with unit profits~\cite{fleischer2006gap}.
-The greedy sorts all feasible user--AP pairs (THz and Wi-Fi) by airtime $\tau_{u,a}$ and assigns a pair if its user is still unassigned and the AP's budget allows it.
-It runs in $O(KM\log(KM))$ for $K$ users and $M$ APs.
-For a single AP, smallest-airtime-first maximizes the number served, but the greedy is not optimal in general.
-We therefore measure its gap against the exact integer program solved with HiGHS~\cite{huangfu2018highs} (Sec.~\ref{sec:assoc}).
+
+\textbf{Greedy.}
+The simplest solver sorts all feasible user--AP pairs (THz and Wi-Fi) by airtime $\tau_{u,a}$.
+It assigns a pair if the user is still unassigned and the AP's budget allows it, in $O(KM\log(KM))$ for $K$ users and $M$ APs.
+For a single AP, smallest-airtime-first maximizes the number served.
+With several APs it can fail: a user who has other options can take the last airtime of an AP that another user cannot do without.
+We therefore propose PACE (\emph{Price-guided Association with Certified Ejection chains}), which starts from the greedy solution and combines a strengthened Lagrangian dual with local search.
+
+\textbf{Slot cuts.}
+Let $K_a$ be the largest $n$ such that the $n$ smallest airtimes on AP $a$ sum to at most~1.
+\begin{proposition}\label{prop:slot}
+Every feasible association satisfies $\sum_u x_{u,a}\le K_a$ for every AP $a$.
+\end{proposition}
+\begin{proof}
+Any $n$ users on $a$ need at least the sum of the $n$ smallest airtimes, which exceeds~1 for $n>K_a$.
+\end{proof}
+The cut is implied by the integer budget, but not by its linear relaxation.
+For example, at 1\,Gb/s a Wi-Fi AP of at most \WifiMaxRate\,Gb/s holds one user, while its relaxed budget holds a fraction more.
+
+\textbf{Airtime prices.}
+Give AP $a$ an airtime price $\lambda_a\ge0$ and a slot price $\nu_a\ge0$, and dualize both AP constraints:
+\begin{equation}
+L(\boldsymbol\lambda,\boldsymbol\nu)=\sum_a(\lambda_a+K_a\nu_a)+\sum_u\max\Big(0,\max_a\big(1-\lambda_a\tau_{u,a}-\nu_a\big)\Big).\label{eq:dual}
+\end{equation}
+Each user picks the AP with the smallest priced cost $\lambda_a\tau_{u,a}+\nu_a$ and joins only if that cost is below~1, so a congested AP becomes expensive.
+This mirrors pricing-based association in cellular networks~\cite{shen2014pricing}.
+\begin{proposition}\label{prop:dual}
+For all $\boldsymbol\lambda,\boldsymbol\nu\ge0$, no association serves more than $\lfloor L(\boldsymbol\lambda,\boldsymbol\nu)\rfloor$ users.
+Hence an association that serves $n$ users with $L(\boldsymbol\lambda,\boldsymbol\nu)<n+1$ is optimal.
+\end{proposition}
+\begin{proof}
+Let $\mathbf{x}$ be feasible, and add the non-negative slacks $\lambda_a(1-\sum_u\tau_{u,a}x_{u,a})$ and $\nu_a(K_a-\sum_u x_{u,a})$ (Proposition~\ref{prop:slot}) to $\sum_{u,a}x_{u,a}$.
+This gives $\sum_{u,a}x_{u,a}\le\sum_a(\lambda_a+K_a\nu_a)+\sum_{u,a}x_{u,a}(1-\lambda_a\tau_{u,a}-\nu_a)$.
+Each user has at most one $x_{u,a}=1$, so its last term is at most the inner maximum in~\eqref{eq:dual}.
+The left side is an integer.
+\end{proof}
+The user constraints $\sum_a x_{u,a}\le1$ define an integral polytope.
+So the best bound, $\min L$, equals the linear relaxation with slot cuts~\cite{geoffrion1974lagrangean}.
+
+\textbf{Ejection chains.}
+An unserved user $u$ enters AP $a$ by displacing a served user $v$, who moves to an AP $b$ with free airtime (depth~1).
+Alternatively, $v$ displaces $w$ at $b$ and $w$ moves to a third AP $c$ (depth~2).
+A chain serves one more user and drops nobody; it is the GAP counterpart of an augmenting path in matching~\cite{yagiura2004ejection}.
+
+\textbf{Algorithm.}
+PACE runs as follows.
+(i)~It runs the greedy and then depth-1 chains, giving $n$ served users.
+(ii)~It runs projected subgradient steps on~\eqref{eq:dual}~\cite{held1974subgradient}.
+The subgradient is $g_a=1-\sum_{u\to a}\tau_{u,a}$ for $\lambda_a$ and $K_a-|\{u\to a\}|$ for $\nu_a$, where $u\to a$ are the users whose priced choice is $a$.
+The step is $\vartheta(L-n-\tfrac12)/\lVert\mathbf g\rVert^2$, and $\vartheta$ is halved after 20 steps without a lower $L$.
+(iii)~Every 5 steps, it re-runs the greedy in increasing order of the priced cost $\lambda_a\tau_{u,a}+\nu_a$ (ties by $\tau_{u,a}$), followed by depth-1 chains, and keeps the result if it serves more users.
+(iv)~It stops as soon as the best $L$ is below $n+1$, which certifies optimality (Proposition~\ref{prop:dual}), or after 200 steps.
+Without a certificate, it finally applies depth-2 chains.
+(v)~Finally, it moves served users to an AP with a smaller airtime while the budget allows, which leaves the count unchanged.
+Each dual step costs $O(KM)$.
+PACE never serves fewer users than the greedy, because it starts from the greedy solution and keeps an assignment only if it is strictly better.
+Fisher et al.\ use Lagrangian bounds of the GAP inside branch and bound~\cite{fisher1986multiplier}.
+PACE instead uses the bound to stop early and to certify, in milliseconds, whether re-association alone can reach the target.
+We compare PACE with the greedy and with the exact integer program solved by HiGHS~\cite{huangfu2018highs} (Sec.~\ref{sec:assoc}).
 \emph{Threshold offload}, the hybrid baseline, sends a user to its strongest THz AP if that AP's SINR is at least $\gamma_{\text{th}}$, and to its best Wi-Fi AP otherwise.
+Each AP then admits its users in increasing airtime order, which is optimal for a single AP.
 
 \subsection{Sleep and minimum-power control}
 With the association fixed, every THz AP with no users is switched off ($p_a=0$) and users are re-associated.
@@ -222,13 +283,13 @@ The terms are:
 \item $C_p$, TeraMove's anti-clustering penalty (minimum AP spacing $d_{\min}=3$\,m).
 \item $\beta=0.25$ and $\gamma=0.3$, TeraMove's configuration D~\cite{anon2026teramove}.
 \end{itemize}
-Inside the search, $S$ and $Q$ come from the greedy association at full power.
+Inside the search, $S$ and $Q$ come from PACE at full power.
 Sleep and power control run on each stage's result.
 
 \begin{algorithm}[t]
 \caption{TeraMove-H adaptation for one crowd snapshot}\label{alg:cascade}
 \begin{algorithmic}[1]
-\State \textbf{T0:} greedy GAP over $\mathcal{T}\cup\mathcal{W}$ at $\Pmax$; \textbf{if} $S\ge\eta$ \textbf{goto} 6
+\State \textbf{T0:} PACE over $\mathcal{T}\cup\mathcal{W}$ at $\Pmax$; \textbf{if} $S\ge\eta$ \textbf{goto} 6
 \State \textbf{T1:} sleep idle APs, re-associate, minimum power; \textbf{if} $S\ge\eta$ \textbf{goto} 6
 \State \textbf{T2:} GA over $(\phi_a,\alpha_a)$, budget $U$; \textbf{if} $S\ge\eta$ \textbf{goto} 6
 \State \textbf{M:} GA over all of $\theta_a$ within rooms, budget $3U$
@@ -264,7 +325,7 @@ This raises empty-floor coverage to \CommissionedCov\%, and the result is the st
 \item \emph{THz-only cascade}: TeraMove-H without Wi-Fi.
 \item \emph{Threshold offload}: TeraMove-H with the threshold-offload rule.
 \item \emph{Flat PSO} and \emph{flat GA}: the same T0 and T1 steps, then one search over all dimensions at once with the fitness~\eqref{eq:fit} and TeraMove-H's worst-case budget of $4U=\FlatBudget$ evaluations (no beam-only stage).
-\item Ablations of TeraMove-H: without power control, without movement (T0--T2 only), and with TeraMove's PSO tiers 2/3/4 (budgets $U,U,2U$) instead of the GA stages.
+\item Ablations of TeraMove-H: without power control, without movement (T0--T2 only), with TeraMove's PSO tiers 2/3/4 (budgets $U,U,2U$) instead of the GA stages, and with the greedy instead of PACE (in T0, T1 and inside the search).
 \end{itemize}
 
 \begin{figure}[t]
@@ -313,6 +374,8 @@ Re-association alone (T0) gives \PropTzero\%, and the beam stage without movemen
 The THz-only cascade reaches \ThzS\%, so the Wi-Fi layer adds \GainVsThz{} percentage points (pp).
 At 1\,Gb/s, Wi-Fi serves about \PropWifi{} users per snapshot, because one Wi-Fi AP sustains at most \WifiMaxRate\,Gb/s.
 Threshold offload reaches \NaiveS\% ($p=\NaivePS$ versus TeraMove-H); the association rule matters most at lower demand (Sec.~\ref{sec:regime}).
+With the greedy instead of PACE, TeraMove-H also reaches \GreedyS\% ($p=\GreedyPS$).
+At 1\,Gb/s the greedy is already optimal on every test instance (Table~\ref{tab:assoc}), so the two coincide here.
 
 Power control switches off \PropSleep{} of the 14 APs on average and lowers total THz power from 1.40\,W to \PropPw\,W (\PowerSaving\% less).
 Because all methods share random numbers, the variant without power control follows the same search and ends with the same satisfaction and displacement (\NopcS\%, \NopcDisp\,m).
@@ -359,8 +422,24 @@ Fig.~\ref{fig:regime} sweeps $\Rmin\in\{0.1,0.25,0.5,1,2\}$\,Gb/s and 60--240 pe
 At 0.1\,Gb/s, Wi-Fi absorbs the users whose THz links are blocked: re-association alone serves \RegimeTzeroLow\% on average, and \RegimeElecLowDemand\% of the snapshots reach $\eta$ without moving any AP.
 At 2\,Gb/s, re-association serves \RegimeTzeroHigh\%, no snapshot is resolved electronically (\RegimeElecHighDemand\%), and APs must move.
 Table~\ref{tab:regime} compares the association rules.
-The satisfaction difference between the greedy GAP and threshold offload is \GapVsNaiveA, \GapVsNaiveB, \GapVsNaiveC, \GapVsNaiveD{} and \GapVsNaiveE\,pp at 0.1, 0.25, 0.5, 1 and 2\,Gb/s.
+TeraMove-H with PACE beats threshold offload by \GapVsNaiveA, \GapVsNaiveB, \GapVsNaiveC{} and \GapVsNaiveD\,pp at 0.1, 0.25, 0.5 and 1\,Gb/s (all $p<10^{-3}$, Wilcoxon over seeds and crowd sizes).
+At 2\,Gb/s the difference is \GapVsNaiveE\,pp and not significant ($p=\GapVsNaivePE$).
 The airtime-aware association pays off when Wi-Fi capacity is a scarce resource worth allocating; at 2\,Gb/s, Wi-Fi can hardly serve anyone.
+
+\textbf{PACE versus greedy in the full system.}
+Table~\ref{tab:pace} runs the same cascade with both association algorithms on the same seeds and crowds.
+T0 uses the starting geometry for both, so its difference isolates the association algorithm.
+At 0.1\,Gb/s, PACE raises T0 satisfaction by \PaceTzeroGainA\,pp.
+More snapshots are then resolved without any movement (\PaceElecA\% versus \GreedyElecA\%), and the mean displacement falls from \GreedyDispA\,m to \PaceDispA\,m.
+The final satisfaction rises by \PaceSGainA\,pp ($p=\PaceSPA$).
+The search compensates for most association errors by moving APs, so the final gains are small, and at 0.25--2\,Gb/s they are not significant ($p\ge\PaceSPMinRest$).
+At 1 and 2\,Gb/s, T0 is identical, because the greedy is already optimal there.
+The price is run time: a snapshot at 0.1\,Gb/s takes about \PaceRtRatioA{} times longer, because PACE runs inside every fitness evaluation.
+
+\textbf{Certified escalation.}
+In \EscN{} regime snapshots, T0 fell short of $\eta$ and TeraMove-H escalated.
+In \EscCertPct\% of them, the dual bound of PACE proves that no association at the starting geometry and $\Pmax$ reaches $\eta$, so leaving T0 was necessary and not an artifact of the association heuristic.
+
 Without Wi-Fi, satisfaction does not change with demand up to 1\,Gb/s, because a THz AP has far more capacity than its users need and only coverage limits service.
 Over the whole grid, TeraMove-H moves APs \RegimeDispRatio\% less than the flat GA.
 
@@ -394,9 +473,33 @@ Among users served in consecutive epochs, \TPropHo\% change their serving AP und
 \end{figure}
 
 \subsection{Association optimality and sensing error}\label{sec:assoc}
-Over \AssocInstances{} instances (all demands, three configurations per seed), the greedy matches the exact optimum in \AssocOptimalPct\% of cases.
-Its largest shortfall is \AssocMaxGapText, and its worst ratio to the optimum is \AssocWorstRatio\%.
-The greedy takes a median of \AssocTGreedy\,ms, and the exact solver \AssocTExact\,ms.
+We compare the greedy and PACE with the exact integer program on \AssocInstances{} instances: four crowd sizes (60--240 people), five demands, and three AP configurations per seed (commissioned and two random perturbations), over \MainSeeds{} seeds.
+PACE reaches the exact optimum in \AssocPaceOptimalPct\% of instances, against \AssocOptimalPct\% for the greedy (Table~\ref{tab:assoc}).
+Summed over all instances, the greedy serves \AssocShortGreedy{} users fewer than the optimum and PACE \AssocShortPace, i.e., PACE removes \AssocShortReduction\% of the shortfall.
+PACE serves more users than the greedy in \AssocWins{} instances and fewer in none.
+Its worst instance is \AssocPaceMaxGapText{} short (\AssocPaceWorstRatio\% of the optimum), against \AssocMaxGapText{} (\AssocWorstRatio\%) for the greedy.
+PACE certifies its own optimality in \AssocCertPct\% of instances, and every certificate is correct.
+The slot cuts are what make the certificate useful.
+The floor of the plain linear relaxation equals the optimum in only \AssocLpTightPct\% of instances, but with slot cuts it does so in \AssocLpSlotTightPct\%, and it is never more than \AssocLpSlotMaxGap{} users above the optimum.
+The greedy errs only at low demand, where an AP holds many users.
+Median run times are \AssocTGreedy\,ms for the greedy, \AssocTPace\,ms for PACE and \AssocTExact\,ms for the exact solver (99th percentiles \AssocTGreedyPnn, \AssocTPacePnn{} and \AssocTExactPnn\,ms; all instances solved in parallel on 22 cores).
+
+\begin{table}[t]
+\centering
+\caption{Association versus the exact optimum (\AssocPerDemand{} instances per demand)}\label{tab:assoc}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\input{tables/assoc.tex}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{TeraMove-H with PACE / with greedy association (mean over crowd sizes and seeds)}\label{tab:pace}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\input{tables/pace_regime.tex}
+\end{table}
+
 TeraMove-H assumes that people's positions are sensed, for example by LiDAR~\cite{anon2026teramove}.
 We perturb the optimizer's view of every position by Gaussian noise of standard deviation $\sigma$ and evaluate on the true crowd (Fig.~\ref{fig:sensing}).
 Satisfaction is \SensZero, \SensQuarter, \SensHalf{} and \SensOne\% for $\sigma=0$, 0.25, 0.5 and 1\,m.
@@ -429,6 +532,7 @@ An operator who values satisfaction over movement can lower $\beta$ or skip stag
 \section{Conclusion}
 TeraMove-H extends movable THz AP reconfiguration to a hybrid THz/Wi-Fi network with airtime-aware association and minimum-power control.
 Relative to the static deployment, it raises the share of satisfied users by \GainVsStatic\,pp at 1\,Gb/s, and it cuts THz transmit power by \PowerSaving\%.
+Its association algorithm, PACE, reaches the exact optimum in \AssocPaceOptimalPct\% of test instances, and it can prove when re-association alone cannot reach the target, so APs move only when needed.
 Wi-Fi offload makes physical movement unnecessary at low demand, while at multi-gigabit demand movement remains essential.
 The re-implementation also corrected several defects of the earlier simulator, and all results here come from runs of the corrected model.
 

@@ -119,6 +119,8 @@ class OptParams:
     yates_tol: float = 1e-9
     yates_max_iter: int = 500
     assoc_rounds: int = 3
+    assoc_iters: int = 200                 # PACE: dual (subgradient) iterations
+    assoc_every: int = 5                   # PACE: price-guided restart period
 
 
 CANDIDATE_Z = np.round(np.arange(2.0, 3.0 + 1e-9, 0.2), 1)
