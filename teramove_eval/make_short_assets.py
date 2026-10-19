@@ -16,7 +16,7 @@ from matplotlib.patches import Wedge  # noqa: E402
 from chsr_sim.config import RAIL_SPEED, TARGET_COVERAGE  # noqa: E402
 from chsr_sim.physics import calculate_sinr  # noqa: E402
 from teramove_eval.make_assets import ci, f1, pfmt, pval, room_axes, walls  # noqa: E402
-from teramove_eval.run import DENSITY_LEVELS, WALLS, density  # noqa: E402
+from teramove_eval.run import DENSITY_LEVELS, WALLS, density, milp_routers  # noqa: E402
 from teramove_eval.run_short import ARMS, SEQ_CROWD, load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,17 +27,17 @@ TAB.mkdir(parents=True, exist_ok=True)
 INK, INK2 = "#0b0b0b", "#52514e"
 # categorical slots 1-6 of the reference palette, fixed order (validated, light mode)
 ARM_STYLE = {
-    "fixed": ("Static, fixed association", "#2a78d6"),
-    "handover": ("Static, re-association", "#eb6834"),
-    "ho_t2": ("Re-association + Tier 2", "#1baf7a"),
-    "teramove": ("HPSO (TeraMove)", "#eda100"),
-    "greedy": ("Greedy seed alone", "#e87ba4"),
-    "pso": ("Standard PSO", "#008300"),
+    "fixed": ("Fixed assoc.", "#2a78d6"),
+    "handover": ("Re-assoc.", "#eb6834"),
+    "ho_t2": ("Re-assoc. + Tier 2", "#1baf7a"),
+    "teramove": ("TeraMove", "#eda100"),
+    "greedy": ("Greedy seed", "#e87ba4"),
+    "pso": ("PSO", "#008300"),
     "ga": ("GA", "#6250d6"),
 }
 plt.rcParams.update({
-    "font.family": "serif", "font.size": 8, "axes.labelsize": 8, "legend.fontsize": 6.5,
-    "xtick.labelsize": 7, "ytick.labelsize": 7, "axes.spines.top": False, "axes.spines.right": False,
+    "font.family": "serif", "font.size": 9, "axes.labelsize": 9, "legend.fontsize": 7.5,
+    "xtick.labelsize": 8, "ytick.labelsize": 8, "axes.spines.top": False, "axes.spines.right": False,
     "axes.grid": True, "grid.color": "#e4e3df", "grid.linewidth": 0.5, "axes.edgecolor": INK2,
     "pdf.fonttype": 42, "savefig.bbox": "tight", "savefig.pad_inches": 0.02,
 })
@@ -164,6 +164,29 @@ def temporal():
     return by
 
 
+# ------------------------------------------------------------------------ Fig. 1
+def fig1():
+    """SINR of the 14-AP MILP layout on the empty floor, from the original Fig. 1 raster."""
+    s = np.array(load("fig1_sinr")["sinr"])
+    fig, ax = plt.subplots(figsize=(COL_W, 1.95))
+    im = ax.imshow(s.T, origin="lower", extent=(0, 32, 0, 20), cmap="viridis", vmin=-5, vmax=30, aspect="auto")
+    for w in WALLS:
+        full = w["h"] >= 3.0
+        col = {"solid": "white", "wood": "orange", "glass": "cyan"}[w["m"]] if full else "orange"
+        xs, ys = ([w["s"], w["e"]], [w["p"], w["p"]]) if w["o"] == "h" else ([w["p"], w["p"]], [w["s"], w["e"]])
+        ax.plot(xs, ys, color=col, lw=1.2 if full else 0.8, alpha=1 if full else 0.5, solid_capstyle="butt")
+    ax.scatter([r["x"] for r in milp_routers()], [r["y"] for r in milp_routers()], marker="^", s=30,
+               color="magenta", edgecolor="white", lw=0.5, zorder=5)
+    ax.set_xlim(0, 32)
+    ax.set_ylim(0, 20)
+    ticks2(ax)
+    ax.grid(False)
+    ax.set_xlabel("x (m)")
+    ax.set_ylabel("y (m)")
+    fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02).set_label("SINR (dB)")
+    save(fig, "thz_sinr_heatmap")
+
+
 # ------------------------------------------------------------------------ Fig. 2
 def ap_panel(ax, routers, title=None):
     walls(ax)
@@ -189,13 +212,31 @@ def sinr_panel(ax, routers, dens, title=None):
     return im, cov
 
 
+def ticks2(ax):
+    ax.set_xticks(range(0, 33, 2))
+    ax.set_yticks(range(0, 21, 2))
+
+
 def single(name, draw, cbar=None):
-    fig, ax = plt.subplots(figsize=(COL_W, COL_W * 20 / 32 + 0.25))
+    # fixed axes box (inches) so all six panels print at the same scale, with or without a colorbar;
+    # the panel is ~0.32\textwidth wide, so fonts print at about their nominal size
+    W, L, B, AW = 2.55, 0.36, 0.37, 1.6
+    AH = AW * 20 / 32
+    H = B + AH + 0.04
+    fig = plt.figure(figsize=(W, H))
+    ax = fig.add_axes([L / W, B / H, AW / W, AH / H])
     out = draw(ax)
+    ticks2(ax)
+    ax.tick_params(labelsize=6)
+    ax.tick_params(axis="x", rotation=90)
     if cbar is not None:
-        cb = fig.colorbar(out[0], ax=ax, fraction=0.03, pad=0.01)
+        cax = fig.add_axes([(L + AW + 0.05) / W, B / H, 0.07 / W, AH / H])
+        cb = fig.colorbar(out[0], cax=cax)
         cb.set_label(cbar)
-    save(fig, name)
+        cb.ax.tick_params(labelsize=6)
+    with plt.rc_context({"savefig.bbox": "standard"}):
+        fig.savefig(FIG / f"{name}.pdf")
+    plt.close(fig)
     return out
 
 
@@ -236,25 +277,28 @@ def fig2(by):
 def fig3():
     rows = load("density")
     levels = list(DENSITY_LEVELS)
-    fig, ax = plt.subplots(figsize=(COL_W, 2.2))
-    n = len(ARMS)
-    w = 0.8 / n
+    fig, ax = plt.subplots(figsize=(COL_W, 2.0))
+    shown = [a for a in ARMS if a != "greedy"]   # greedy arm still feeds the macros, not plotted
+    w = 0.8 / len(shown)
     res = {}
-    for j, a in enumerate(ARMS):
+    for a in ARMS:
         name, col = ARM_STYLE[a]
         cc = [ci([100 * r["coverage"] for r in rows if r["level"] == lv and r["arm"] == a]) for lv in levels]
         dd = [np.mean([r["disp"] for r in rows if r["level"] == lv and r["arm"] == a]) for lv in levels]
         res[a] = (cc, dd)
-        x = np.arange(len(levels)) - 0.4 + (j + 0.5) * w
+        if a not in shown:
+            continue
+        x = np.arange(len(levels)) - 0.4 + (shown.index(a) + 0.5) * w
         ax.bar(x, [c[0] for c in cc], w * 0.88, yerr=[c[1] for c in cc], color=col, label=name,
                edgecolor=INK2, linewidth=0.3, capsize=1.2, error_kw={"elinewidth": 0.6, "ecolor": INK})
     ax.axhline(100 * TARGET_COVERAGE, color=INK2, lw=0.6, ls="--", label="90% target")
-    ax.set_xticks(range(len(levels)), [f"{lv}\n({DENSITY_LEVELS[lv]} clusters)" for lv in levels])
+    ax.set_xticks(range(len(levels)), [f"{lv}\n({DENSITY_LEVELS[lv]})" for lv in levels])
+    ax.set_xlabel("Crowd level (number of clusters)")
     ax.set_ylabel("Coverage (%)")
     ax.set_ylim(0, 100)
     ax.grid(axis="x", visible=False)
-    ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.30), columnspacing=0.6,
-              handlelength=1.2)
+    ax.legend(frameon=False, ncol=4, loc="lower center", bbox_to_anchor=(0.45, 1.0), columnspacing=0.6,
+              handlelength=1.2, fontsize=7)
     save(fig, "fig3_coverage_density")
     key = {"fixed": "Fix", "handover": "Ho", "ho_t2": "HoT", "teramove": "Tm", "greedy": "Gr", "pso": "Pso", "ga": "Ga"}
     for a in ARMS:
@@ -307,6 +351,7 @@ if __name__ == "__main__":
     commission()
     tiers()
     by = temporal()
+    fig1()
     fig2(by)
     fig3()
     serving_agreement()
